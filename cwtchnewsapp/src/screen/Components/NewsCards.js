@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet,View,SafeAreaView,Text } from 'react-native';
+import React,{useRef} from 'react';
+import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView} from 'react-native';
 import FastImage from 'react-native-fast-image'
 import {  FONT_SIZE_EXTRA_LARGE,
     FONT_SIZE_NORMAL,
@@ -7,7 +7,7 @@ import {  FONT_SIZE_EXTRA_LARGE,
     FONT_SIZE_SMALL,} from '../constants/Dimens';
 import {GRAY, WHITE, DARK_GRAY, NEWS_TITLE} from '../constants/Colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable'
-
+import RBSheet from "react-native-raw-bottom-sheet";
 import {
     FONT_REGULAR,
     FONT_BOLD,
@@ -15,10 +15,13 @@ import {
     FONT_LIGHT,
     momentCalendarConfig,
   } from '../constants/Constants';
+  import { Container, Header, Tab, Tabs, TabHeading, Icon } from 'native-base';
 
+  const SCREEN_WIDTH = Dimensions.get("window").width;
+  const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 const NewsCards = (ARTICLES) => {
-
+  const bottomSheetRef = useRef([]);
     
   const goLive = () => {
     return navigation.navigate("WebViews")
@@ -29,7 +32,8 @@ const NewsCards = (ARTICLES) => {
       // <Swipeable renderLeftActions={() => {goLive}}>
 
  <View style={styles.container}>
-     {console.log(ARTICLES.news.pic)}
+     {/* {console.log(ARTICLES.news.pic)} */}
+
         <View style={styles.top}>
           <FastImage
             style={{flex: 1}}
@@ -39,30 +43,89 @@ const NewsCards = (ARTICLES) => {
             resizeMode={FastImage.resizeMode.cover}
           />
         </View>
-
+            
         <View style={[styles.middle, styles.contentPadding]}>
           <Text style={styles.title}>{ARTICLES.news.newsTitle}</Text>
-          <Text style={styles.description}>{ARTICLES.news.newsDetails}</Text>
-          <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail">
+          <Text style={styles.description}
+          numberOfLines={9} 
+          
+          >{ARTICLES.news.newsDetails}</Text>
+          {/* <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> */}
             {/* {this.getByLineText()} */}
-          </Text>
+          {/* </Text> */}
+            <TouchableOpacity onPress={() => bottomSheetRef.current.open()}>
+              <Text style={{color:'#FF6263',fontSize:12}}>
+                  Interact
+              </Text>
+            </TouchableOpacity>
         </View>
 
-        <View style={[styles.footer, styles.contentPadding]}>
+        {/* <View style={[styles.footer, styles.contentPadding]}>
           <Text
             style={styles.footerTitle}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {/* {bottom_headline} */}
           </Text>
           <Text
             style={styles.footerSubtitle}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {/* {bottom_text} */}
           </Text>
-        </View>
-        </View>
+        </View> */}
+          <RBSheet
+        ref={(el) => (bottomSheetRef.current = el)}
+        closeOnDragDown={true}
+        closeOnPressMask={true}
+        height={SCREEN_HEIGHT-200}
+        customStyles={{
+          wrapper: {
+            backgroundColor: 'rgba(0.9, 0, 0, 0.4)',
+          },
+          draggableIcon: {
+            backgroundColor: '#FF6263',
+          },
+          container: {
+            borderTopRightRadius: 20,
+            borderTopLeftRadius: 20,
+          },
+        }}>
+          <ScrollView>
+            <View>
+                   
+            <Container>
+
+        <Tabs
+   
+        tabBarUnderlineStyle={{borderBottomWidth:2}}
+        tabStyle={{backgroundColor: 'white'}}
+        >
+          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="people" style={{color:'#FF6263'}} /><Text> Opinion</Text></TabHeading>}>
+            <Text style={{padding:10}}>
+            Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide.
+
+If you opted out of vector icons support using babel-plugin-optional-require, you won't be able to use icon names for the icon prop. Some components may not look correct without vector icons and might need extra configuration.
+              </Text> 
+          </Tab>
+          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
+          <View style={{padding:10}}>
+            
+              </View> 
+          </Tab>
+          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="share" style={{color:'#FF6263'}} /><Text> Share</Text></TabHeading>}>
+          <Text style={{padding:10}}>
+            Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide.
+
+If you opted out of vector icons support using babel-plugin-optional-require, you won't be able to use icon names for the icon prop. Some components may not look correct without vector icons and might need extra configuration.
+              </Text> 
+          </Tab>
+          
+        </Tabs>
+      </Container>
+            </View>
+          </ScrollView>
+
+        </RBSheet>
+        </View> 
         // </Swipeable>
    
     )
@@ -75,11 +138,12 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       width: '100%',
+      height: SCREEN_HEIGHT,
       backgroundColor: WHITE,
     },
     top: {
       backgroundColor: WHITE,
-      flex: 4,
+      flex: 2.5,
     },
     middle: {
       backgroundColor: WHITE,

@@ -8,7 +8,6 @@ import {
     ScrollView,
     StatusBar,
     StyleSheet,
-
     useColorScheme,
     TouchableOpacity,
     View,
@@ -29,12 +28,12 @@ import {
 
   import {googleSignIn,phoneSignIn,verifyPhone} from "../action/auth"
 
-  import { Avatar ,Text,Subheading,Caption,TextInput,Button  } from 'react-native-paper';
+  import { Avatar ,Text,Subheading,Caption,TextInput,Button,ProgressBar  } from 'react-native-paper';
   import LOGO from "./src/logo.png"
 
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
-
+  import { Container, Header, Content, Spinner } from 'native-base';
 
 
   const CELL_COUNT = 6;
@@ -45,6 +44,8 @@ import {
     const [code, setcode] = useState('');
 
     const [confirm, setconfirm] = useState(null);
+
+    const [loading, setloading] = useState(false);
 
     const [isSent, setisSent] = useState(false);
     const [value, setValue] = useState(''); 
@@ -89,6 +90,7 @@ import {
 
 
       const doPhoneSignin = async() => {
+        setloading(true)
         console.log("Phone -> ",phone);
           if(phone){
             if(phone.length === 10){
@@ -98,6 +100,7 @@ import {
               console.log('res => ',res);
               if(res){
                 setconfirm(res)
+                setloading(false)
                 setisSent(true)
                   console.log(res);
     
@@ -121,6 +124,16 @@ import {
       const doVerifyPhone = async() => {
         console.log(code);
         verifyPhone({code,confirm});
+        }
+
+
+        const isLoading = () => {
+          if(loading){
+            return(
+              <Spinner color='blue' />
+            )
+          }
+         
         }
 
       if(isSent){
@@ -154,7 +167,18 @@ import {
           </View>
         )
       }else{
-        return(
+        if(loading){
+          return(
+              <View style={{height:'100%'}}>
+                <View style={{justifyContent:'center',marginTop:150}}>
+                {isLoading()}
+
+                </View>
+              </View>
+          )
+        }
+        else{ return(
+
       
           <View style={styles.lbody}>
             <Avatar.Image size={100} source={LOGO} style={{alignSelf:'center',marginTop:50}}/>
@@ -162,7 +186,10 @@ import {
 
               Oii Signin fast...
             </Text>
-              <GoogleSigninButton onPress={() => googleSignIn()} style={{alignSelf:'center',marginTop:52}}/>
+              <GoogleSigninButton onPress={() => {
+                googleSignIn()
+                setloading(true)
+              }} style={{alignSelf:'center',marginTop:52}}/>
 
               <Text style={{fontFamily:'poppins',fontSize:18,alignSelf:'center',marginTop:12}}>
 
@@ -179,7 +206,7 @@ or
                 
               </View>
           </View>
-        )
+        )}
       }
 
        
@@ -229,6 +256,4 @@ Login.prototypes = {
   verifyPhone: propTypes.func.isRequired
   
 }
-export default connect(mapStateToProps, mapDispatchToProps )(Login);
-
-
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

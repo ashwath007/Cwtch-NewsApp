@@ -1,4 +1,4 @@
-import React,{useRef} from 'react';
+import React,{useRef,useState} from 'react';
 import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView} from 'react-native';
 import FastImage from 'react-native-fast-image'
 import {  FONT_SIZE_EXTRA_LARGE,
@@ -8,6 +8,7 @@ import {  FONT_SIZE_EXTRA_LARGE,
 import {GRAY, WHITE, DARK_GRAY, NEWS_TITLE} from '../constants/Colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import RBSheet from "react-native-raw-bottom-sheet";
+import { TabView, SceneMap } from 'react-native-tab-view';
 import {
     FONT_REGULAR,
     FONT_BOLD,
@@ -15,6 +16,7 @@ import {
     FONT_LIGHT,
     momentCalendarConfig,
   } from '../constants/Constants';
+  import { TabBar } from 'react-native-tab-view';
   import { Container, Header, Tab, Tabs, TabHeading, Icon } from 'native-base';
 
   const SCREEN_WIDTH = Dimensions.get("window").width;
@@ -28,6 +30,76 @@ const NewsCards = (ARTICLES) => {
   }
  
 
+  const renderScene = ({ index, route }) => {
+    switch (route.key) {
+      case 'first':
+        return(
+          <Container>
+          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="people" style={{color:'#FF6263'}} /><Text> Opinion</Text></TabHeading>}>
+          <Text style={{padding:10}}>
+          Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide.
+
+If you opted out of vector icons support using babel-plugin-optional-require, you won't be able to use icon names for the icon prop. Some components may not look correct without vector icons and might need extra configuration.
+            </Text> 
+     
+        </Tab>
+        </Container>
+        // <View>
+        //   <Text>
+        //     Opinion
+        //   </Text>
+        // </View>
+        )
+      case 'second':
+        return(
+          <Container>
+
+          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
+          <View style={{padding:10}}>
+            
+              </View> 
+          </Tab>
+          </Container>
+
+        //   <View>
+        //   <Text>
+        //     Post
+        //   </Text>
+        // </View>
+        )
+        case 'third':
+          return(
+          <Container>
+
+            <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="share" style={{color:'#FF6263'}} /><Text> Share</Text></TabHeading>}>
+            <Text style={{padding:10}}>
+              Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide.
+  
+  If you opted out of vector icons support using babel-plugin-optional-require, you won't be able to use icon names for the icon prop. Some components may not look correct without vector icons and might need extra configuration.
+                </Text> 
+            </Tab>
+          </Container>
+            
+        //     <View>
+        //   <Text>
+        //     Opinion
+        //   </Text>
+        // </View>
+          )
+      default:
+        return null;
+    }
+  };
+
+
+  const [index, setIndex] = useState(0);
+
+  const [routes] = useState([
+    { key: 'first', title: 'Views' },
+    { key: 'second', title: 'Post' },
+    { key: 'third', title: 'Share' },
+
+  ]);
     return(
       // <Swipeable renderLeftActions={() => {goLive}}>
 
@@ -92,35 +164,18 @@ const NewsCards = (ARTICLES) => {
           <ScrollView>
             <View>
                    
-            <Container>
+            {/* <Container> */}
+  
 
-        <Tabs
-   
-        tabBarUnderlineStyle={{borderBottomWidth:2}}
-        tabStyle={{backgroundColor: 'white'}}
-        >
-          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="people" style={{color:'#FF6263'}} /><Text> Opinion</Text></TabHeading>}>
-            <Text style={{padding:10}}>
-            Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide.
-
-If you opted out of vector icons support using babel-plugin-optional-require, you won't be able to use icon names for the icon prop. Some components may not look correct without vector icons and might need extra configuration.
-              </Text> 
-          </Tab>
-          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
-          <View style={{padding:10}}>
-            
-              </View> 
-          </Tab>
-          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="share" style={{color:'#FF6263'}} /><Text> Share</Text></TabHeading>}>
-          <Text style={{padding:10}}>
-            Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide.
-
-If you opted out of vector icons support using babel-plugin-optional-require, you won't be able to use icon names for the icon prop. Some components may not look correct without vector icons and might need extra configuration.
-              </Text> 
-          </Tab>
-          
-        </Tabs>
-      </Container>
+            <TabView
+      navigationState={{ index, routes }}
+      renderScene={renderScene}
+      onIndexChange={setIndex}
+      swipeEnabled={false}
+      initialLayout={{ width: SCREEN_WIDTH }}
+    />
+          {/* </Container> */}
+  
             </View>
           </ScrollView>
 

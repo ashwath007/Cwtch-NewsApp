@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet,View,Text } from 'react-native';
+import { StyleSheet,View,Text,Dimensions } from 'react-native';
+import LottieView from 'lottie-react-native';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Splash = () => {
 
         return(
-            <View style={{backgroundColor:'blue'}}>
-                <Text style={{fontSize:22,alignSelf:'center'}}>
-                    Loading... 
-                </Text>
+            <View style={{height:windowHeight,width:windowWidth}}>
+                <LottieView source={require('./loading.json')} autoPlay loop />
             </View>
             )
 }

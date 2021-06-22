@@ -20,10 +20,20 @@ import {
 import {TextInput} from 'react-native-paper'
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const SCREEN_HEIGHT = Dimensions.get("window").height;
+import propType from 'prop-types'
+import { connect } from 'react-redux';
 
-const NewsCards = (ARTICLES) => {
+
+
+const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
     
+
+
+  
+
+
+
   const goLive = () => {
     return navigation.navigate("WebViews")
   }
@@ -34,7 +44,9 @@ const NewsCards = (ARTICLES) => {
       // <Swipeable renderLeftActions={() => {goLive}}>
 
  <View style={styles.container}>
-     {/* {console.log(ARTICLES.news.pic)} */}
+     {console.log("news -> ",ARTICLES.news)}
+     {console.log("user -> ",ARTICLES.authState.user)}
+
 
         <View style={styles.top}>
           <FastImage
@@ -170,7 +182,7 @@ If you opted out of vector icons support using babel-plugin-optional-require, yo
           <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
           <ScrollView showsVerticalScrollIndicator={true}>
             <TouchableOpacity activeOpacity={1}>
-           <View style={{padding:5}}>
+           <View style={{padding:10}}>
               <Text style={styles.textHeading}>
                 Share your Toughts and feelings
               </Text>
@@ -185,7 +197,7 @@ If you opted out of vector icons support using babel-plugin-optional-require, yo
       onChangeText={text => setopinion(text)}
     />
                 </View>
-                <View style={{marginTop:12,flexWrap:'wrap'}}>
+                <View style={{marginTop:8,flexWrap:'wrap',alignSelf:'flex-end'}}>
                   <TouchableOpacity style={{backgroundColor:'#FF6263',height:40,width:120,justifyContent:'center',borderRadius:8}}>
                     <Text style={{color:'white',fontWeight:'bold',fontSize:20,alignSelf:'center'}}>
                       Post
@@ -216,7 +228,19 @@ If you opted out of vector icons support using babel-plugin-optional-require, yo
     )
 }
 
-export default NewsCards;
+
+NewsCards.propType = ({
+
+  authState: propType.object.isRequired
+})
+
+
+const mapStateToProps = (state) => ({
+
+  authState: state.auth
+})
+
+export default connect(mapStateToProps,null)(NewsCards);
 
 
 const styles = StyleSheet.create({

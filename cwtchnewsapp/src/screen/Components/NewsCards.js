@@ -315,6 +315,9 @@ const NewsCards = (ARTICLES,authState) => {
 
           </Tab>
           <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="share" style={{color:'#FF6263'}} /><Text> Share</Text></TabHeading>}>
+          <ScrollView showsVerticalScrollIndicator={true}>
+            <TouchableOpacity activeOpacity={1}>
+          
           <View style={styles.gridContainer}>
               {sociailDetails.map(grid => (
                 <TouchableOpacity
@@ -329,6 +332,9 @@ const NewsCards = (ARTICLES,authState) => {
                 </TouchableOpacity>
               ))}
             </View>
+            </TouchableOpacity>
+           
+           </ScrollView>
           </Tab>
           
         </Tabs>

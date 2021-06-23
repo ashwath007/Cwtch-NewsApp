@@ -20,6 +20,8 @@ const SCREEN_HEIGHT = Dimensions.get("window").height;
 import NewsCards from './Components/NewsCards';
 import WebViews from './Components/WebView';
 import { connect } from 'react-redux';
+import NotificationController from './Notification/NotificationController.android';
+
 
 const News = ({navigation,getAllNews,newsState,authState}) => {
 
@@ -92,6 +94,8 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
      
         return(
             <Container style={styles.fastbox}>
+              <NotificationController/>
+
         <View style={{flex: 1}}>
           {/* {console.log("News",newsState.news)}
           {console.log("Auth",Object.values(authState))} */}

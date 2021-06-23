@@ -28,6 +28,8 @@ import Home from './screen/Home'
 // TODO SplashScreen design and building
 import Splash from './screen/SplashScreen/Splash';
 
+
+
 const Stack = createStackNavigator();
 
 GoogleSignin.configure({
@@ -44,9 +46,25 @@ import HomePageNavigation from './screen/Navigation/HomePageNavigation';
 
 const App = ({authState}) => {
 
-
+    
   useEffect(() => {
     requestUserPermission()
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+        console.log(remoteMessage);
+        console.log("Message");
+
+        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+      });
+      return unsubscribe;
+    // const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+    //     PushNotificationIos.addNotificationRequest({
+    //       id: remoteMessage.messageId,
+    //       body: remoteMessage.notification.body,
+    //       title: remoteMessage.notification.title,
+    //       userInfo: remoteMessage.data,
+    //     });
+    // });
+    // return unsubscribe;
   }, [])
 
 
@@ -202,11 +220,14 @@ const getCurrentUserInfo = async () => {
           <Stack.Navigator>
             {console.log(authState)}
             {authState.isAuthenticated  ? (
+                <>
+
               <Stack.Screen
                 name="home"
                 options={{headerShown: false}}
                 component={HomePageNavigation}
               />
+              </>
 
             ) : (
             <>

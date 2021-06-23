@@ -147,12 +147,35 @@ const NewsCards = (ARTICLES,authState) => {
             <TouchableOpacity activeOpacity={1}>
             <View>
 
-  {console.log("ARTICLE",ARTICLES.news.opinion)}
+  {console.log("ARTICLE",Object.values(ARTICLES.news.opinion))}
 
-            {ARTICLES.news.opinion &&  ARTICLES.news.opinion.map((op) => {
-                <Text>
-                  {op.opinion}
-                  </Text>
+            {Object.values(ARTICLES.news.opinion).map((op,index) => {
+              return(
+                <View>
+                <View style={{flexDirection:'row'}}>
+<TouchableHighlight
+          style={[styles.profileImgContainers, { borderColor: 'green', borderWidth:1 }]}
+        >
+    <Image source={{ uri:op.opinion.user_pic }} style={styles.profileImgs} />
+</TouchableHighlight> 
+<View style={{marginLeft:8,justifyContent:'center',marginTop:12}}>
+<Text style={{fontSize:15,fontWeight:'bold',textDecorationLine: 'underline',textDecorationColor:'#383CC1'}}>
+                    {op.opinion.user_name}
+                    </Text>
+               
+  </View>
+                
+                </View>
+                <View style={{backgroundColor:'#758283',padding:5,marginLeft:45,marginTop:10,marginRight:22,borderRadius:8}}>
+
+                <Text style={{color:'white'}}>
+                
+                {op.opinion.opinion}
+                </Text>
+                </View>
+                </View>
+              )
+               
             })}
           
             </View>
@@ -332,6 +355,20 @@ const styles = StyleSheet.create({
       borderRadius: 40,
       overflow: 'hidden',
       
+    },
+    profileImgContainers: {
+      marginLeft: 20,
+      marginTop:12,
+      height: 30,
+      width: 30,
+      borderRadius: 40,
+      overflow: 'hidden',
+      
+    },
+    profileImgs: {
+      height: 30,
+      width: 30,
+      borderRadius: 40,
     },
     profileImg: {
       height: 40,

@@ -93,8 +93,8 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
         return(
             <Container style={styles.fastbox}>
         <View style={{flex: 1}}>
-          {console.log("News",newsState.news)}
-          {console.log("Auth",Object.values(authState))}
+          {/* {console.log("News",newsState.news)}
+          {console.log("Auth",Object.values(authState))} */}
 
             {/* <TouchableOpacity
                 onPress={() => navigation.navigate("Live")}

@@ -5,6 +5,7 @@ import {  FONT_SIZE_EXTRA_LARGE,
     FONT_SIZE_NORMAL,
     FONT_SIZE_LARGE,
     FONT_SIZE_SMALL,} from '../constants/Dimens';
+    import { SectionGrid,FlatGrid } from 'react-native-super-grid';
 import {GRAY, WHITE, DARK_GRAY, NEWS_TITLE} from '../constants/Colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -24,6 +25,9 @@ import {TextInput} from 'react-native-paper'
 import propType from 'prop-types'
 import { connect } from 'react-redux';
 import database from '@react-native-firebase/database'
+import FAIcon from "react-native-vector-icons/FontAwesome";
+import MDIcon from "react-native-vector-icons/MaterialIcons";
+
 
 
 const NewsCards = (ARTICLES,authState) => {
@@ -60,6 +64,71 @@ const NewsCards = (ARTICLES,authState) => {
   
 
   }
+  
+
+  const sociailDetails = [
+      {
+        "label": "Facebook",
+        "icon": "facebook",
+        "color": "#3b5998"
+      },
+      {
+        "label": "Twitter",
+        "icon": "twitter",
+        "color": "#38A1F3"
+      },
+      {
+        "label": "Google+",
+        "icon": "google-plus-official",
+        "color": "#DD4B39"
+      },
+      {
+        "label": "Linkedin",
+        "icon": "linkedin",
+        "color": "#0077B5"
+      },
+      {
+        "label": "Dropbox",
+        "icon": "dropbox",
+        "color": "#3d9ae8"
+      },
+      {
+        "label": "Reddit",
+        "icon": "reddit-alien",
+        "color": "#FF4301"
+      },
+      {
+        "label": "Skype",
+        "icon": "skype",
+        "color": "#00aff0"
+      },
+      {
+        "label": "Pinterest",
+        "icon": "pinterest",
+        "color": "#c8232c"
+      },
+      {
+        "label": "Flickr",
+        "icon": "flickr",
+        "color": "#ff0084"
+      },
+      {
+        "label": "VK",
+        "icon": "vk",
+        "color": "#4c75a3"
+      },
+      {
+        "label": "Dribbble",
+        "icon": "dribbble",
+        "color": "#ea4c89"
+      },
+      {
+        "label": "Telegram",
+        "icon": "send",
+        "color": "#0088cc"
+      }
+    ]
+  
   
 
 
@@ -227,11 +296,20 @@ const NewsCards = (ARTICLES,authState) => {
 
           </Tab>
           <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="share" style={{color:'#FF6263'}} /><Text> Share</Text></TabHeading>}>
-          <Text style={{padding:10}}>
-            Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide.
-
-If you opted out of vector icons support using babel-plugin-optional-require, you won't be able to use icon names for the icon prop. Some components may not look correct without vector icons and might need extra configuration.
-              </Text> 
+          <View style={styles.gridContainer}>
+              {sociailDetails.map(grid => (
+                <TouchableOpacity
+                  key={grid.icon}
+                  onPress={() => {}}
+                  style={styles.gridButtonContainer}
+                >
+                  <View style={[styles.gridButton, { backgroundColor: grid.color }]}>
+                    <FAIcon name={grid.icon} style={styles.gridIcon} />
+                  </View>
+                  <Text style={styles.gridLabel}>{grid.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
           </Tab>
           
         </Tabs>
@@ -374,6 +452,35 @@ const styles = StyleSheet.create({
       height: 40,
       width: 40,
       borderRadius: 40,
+    },
+    gridContainer: {
+      flex: 1,
+      flexDirection: "row",
+      flexWrap: "wrap",
+      padding: 10,
+      marginBottom: 20
+    },
+    gridButtonContainer: {
+      flexBasis: "25%",
+      marginTop: 20,
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    gridButton: {
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+      justifyContent: "center",
+      alignItems: "center"
+    },
+    gridIcon: {
+      fontSize: 30,
+      color: "white"
+    },
+    gridLabel: {
+      fontSize: 14,
+      paddingTop: 10,
+      color: "#333"
     },
 
   });

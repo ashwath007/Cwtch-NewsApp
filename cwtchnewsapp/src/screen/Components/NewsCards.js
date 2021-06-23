@@ -1,5 +1,5 @@
-import React,{useRef,useState} from 'react';
-import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView,TouchableHighlight,Image,Linking } from 'react-native';
+import React,{useRef,useEffect,useState} from 'react';
+import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView,TouchableHighlight,Image,Linking , BackHandler} from 'react-native';
 import FastImage from 'react-native-fast-image'
 import {  FONT_SIZE_EXTRA_LARGE,
     FONT_SIZE_NORMAL,
@@ -27,14 +27,26 @@ import { connect } from 'react-redux';
 import database from '@react-native-firebase/database'
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import MDIcon from "react-native-vector-icons/MaterialIcons";
+import {  DeckSwiper, Card, CardItem, Fab,Thumbnail, Left, Body, Button } from 'native-base';
 
 import LottieView from 'lottie-react-native';
 
 
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
-    
+  const [active, setactive] = useState(false);
+  useEffect(() => {
+    const backAction = () => {
+      setactive(false)
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
   const postThoughts = () => {
     var OPTIONDATa = [];
     // TODO We need to see for Phone Login
@@ -142,7 +154,7 @@ const NewsCards = (ARTICLES,authState) => {
 
     if(ARTICLES.news.type === 'ads'){
       return(
-        <View
+        <SafeAreaView
         
         >
           <TouchableOpacity onPress={() => Linking.openURL(ARTICLES.news.url)}>
@@ -153,7 +165,7 @@ const NewsCards = (ARTICLES,authState) => {
           />
           </TouchableOpacity>
 
-        </View>
+        </SafeAreaView>
       )
     }
     else{
@@ -189,6 +201,31 @@ const NewsCards = (ARTICLES,authState) => {
                     Interact
                 </Text>
               </TouchableOpacity>
+            
+
+            <Fab
+            active={active}
+            direction="up"
+            containerStyle={{ }}
+            style={{ backgroundColor: '#FF6263',height:40 }}
+            position="bottomRight"
+            // onPress={() => setactive(!active )}>
+            onPress={() => navigation.navigate('WebViews', {
+                url:ARTICLES.news.url
+            })}>
+
+            <Icon name="share" />
+            {/* <Button style={{ backgroundColor: '#34A34F' }}>
+              <Icon name="logo-whatsapp" />
+            </Button>
+            <Button style={{ backgroundColor: '#3B5998' }}>
+              <Icon name="logo-facebook" />
+            </Button>
+            <Button disabled style={{ backgroundColor: '#DD5144' }}>
+              <Icon name="mail" />
+            </Button> */}
+          </Fab>
+          
           </View>
   
           {/* <View style={[styles.footer, styles.contentPadding]}>

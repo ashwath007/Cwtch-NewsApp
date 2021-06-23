@@ -95,7 +95,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
         <View style={{flex: 1}}>
           {/* {console.log("News",newsState.news)}
           {console.log("Auth",Object.values(authState))} */}
-
+{/* {          console.log("News --- --- -- -- ",newsState.news[indexAt].type)} */}
             {/* <TouchableOpacity
                 onPress={() => navigation.navigate("Live")}
             > */}
@@ -120,37 +120,11 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               onSnapToItem={(index) => setindexAt(index)}
               // ListEmptyComponent={<ShortsLoader />}
             /> 
+            
             {/* </Swipeable> */}
             {/* </TouchableOpacity> */}
           </View>
-          {newsState.news[indexAt].type === 'ads' ? (
-            null
-
-          ) :(
-
-            <Fab
-            active={active}
-            direction="up"
-            containerStyle={{ }}
-            style={{ backgroundColor: '#FF6263',height:40 }}
-            position="bottomRight"
-            // onPress={() => setactive(!active )}>
-            onPress={() => navigation.navigate('WebViews', {
-                url:newsState.news[indexAt].url
-            })}>
-
-            <Icon name="share" />
-            {/* <Button style={{ backgroundColor: '#34A34F' }}>
-              <Icon name="logo-whatsapp" />
-            </Button>
-            <Button style={{ backgroundColor: '#3B5998' }}>
-              <Icon name="logo-facebook" />
-            </Button>
-            <Button disabled style={{ backgroundColor: '#DD5144' }}>
-              <Icon name="mail" />
-            </Button> */}
-          </Fab>
-          ) }
+         
         
             </Container>
         )

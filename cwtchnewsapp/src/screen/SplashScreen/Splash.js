@@ -8,7 +8,7 @@ const Splash = () => {
 
         return(
             <View style={{height:windowHeight,width:windowWidth}}>
-                <LottieView source={require('./loading.json')} autoPlay loop />
+                <LottieView source={require('./panda.json')} autoPlay loop />
             </View>
             )
 }

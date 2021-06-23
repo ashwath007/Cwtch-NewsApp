@@ -1,5 +1,5 @@
 import React,{useRef,useState} from 'react';
-import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView,TouchableHighlight,Image} from 'react-native';
+import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView,TouchableHighlight,Image,Linking } from 'react-native';
 import FastImage from 'react-native-fast-image'
 import {  FONT_SIZE_EXTRA_LARGE,
     FONT_SIZE_NORMAL,
@@ -132,7 +132,7 @@ const NewsCards = (ARTICLES,authState) => {
   
   
 
-
+  
 
   const goLive = () => {
     return navigation.navigate("WebViews")
@@ -140,211 +140,231 @@ const NewsCards = (ARTICLES,authState) => {
  
     const [opinion, setopinion] = useState('');
 
-    return(
-      // <Swipeable renderLeftActions={() => {goLive}}>
+    if(ARTICLES.news.type === 'ads'){
+      return(
+        <View
+        
+        >
+          <TouchableOpacity onPress={() => Linking.openURL(ARTICLES.news.url)}>
 
- <View style={styles.container}>
-     {/* {console.log("news -> ",ARTICLES.news)}
-     {console.log("user -> ",ARTICLES.authState.user)} */}
-
-
-        <View style={styles.top}>
-          <FastImage
-            style={{flex: 1}}
-            source={{
-              uri: ARTICLES.news.pic,
-            }}
-            resizeMode={FastImage.resizeMode.cover}
+          <Image
+            style={styles.adsContainer}
+            source={{uri: ARTICLES.news.advertisment}}
           />
+          </TouchableOpacity>
+
         </View>
+      )
+    }
+    else{
+      return(
+        // <Swipeable renderLeftActions={() => {goLive}}>
+  
+   <View style={styles.container}>
+       {/* {console.log("news -> ",ARTICLES.news)}
+       {console.log("user -> ",ARTICLES.authState.user)} */}
+  
+  
+          <View style={styles.top}>
+            <FastImage
+              style={{flex: 1}}
+              source={{
+                uri: ARTICLES.news.pic,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+          </View>
+              
+          <View style={[styles.middle, styles.contentPadding]}>
+            <Text style={styles.title}>{ARTICLES.news.newsTitle}</Text>
+            <Text style={styles.description}
+            numberOfLines={9} 
             
-        <View style={[styles.middle, styles.contentPadding]}>
-          <Text style={styles.title}>{ARTICLES.news.newsTitle}</Text>
-          <Text style={styles.description}
-          numberOfLines={9} 
-          
-          >{ARTICLES.news.newsDetails}</Text>
-          {/* <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> */}
-            {/* {this.getByLineText()} */}
-          {/* </Text> */}
-            <TouchableOpacity onPress={() => bottomSheetRef.current.open()}>
-              <Text style={{color:'#FF6263',fontSize:12}}>
-                  Interact
-              </Text>
-            </TouchableOpacity>
-        </View>
-
-        {/* <View style={[styles.footer, styles.contentPadding]}>
-          <Text
-            style={styles.footerTitle}
-            numberOfLines={1}
-            ellipsizeMode="tail">
-          </Text>
-          <Text
-            style={styles.footerSubtitle}
-            numberOfLines={1}
-            ellipsizeMode="tail">
-          </Text>
-        </View> */}
-          <RBSheet
-        ref={(el) => (bottomSheetRef.current = el)}
-        closeOnDragDown={true}
-        closeOnPressMask={true}
-        height={SCREEN_HEIGHT-300}
-        customStyles={{
-          wrapper: {
-            backgroundColor: 'rgba(0.9, 0, 0, 0.4)',
-          },
-          draggableIcon: {
-            backgroundColor: '#FF6263',
-          },
-          container: {
-            borderTopRightRadius: 20,
-            borderTopLeftRadius: 20,
-          },
-        }}>
-          
-                   
-         
-
-        <Tabs
-   
-        tabBarUnderlineStyle={{borderBottomWidth:2}}
-      
-        >
-          <Tab style={{flex:1}} heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="people" style={{color:'#FF6263'}} /><Text> Opinion</Text></TabHeading>}>
-            <ScrollView showsVerticalScrollIndicator={true}>
-            <TouchableOpacity activeOpacity={1}>
-            <View>
-
-  {console.log("ARTICLE",ARTICLES.news.opinion)}
-          {(ARTICLES.news.opinion != undefined) ? (
+            >{ARTICLES.news.newsDetails}</Text>
+            {/* <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> */}
+              {/* {this.getByLineText()} */}
+            {/* </Text> */}
+              <TouchableOpacity onPress={() => bottomSheetRef.current.open()}>
+                <Text style={{color:'#FF6263',fontSize:12}}>
+                    Interact
+                </Text>
+              </TouchableOpacity>
+          </View>
+  
+          {/* <View style={[styles.footer, styles.contentPadding]}>
+            <Text
+              style={styles.footerTitle}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+            </Text>
+            <Text
+              style={styles.footerSubtitle}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+            </Text>
+          </View> */}
+            <RBSheet
+          ref={(el) => (bottomSheetRef.current = el)}
+          closeOnDragDown={true}
+          closeOnPressMask={true}
+          height={SCREEN_HEIGHT-300}
+          customStyles={{
+            wrapper: {
+              backgroundColor: 'rgba(0.9, 0, 0, 0.4)',
+            },
+            draggableIcon: {
+              backgroundColor: '#FF6263',
+            },
+            container: {
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+            },
+          }}>
+            
+                     
+           
+  
+          <Tabs
+     
+          tabBarUnderlineStyle={{borderBottomWidth:2}}
+        
+          >
+            <Tab style={{flex:1}} heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="people" style={{color:'#FF6263'}} /><Text> Opinion</Text></TabHeading>}>
+              <ScrollView showsVerticalScrollIndicator={true}>
+              <TouchableOpacity activeOpacity={1}>
               <View>
-                {ARTICLES.news.opinion != undefined && Object.values(ARTICLES.news.opinion).map((op,index) => {
-              return(
+  
+    {console.log("ARTICLE",ARTICLES.news.opinion)}
+            {(ARTICLES.news.opinion != undefined) ? (
                 <View>
-                <View style={{flexDirection:'row'}}>
-<TouchableHighlight
-          style={[styles.profileImgContainers, { borderColor: 'green', borderWidth:1 }]}
-        >
-    <Image source={{ uri:op.opinion.user_pic }} style={styles.profileImgs} />
-</TouchableHighlight> 
-<View style={{marginLeft:8,justifyContent:'center',marginTop:12}}>
-<Text style={{fontSize:15,fontWeight:'bold',textDecorationLine: 'underline',textDecorationColor:'#383CC1'}}>
-                    {op.opinion.user_name}
-                    </Text>
-               
-  </View>
-                
-                </View>
-                <View style={{backgroundColor:'#758283',padding:5,marginLeft:45,marginTop:10,marginRight:22,borderRadius:8}}>
-
-                <Text style={{color:'white'}}>
-                
-                {op.opinion.opinion}
-                </Text>
-                </View>
-                </View>
-              )
-               
-            })} 
-                </View>
-
-          ) : (
-              <View>
-                
-                  <LottieView source={require('./src/noopinion.json')} autoPlay loop style={{height:300,alignSelf:'center'}}/>
-                  <Text style={{alignSelf:'center',color:'#758283',fontWeight:'bold'}}>
-                    No Opinion, be he first to share your thoughts
+                  {ARTICLES.news.opinion != undefined && Object.values(ARTICLES.news.opinion).map((op,index) => {
+                return(
+                  <View>
+                  <View style={{flexDirection:'row'}}>
+  <TouchableHighlight
+            style={[styles.profileImgContainers, { borderColor: 'green', borderWidth:1 }]}
+          >
+      <Image source={{ uri:op.opinion.user_pic }} style={styles.profileImgs} />
+  </TouchableHighlight> 
+  <View style={{marginLeft:8,justifyContent:'center',marginTop:12}}>
+  <Text style={{fontSize:15,fontWeight:'bold',textDecorationLine: 'underline',textDecorationColor:'#383CC1'}}>
+                      {op.opinion.user_name}
+                      </Text>
+                 
+    </View>
+                  
+                  </View>
+                  <View style={{backgroundColor:'#758283',padding:5,marginLeft:45,marginTop:10,marginRight:22,borderRadius:8}}>
+  
+                  <Text style={{color:'white'}}>
+                  
+                  {op.opinion.opinion}
                   </Text>
-                </View>
-          )
-
-          }
-
-
-
-          
-          
-            </View>
-  </TouchableOpacity>
-           
-            </ScrollView>
-
-          </Tab>
-          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
-          <ScrollView showsVerticalScrollIndicator={true}>
-            <TouchableOpacity activeOpacity={1}>
-           <View style={{padding:10}}>
-              <Text style={styles.textHeading}>
-                Share your Toughts and feelings
-              </Text>
-              <TouchableHighlight
-          style={[styles.profileImgContainer, { borderColor: 'green', borderWidth:1 }]}
-        >
-    <Image source={{ uri: ARTICLES.authState.user.photoURL}} style={styles.profileImg} />
-</TouchableHighlight> 
-              <Text style={styles.textUserName}>
-                @{ARTICLES.authState.user.displayName} <Icon name="flame" style={{color:'#FF6263',fontSize:30}}/> share you thoughts
-                </Text>
-                
-              <View style={styles.inputText}>
-              <TextInput
-      label="Share now"
-      value={opinion}
-      type="outlined"
-      selectionColor="black"
-      multiline={true}
-      style={{backgroundColor:'white',color:'#EDBF69'}}
-      onChangeText={text => setopinion(text)}
-    />
-                </View>
-                <View style={{marginTop:8,flexWrap:'wrap',alignSelf:'flex-end'}}>
-                  <TouchableOpacity style={{backgroundColor:'#FF6263',height:40,width:120,justifyContent:'center',borderRadius:8}}
-                    onPress={()=>postThoughts()}
-                  >
-                    <Text style={{color:'white',fontWeight:'bold',fontSize:20,alignSelf:'center'}}>
-                      Post
+                  </View>
+                  </View>
+                )
+                 
+              })} 
+                  </View>
+  
+            ) : (
+                <View>
+                  
+                    <LottieView source={require('./src/noopinion.json')} autoPlay loop style={{height:300,alignSelf:'center'}}/>
+                    <Text style={{alignSelf:'center',color:'#758283',fontWeight:'bold'}}>
+                      No Opinion, be he first to share your thoughts
                     </Text>
+                  </View>
+            )
+  
+            }
+  
+  
+  
+            
+            
+              </View>
+    </TouchableOpacity>
+             
+              </ScrollView>
+  
+            </Tab>
+            <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
+            <ScrollView showsVerticalScrollIndicator={true}>
+              <TouchableOpacity activeOpacity={1}>
+             <View style={{padding:10}}>
+                <Text style={styles.textHeading}>
+                  Share your Toughts and feelings
+                </Text>
+                <TouchableHighlight
+            style={[styles.profileImgContainer, { borderColor: 'green', borderWidth:1 }]}
+          >
+      <Image source={{ uri: ARTICLES.authState.user.photoURL}} style={styles.profileImg} />
+  </TouchableHighlight> 
+                <Text style={styles.textUserName}>
+                  @{ARTICLES.authState.user.displayName} <Icon name="flame" style={{color:'#FF6263',fontSize:30}}/> share you thoughts
+                  </Text>
+                  
+                <View style={styles.inputText}>
+                <TextInput
+        label="Share now"
+        value={opinion}
+        type="outlined"
+        selectionColor="black"
+        multiline={true}
+        style={{backgroundColor:'white',color:'#EDBF69'}}
+        onChangeText={text => setopinion(text)}
+      />
+                  </View>
+                  <View style={{marginTop:8,flexWrap:'wrap',alignSelf:'flex-end'}}>
+                    <TouchableOpacity style={{backgroundColor:'#FF6263',height:40,width:120,justifyContent:'center',borderRadius:8}}
+                      onPress={()=>postThoughts()}
+                    >
+                      <Text style={{color:'white',fontWeight:'bold',fontSize:20,alignSelf:'center'}}>
+                        Post
+                      </Text>
+                    </TouchableOpacity>
+                    </View>
+             </View>
+    </TouchableOpacity>
+             
+              </ScrollView>
+  
+            </Tab>
+            <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="share" style={{color:'#FF6263'}} /><Text> Share</Text></TabHeading>}>
+            <ScrollView showsVerticalScrollIndicator={true}>
+              <TouchableOpacity activeOpacity={1}>
+            
+            <View style={styles.gridContainer}>
+                {sociailDetails.map(grid => (
+                  <TouchableOpacity
+                    key={grid.icon}
+                    onPress={() => {}}
+                    style={styles.gridButtonContainer}
+                  >
+                    <View style={[styles.gridButton, { backgroundColor: grid.color }]}>
+                      <FAIcon name={grid.icon} style={styles.gridIcon} />
+                    </View>
+                    <Text style={styles.gridLabel}>{grid.label}</Text>
                   </TouchableOpacity>
-                  </View>
-           </View>
-  </TouchableOpacity>
-           
-            </ScrollView>
+                ))}
+              </View>
+              </TouchableOpacity>
+             
+             </ScrollView>
+            </Tab>
+            
+          </Tabs>
+             
+  
+          </RBSheet>
+          </View> 
+          // </Swipeable>
+     
+      )
+    }
 
-          </Tab>
-          <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="share" style={{color:'#FF6263'}} /><Text> Share</Text></TabHeading>}>
-          <ScrollView showsVerticalScrollIndicator={true}>
-            <TouchableOpacity activeOpacity={1}>
-          
-          <View style={styles.gridContainer}>
-              {sociailDetails.map(grid => (
-                <TouchableOpacity
-                  key={grid.icon}
-                  onPress={() => {}}
-                  style={styles.gridButtonContainer}
-                >
-                  <View style={[styles.gridButton, { backgroundColor: grid.color }]}>
-                    <FAIcon name={grid.icon} style={styles.gridIcon} />
-                  </View>
-                  <Text style={styles.gridLabel}>{grid.label}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-            </TouchableOpacity>
-           
-           </ScrollView>
-          </Tab>
-          
-        </Tabs>
-           
-
-        </RBSheet>
-        </View> 
-        // </Swipeable>
-   
-    )
+  
 }
 
 
@@ -507,5 +527,13 @@ const styles = StyleSheet.create({
       paddingTop: 10,
       color: "#333"
     },
+
+
+
+
+    adsContainer: {
+      height:SCREEN_HEIGHT,
+      width:SCREEN_WIDTH,
+    }
 
   });

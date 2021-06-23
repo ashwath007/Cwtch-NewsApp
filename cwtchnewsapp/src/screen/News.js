@@ -123,28 +123,35 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
             {/* </Swipeable> */}
             {/* </TouchableOpacity> */}
           </View>
-          <Fab
-                active={active}
-                direction="up"
-                containerStyle={{ }}
-                style={{ backgroundColor: '#FF6263',height:40 }}
-                position="bottomRight"
-                // onPress={() => setactive(!active )}>
-                onPress={() => navigation.navigate('WebViews', {
-                    url:newsState.news[indexAt].url
-                })}>
+          {newsState.news[indexAt].type === 'ads' ? (
+            null
 
-                <Icon name="share" />
-                {/* <Button style={{ backgroundColor: '#34A34F' }}>
-                  <Icon name="logo-whatsapp" />
-                </Button>
-                <Button style={{ backgroundColor: '#3B5998' }}>
-                  <Icon name="logo-facebook" />
-                </Button>
-                <Button disabled style={{ backgroundColor: '#DD5144' }}>
-                  <Icon name="mail" />
-                </Button> */}
-              </Fab>
+          ) :(
+
+            <Fab
+            active={active}
+            direction="up"
+            containerStyle={{ }}
+            style={{ backgroundColor: '#FF6263',height:40 }}
+            position="bottomRight"
+            // onPress={() => setactive(!active )}>
+            onPress={() => navigation.navigate('WebViews', {
+                url:newsState.news[indexAt].url
+            })}>
+
+            <Icon name="share" />
+            {/* <Button style={{ backgroundColor: '#34A34F' }}>
+              <Icon name="logo-whatsapp" />
+            </Button>
+            <Button style={{ backgroundColor: '#3B5998' }}>
+              <Icon name="logo-facebook" />
+            </Button>
+            <Button disabled style={{ backgroundColor: '#DD5144' }}>
+              <Icon name="mail" />
+            </Button> */}
+          </Fab>
+          ) }
+        
             </Container>
         )
       

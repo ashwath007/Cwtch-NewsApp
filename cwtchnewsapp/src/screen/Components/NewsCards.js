@@ -1,5 +1,5 @@
 import React,{useRef,useState} from 'react';
-import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView} from 'react-native';
+import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView,TouchableHighlight,Image} from 'react-native';
 import FastImage from 'react-native-fast-image'
 import {  FONT_SIZE_EXTRA_LARGE,
     FONT_SIZE_NORMAL,
@@ -186,6 +186,15 @@ If you opted out of vector icons support using babel-plugin-optional-require, yo
               <Text style={styles.textHeading}>
                 Share your Toughts and feelings
               </Text>
+              <TouchableHighlight
+          style={[styles.profileImgContainer, { borderColor: 'green', borderWidth:1 }]}
+        >
+    <Image source={{ uri: ARTICLES.authState.user.photoURL}} style={styles.profileImg} />
+</TouchableHighlight> 
+              <Text style={styles.textUserName}>
+                @{ARTICLES.authState.user.displayName} <Icon name="flame" style={{color:'#FF6263',fontSize:30}}/> share you thoughts
+                </Text>
+                
               <View style={styles.inputText}>
               <TextInput
       label="Share now"
@@ -320,6 +329,30 @@ const styles = StyleSheet.create({
       color:'#758283',
       // backgroundColor:'#EDBF69',
 
-    }
+    },
+    textUserName: {
+      marginLeft:15,
+      marginTop:2,
+      fontFamily:'poppins',
+      fontStyle:'normal',
+      fontWeight:'bold',
+      color:'black',
+      // backgroundColor:'#EDBF69',
+
+    },
+    profileImgContainer: {
+      marginLeft: 20,
+      marginTop:12,
+      height: 40,
+      width: 40,
+      borderRadius: 40,
+      overflow: 'hidden',
+      
+    },
+    profileImg: {
+      height: 40,
+      width: 40,
+      borderRadius: 40,
+    },
 
   });

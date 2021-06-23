@@ -195,7 +195,7 @@ import {
 
 or
 </Text>
-              <View style={{marginTop:50,padding:20}}>
+              {/* <View style={{marginTop:50,padding:20}}>
                   <TextInput 
                   keyboardType='phone-pad'
                   placeholder="Enter the phone number" style={{height:40,marginBottom:15}} onChangeText={(t) => setphone(t)} defaultValue={phone}/>
@@ -204,7 +204,7 @@ or
   </Button>
                   
                 
-              </View>
+              </View> */}
           </View>
         )}
       }

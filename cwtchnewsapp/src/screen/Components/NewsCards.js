@@ -22,14 +22,42 @@ import {TextInput} from 'react-native-paper'
   const SCREEN_HEIGHT = Dimensions.get("window").height;
 import propType from 'prop-types'
 import { connect } from 'react-redux';
-
+import database from '@react-native-firebase/database'
 
 
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
     
 
+  const postThoughts = () => {
+    var OPTIONDATa = [];
+  database().ref(`/news/${ARTICLES.news.id}/opinion`).once('value')
+    .then(snapshot => {
+      dopinon = snapshot.val().opinion;
+      console.log(dopinon);
+      if(dopinon == null){
 
+      }
+      else{
+        OPTIONDATa.push(dopinon);
+        OPTIONDATa.push(opinion);
+        console.log('Opinion data:  ------------------------------------', snapshot.val());
+        database().ref(`/news/${ARTICLES.news.id}/opinion`).update({
+          opinion: OPTIONDATa,
+        })
+      .then(() => console.log('Data updated.'),
+      setopinion('')
+      );
+      }
+
+      
+    });
+
+
+
+  
+
+  }
   
 
 
@@ -44,8 +72,8 @@ const NewsCards = (ARTICLES,authState) => {
       // <Swipeable renderLeftActions={() => {goLive}}>
 
  <View style={styles.container}>
-     {console.log("news -> ",ARTICLES.news)}
-     {console.log("user -> ",ARTICLES.authState.user)}
+     {/* {console.log("news -> ",ARTICLES.news)}
+     {console.log("user -> ",ARTICLES.authState.user)} */}
 
 
         <View style={styles.top}>
@@ -207,7 +235,9 @@ If you opted out of vector icons support using babel-plugin-optional-require, yo
     />
                 </View>
                 <View style={{marginTop:8,flexWrap:'wrap',alignSelf:'flex-end'}}>
-                  <TouchableOpacity style={{backgroundColor:'#FF6263',height:40,width:120,justifyContent:'center',borderRadius:8}}>
+                  <TouchableOpacity style={{backgroundColor:'#FF6263',height:40,width:120,justifyContent:'center',borderRadius:8}}
+                    onPress={()=>postThoughts()}
+                  >
                     <Text style={{color:'white',fontWeight:'bold',fontSize:20,alignSelf:'center'}}>
                       Post
                     </Text>

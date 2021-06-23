@@ -83,7 +83,8 @@ const NewsCards = (ARTICLES,authState) => {
       {
         "label": "Facebook",
         "icon": "facebook",
-        "color": "#3b5998"
+        "color": "#3b5998",
+        
       },
       {
         "label": "Twitter",

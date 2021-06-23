@@ -19,7 +19,7 @@ import auth from '@react-native-firebase/auth';
 
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
-
+import messaging from '@react-native-firebase/messaging'
 
 import { SET_USER,IS_AUTHTHENTICATED } from './action/action.types';
 import Login from './screen/Login';
@@ -43,6 +43,34 @@ import HomePageNavigation from './screen/Navigation/HomePageNavigation';
 
 
 const App = ({authState}) => {
+
+
+  useEffect(() => {
+    requestUserPermission()
+  }, [])
+
+
+  
+  const requestUserPermission = async () => {
+    const authStatus = await messaging().requestPermission();
+    const enabled =
+      authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+      authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+    if (enabled) {
+      getFcmToken() //<---- Add this
+      console.log('Authorization status:', authStatus);
+    }
+  }
+
+  const getFcmToken = async () => {
+    const fcmToken = await messaging().getToken();
+    if (fcmToken) {
+     console.log(fcmToken);
+     console.log("Your Firebase Token is:", fcmToken);
+    } else {
+     console.log("Failed", "No token received");
+    }
+  }
 
   const dispatch = useDispatch();
 

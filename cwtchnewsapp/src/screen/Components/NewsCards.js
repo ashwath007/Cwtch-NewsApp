@@ -15,6 +15,7 @@ import {
     FONT_LIGHT,
     momentCalendarConfig,
   } from '../constants/Constants';
+  import uuid from 'react-native-uuid';
   import { TabBar } from 'react-native-tab-view';
   import { Container, Header, Tab, Tabs, TabHeading, Icon } from 'native-base';
 import {TextInput} from 'react-native-paper'
@@ -31,27 +32,28 @@ const NewsCards = (ARTICLES,authState) => {
 
   const postThoughts = () => {
     var OPTIONDATa = [];
-  database().ref(`/news/${ARTICLES.news.id}/opinion`).once('value')
-    .then(snapshot => {
-      dopinon = snapshot.val().opinion;
-      console.log(dopinon);
-      if(dopinon == null){
+    // TODO We need to see for Phone Login
 
-      }
-      else{
-        OPTIONDATa.push(dopinon);
-        OPTIONDATa.push(opinion);
-        console.log('Opinion data:  ------------------------------------', snapshot.val());
-        database().ref(`/news/${ARTICLES.news.id}/opinion`).update({
-          opinion: OPTIONDATa,
-        })
-      .then(() => console.log('Data updated.'),
+    const user_name = ARTICLES.authState.user.displayName;
+    const user_pic = ARTICLES.authState.user.photoURL;
+    const time = new Date();
+    var opinion_DATA = {
+      user_name,
+      user_pic,
+      opinion,
+      time: new Date()
+    };
+
+    const ID = uuid.v4();
+    database().ref(`/news/${ARTICLES.news.id}/opinion/${ID}`).set({
+      opinion: opinion_DATA
+    }).then(() => {
       setopinion('')
-      );
-      }
+    })
 
-      
-    });
+
+
+
 
 
 
@@ -143,65 +145,17 @@ const NewsCards = (ARTICLES,authState) => {
           <Tab style={{flex:1}} heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="people" style={{color:'#FF6263'}} /><Text> Opinion</Text></TabHeading>}>
             <ScrollView showsVerticalScrollIndicator={true}>
             <TouchableOpacity activeOpacity={1}>
-            <Text>
-            Many of the components require the react-native-vector-icons library to render correctly. If you're using Expo, you don't need to do anything extra, but if it's a vanilla React Native project, you need link the library as described in the getting started guide.
+            <View>
 
-If you opted out of vector icons support using babel-plugin-optional-require, you won't be able to use icon names for the icon prop. Some components may not look correct without vector icons and might need extra configuration.
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis architecto debitis quis voluptas labore, esse laborum aspernatur! Debitis nulla iusto esse non, itaque sit delectus, ipsam qui quasi, vitae eligendi?
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quam aspernatur aperiam illo optio ducimus officiis delectus magnam accusamus dolorem voluptate exercitationem itaque, similique et facere voluptas ipsa velit aliquam.
+  {console.log("ARTICLE",ARTICLES.news.opinion)}
 
-              </Text> 
+            {ARTICLES.news.opinion &&  ARTICLES.news.opinion.map((op) => {
+                <Text>
+                  {op.opinion}
+                  </Text>
+            })}
+          
+            </View>
   </TouchableOpacity>
            
             </ScrollView>

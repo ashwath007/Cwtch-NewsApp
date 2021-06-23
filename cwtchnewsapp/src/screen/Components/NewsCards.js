@@ -28,6 +28,7 @@ import database from '@react-native-firebase/database'
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import MDIcon from "react-native-vector-icons/MaterialIcons";
 
+import LottieView from 'lottie-react-native';
 
 
 const NewsCards = (ARTICLES,authState) => {
@@ -216,9 +217,10 @@ const NewsCards = (ARTICLES,authState) => {
             <TouchableOpacity activeOpacity={1}>
             <View>
 
-  {console.log("ARTICLE",Object.values(ARTICLES.news.opinion))}
-
-            {Object.values(ARTICLES.news.opinion).map((op,index) => {
+  {console.log("ARTICLE",ARTICLES.news.opinion)}
+          {(ARTICLES.news.opinion != undefined) ? (
+              <View>
+                {ARTICLES.news.opinion != undefined && Object.values(ARTICLES.news.opinion).map((op,index) => {
               return(
                 <View>
                 <View style={{flexDirection:'row'}}>
@@ -245,7 +247,24 @@ const NewsCards = (ARTICLES,authState) => {
                 </View>
               )
                
-            })}
+            })} 
+                </View>
+
+          ) : (
+              <View>
+                
+                  <LottieView source={require('./src/noopinion.json')} autoPlay loop style={{height:300,alignSelf:'center'}}/>
+                  <Text style={{alignSelf:'center',color:'#758283',fontWeight:'bold'}}>
+                    No Opinion, be he first to share your thoughts
+                  </Text>
+                </View>
+          )
+
+          }
+
+
+
+          
           
             </View>
   </TouchableOpacity>

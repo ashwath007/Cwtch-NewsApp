@@ -35,6 +35,7 @@ import LottieView from 'lottie-react-native';
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
   const [active, setactive] = useState(false);
+  
   useEffect(() => {
     const backAction = () => {
       setactive(false)

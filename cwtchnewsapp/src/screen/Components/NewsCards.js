@@ -158,12 +158,16 @@ const NewsCards = (ARTICLES,authState) => {
         <SafeAreaView
         
         >
-          <TouchableOpacity onPress={() => Linking.openURL(ARTICLES.news.url)}>
+          <TouchableOpacity activeOpactity={1} onPress={() => Linking.openURL(ARTICLES.news.url)}>
 
-          <Image
-            style={styles.adsContainer}
-            source={{uri: ARTICLES.news.advertisment}}
-          />
+          
+           <FastImage
+              style={[styles.adsContainer,{flex:1}]}
+              source={{
+                uri: ARTICLES.news.advertisment,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
           </TouchableOpacity>
 
         </SafeAreaView>
@@ -211,9 +215,10 @@ const NewsCards = (ARTICLES,authState) => {
             style={{ backgroundColor: '#FF6263',height:40 }}
             position="bottomRight"
             // onPress={() => setactive(!active )}>
-            onPress={() => navigation.navigate('WebViews', {
-                url:ARTICLES.news.url
-            })}>
+            // onPress={() => navigation.navigate('WebViews', {
+            //     url:ARTICLES.news.url
+            // })}
+            >
 
             <Icon name="share" />
             {/* <Button style={{ backgroundColor: '#34A34F' }}>

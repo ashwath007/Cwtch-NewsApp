@@ -6,6 +6,7 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  Alert ,
   useColorScheme,
   View,
 } from 'react-native';
@@ -41,31 +42,78 @@ GoogleSignin.configure({
 import HomePageNavigation from './screen/Navigation/HomePageNavigation';
 //
 
+import PushNotification from 'react-native-push-notification';
+
+import { Importance } from 'react-native-push-notification';
 
 
 
 const App = ({authState}) => {
 
-    
+
+
   useEffect(() => {
     requestUserPermission()
-    const unsubscribe = messaging().onMessage(async remoteMessage => {
-        console.log(remoteMessage);
-        console.log("Message");
+    PushNotification.createChannel(
+      {
+        channelId: "cwtch-news-007", // (required)
+        channelName: "cwtch", // (required)
+        channelDescription: "A channel to categorise your notifications", // (optional) default: undefined.
+        playSound: false, // (optional) default: true
+        soundName: "default", // (optional) See `soundName` parameter of `localNotification` function
+        importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
+        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      },
+      (created) => console.log(`createChannel returned '${created}'`) // (optional) callback returns whether the channel was created, false means it already existed.
+    );
+    // const unsubscribe = messaging().onMessage(async remoteMessage => {
+    //     console.log(remoteMessage);
+    //     console.log("Message");
 
-        Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
-      });
-      return unsubscribe;
-    // const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-    //     PushNotificationIos.addNotificationRequest({
-    //       id: remoteMessage.messageId,
-    //       body: remoteMessage.notification.body,
-    //       title: remoteMessage.notification.title,
-    //       userInfo: remoteMessage.data,
-    //     });
-    // });
-    // return unsubscribe;
+    //     console.log("remoteMessage.messageId",remoteMessage.messageId);
+    //     console.log("remoteMessage.notification.body",remoteMessage.notification.body);
+
+
+
+    //     Alert.alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+    //   });
+    //   console.log(unsubscribe);
+
+    //   return unsubscribe;
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      PushNotification.addNotificationRequest({
+          id: remoteMessage.messageId,
+          body: remoteMessage.notification.body,
+          title: remoteMessage.notification.title,
+          userInfo: remoteMessage.data,
+        });
+    });
+    return unsubscribe;
   }, [])
+
+//   useEffect(() => {
+
+//     messaging().onNotificationOpenedApp(remoteMessage => {
+//       console.log(
+//         'Notification caused app to open from background state:',
+//         remoteMessage.notification,
+//       );
+//       navigation.navigate(remoteMessage.data.type);
+//     });
+
+//     messaging()
+//       .getInitialNotification()
+//       .then(remoteMessage => {
+//         if (remoteMessage) {
+//           console.log(
+//             'Notification caused app to open from quit state:',
+//             remoteMessage.notification,
+//           );
+//           setInitialRoute(remoteMessage.data.type); 
+//         }
+//         setLoading(false);
+//       });
+//   }, []);
 
 
   
@@ -84,7 +132,7 @@ const App = ({authState}) => {
     const fcmToken = await messaging().getToken();
     if (fcmToken) {
      console.log(fcmToken);
-     console.log("Your Firebase Token is:", fcmToken);
+     console.log("Your Firebase Token is: ****************************************************************", fcmToken);
     } else {
      console.log("Failed", "No token received");
     }

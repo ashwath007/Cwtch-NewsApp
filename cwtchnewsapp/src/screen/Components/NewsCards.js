@@ -174,7 +174,46 @@ const NewsCards = (ARTICLES,authState) => {
         </SafeAreaView>
       )
     }
-    else{
+    else if(ARTICLES.news.type === 'video'){
+      return(
+        <View>
+          <Text>
+            Video
+          </Text>
+        </View>
+      )
+    }
+    else if(ARTICLES.news.type === 'quotes'){
+      return(
+        <View style={[styles.container,{backgroundColor:"white",justifyContent: 'center',alignItems:'center'}]}>
+          <View style={{padding:10}}>
+            <View>
+              <Text style={{fontSize:30,marginBottom:20,fontWeight:'bold',textDecorationColor:'#FF6263',textDecorationLine:'underline'}}>
+              Today's Quotes
+              </Text>
+            </View>
+            <View>
+          <Text style={{
+          alignSelf: 'flex-start',
+          fontSize:40,
+          color:'black',
+          fontStyle:'normal',
+          fontWeight:'600',
+          fontFamily:'Times New Roman',
+     
+          }}>
+            {ARTICLES.news.title} 
+          </Text>
+          <Text style={{alignSelf: 'flex-start',marginLeft:10,fontSize:30,fontWeight:'bold',marginTop:22,backgroundColor:'#FF6263',padding:2}}>
+            - {ARTICLES.news.by}
+          </Text>
+          </View>
+          </View>
+         
+        </View>
+      )
+    }
+    else if(ARTICLES.news.type === 'news'){
       return(
         // <Swipeable renderLeftActions={() => {goLive}}>
   
@@ -429,7 +468,7 @@ export default connect(mapStateToProps,null)(NewsCards);
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      width: '100%',
+      width: SCREEN_WIDTH,
       height: SCREEN_HEIGHT,
       backgroundColor: WHITE,
     },

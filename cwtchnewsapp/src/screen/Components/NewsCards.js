@@ -162,7 +162,7 @@ const NewsCards = (ARTICLES,authState) => {
 
           
            <FastImage
-              style={[styles.adsContainer,{flex:1}]}
+              style={styles.adsContainer}
               source={{
                 uri: ARTICLES.news.advertisment,
               }}

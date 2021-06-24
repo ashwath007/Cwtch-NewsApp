@@ -5,6 +5,7 @@ import {  FONT_SIZE_EXTRA_LARGE,
     FONT_SIZE_NORMAL,
     FONT_SIZE_LARGE,
     FONT_SIZE_SMALL,} from '../constants/Dimens';
+    import Video from 'react-native-video';
     import { SectionGrid,FlatGrid } from 'react-native-super-grid';
 import {GRAY, WHITE, DARK_GRAY, NEWS_TITLE} from '../constants/Colors';
 import Swipeable from 'react-native-gesture-handler/Swipeable'
@@ -145,7 +146,7 @@ const NewsCards = (ARTICLES,authState) => {
     ]
   
   
-
+    const [play, setPlay] = useState('');
   
 
   const goLive = () => {
@@ -176,10 +177,17 @@ const NewsCards = (ARTICLES,authState) => {
     }
     else if(ARTICLES.news.type === 'video'){
       return(
-        <View>
-          <Text>
-            Video
-          </Text>
+        <View style={[styles.container]}>
+          <View>
+          
+          <Video source={{uri: ARTICLES.news.pic}}   
+       ref={(ref) => {
+        setPlay(ref)
+       }}                                      
+       onBuffer={() => {console.log("Buffering....")}}                
+       onError={() => {}}               
+       style={styles.backgroundVideo} />
+          </View>
         </View>
       )
     }
@@ -613,7 +621,17 @@ const styles = StyleSheet.create({
 
 
 
+    backgroundVideo:{
+      position: 'absolute',
+      height:SCREEN_HEIGHT,
+      width:SCREEN_WIDTH,
+      top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
 
+  
+    },
     adsContainer: {
       height:SCREEN_HEIGHT,
       width:SCREEN_WIDTH,

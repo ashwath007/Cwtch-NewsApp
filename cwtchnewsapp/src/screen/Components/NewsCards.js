@@ -232,11 +232,29 @@ style={styles.backgroundVideo} />
  </View>
         ) : (
 
+          <View style={[styles.container,{justifyContent:'center',alignContent:'flex-end'}]}>
+            <Text
+            style={{
+              alignSelf: 'flex-end',
+              fontSize:20,
+              color:'black',
+              fontStyle:'normal',
+              fontWeight:'600',
+              fontFamily:'Times New Roman',
+              marginBottom:23
+              }}
+            >
+            We know you are intelligent, beacause you will share this app after seeing this
+            </Text>
+          
           <TouchableOpacity onPress={() => setvideoStatus(false)}>
-            <Text>
-              Plat Again
+            <Text style={{fontSize:30,marginBottom:20,fontWeight:'bold',color:'#FF6263',alignSelf:'flex-end',marginRight:8}}>
+              Play Again
             </Text>
           </TouchableOpacity>
+            </View>
+
+          
         )
 
         }

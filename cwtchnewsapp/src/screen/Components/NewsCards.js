@@ -19,7 +19,7 @@ import {
   } from '../constants/Constants';
   import uuid from 'react-native-uuid';
   import { TabBar } from 'react-native-tab-view';
-  import { Container, Header, Tab, Tabs, TabHeading, Icon } from 'native-base';
+  import { Container, Header, Tab, Tabs, TabHeading, Icon, Spinner } from 'native-base';
 import {TextInput} from 'react-native-paper'
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const SCREEN_HEIGHT = Dimensions.get("window").height;
@@ -205,7 +205,7 @@ const NewsCards = (ARTICLES,authState) => {
       // console.log("videoStatus", videoStatus);
       // if(videoStatus){
      return(
-      <View style={[styles.container]}>
+      <View style={[styles.container,{backgroundColor:'black'}]}>
         {!videoStatus ? (
  <View>
         
@@ -226,7 +226,9 @@ onEnd={() => {
 console.log("Ended");
 setvideoStatus(true)
 }}
-onBuffer={() => {console.log("Buffering....")}}                
+onBuffer={() => {console.log("Buffering....")
+//  return <Spinner accessibilityLabel="Loading posts" />
+}}                
 onError={() => {console.log("Error....")}}               
 style={styles.backgroundVideo} />
  </View>

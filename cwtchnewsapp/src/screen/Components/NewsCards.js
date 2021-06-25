@@ -185,7 +185,7 @@ const NewsCards = (ARTICLES,authState) => {
         <SafeAreaView
         
         >
-          <TouchableOpacity activeOpactity={1} onPress={() => Linking.openURL(ARTICLES.news.url)}>
+          <TouchableOpacity activeOpacity={1.0} onPress={() => Linking.openURL(ARTICLES.news.url)}>
 
           
            <FastImage

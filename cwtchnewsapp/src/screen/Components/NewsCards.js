@@ -29,9 +29,11 @@ import database from '@react-native-firebase/database'
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import MDIcon from "react-native-vector-icons/MaterialIcons";
 import {  DeckSwiper, Card, CardItem, Fab,Thumbnail, Left, Body, Button } from 'native-base';
-
+import { Viewport } from '@skele/components'
 import LottieView from 'lottie-react-native';
 
+
+const ViewportAwareVideo = Viewport.Aware(Video);
 
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
@@ -80,6 +82,23 @@ const NewsCards = (ARTICLES,authState) => {
 
   }
   
+  const [visible, setvisible] = useState(false);
+  // Heart of Video Pause or Play
+  const checkVisible = (isVisible) => {
+    if(isVisible){
+      if(visible){
+        setvisible(true)
+      }
+    }else{
+      if(visible){
+        setvisible(false)
+      }
+    }
+  }
+
+  //
+
+
 
   const sociailDetails = [
       {
@@ -148,6 +167,10 @@ const NewsCards = (ARTICLES,authState) => {
   
     const [play, setPlay] = useState('');
   
+    // ***************
+    const [videoStatus, setvideoStatus] = useState(false);
+    //
+
 
   const goLive = () => {
     return navigation.navigate("WebViews")
@@ -156,6 +179,8 @@ const NewsCards = (ARTICLES,authState) => {
     const [opinion, setopinion] = useState('');
 
     if(ARTICLES.news.type === 'ads'){
+      // setvideoStatus(false);
+
       return(
         <SafeAreaView
         
@@ -176,22 +201,73 @@ const NewsCards = (ARTICLES,authState) => {
       )
     }
     else if(ARTICLES.news.type === 'video'){
-      return(
-        <View style={[styles.container]}>
-          <View>
+      // setvideoStatus(true);
+      // console.log("videoStatus", videoStatus);
+      // if(videoStatus){
+     return(
+      <View style={[styles.container]}>
+        {!videoStatus ? (
+ <View>
+        
+ <Video source={{uri: ARTICLES.news.pic}}   
+ref={(ref) => {
+setPlay(ref)
+}}         
+pictureInPicture={true} 
+// fullscreen={true}
+onLoad={()=>{
+console.log("Load");
+setvideoStatus(false)
+
+}}
+playInBackground={false}
+repeat={false}                           
+onEnd={() => {
+console.log("Ended");
+setvideoStatus(true)
+}}
+onBuffer={() => {console.log("Buffering....")}}                
+onError={() => {console.log("Error....")}}               
+style={styles.backgroundVideo} />
+ </View>
+        ) : (
+
+          <TouchableOpacity onPress={() => setvideoStatus(false)}>
+            <Text>
+              Plat Again
+            </Text>
+          </TouchableOpacity>
+        )
+
+        }
+     
+     
+    </View>
+     )
+         
+        
+    //   }
+    //   else{
+    //     <View style={[styles.container]}>
+    //     <View>
           
-          <Video source={{uri: ARTICLES.news.pic}}   
-       ref={(ref) => {
-        setPlay(ref)
-       }}                                      
-       onBuffer={() => {console.log("Buffering....")}}                
-       onError={() => {}}               
-       style={styles.backgroundVideo} />
-          </View>
-        </View>
-      )
+    //     <Video source={{uri: ARTICLES.news.pic}}   
+    //  ref={(ref) => {
+    //   setPlay(ref)
+    //  }}          
+    //  playInBackground={false}    
+    //  paused={true}                 
+    //  onBuffer={() => {console.log("Buffering....")}}                
+    //  onError={() => {console.log("Error....")}}               
+    //  style={styles.backgroundVideo} />
+    //     </View>
+    //   </View>
+    //   }
+      
     }
     else if(ARTICLES.news.type === 'quotes'){
+      // setvideoStatus(false);
+
       return(
         <View style={[styles.container,{backgroundColor:"white",justifyContent: 'center',alignItems:'center'}]}>
           <View style={{padding:10}}>
@@ -222,6 +298,8 @@ const NewsCards = (ARTICLES,authState) => {
       )
     }
     else if(ARTICLES.news.type === 'news'){
+      // setvideoStatus(false);
+
       return(
         // <Swipeable renderLeftActions={() => {goLive}}>
   

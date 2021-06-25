@@ -244,7 +244,7 @@ style={styles.backgroundVideo} />
               marginBottom:23
               }}
             >
-            We know you are intelligent, beacause you will share this app after seeing this
+            We know you are intelligent, because you will share this app after seeing this
             </Text>
           
           <TouchableOpacity onPress={() => setvideoStatus(false)}>

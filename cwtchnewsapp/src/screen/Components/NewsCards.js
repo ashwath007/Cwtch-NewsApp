@@ -347,27 +347,29 @@ style={styles.backgroundVideo} />
             {/* <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> */}
               {/* {this.getByLineText()} */}
             {/* </Text> */}
-              <TouchableOpacity onPress={() => bottomSheetRef.current.open()}>
-                <Text style={{color:'#FF6263',fontSize:12}}>
-                    Interact
-                </Text>
+              <TouchableOpacity onLongPress={() => 
+              navigation.navigate('WebViews', {
+                url:ARTICLES.news.url
+            })
+              } style={{overflow: 'hidden', width : 55, height:100, alignSelf:'flex-end',marginTop:8,  borderTopLeftRadius:50, borderBottomLeftRadius:150,borderTopRightRadius:15, backgroundColor:'#FF6263'}} onPress={() => bottomSheetRef.current.open()}>
+                
               </TouchableOpacity>
             
 
-            <Fab
+            {/* <Fab
             active={active}
             direction="up"
             containerStyle={{ }}
-            style={{ backgroundColor: '#FF6263',height:40 }}
-            position="bottomRight"
-            // onPress={() => setactive(!active )}>
-            // onPress={() => navigation.navigate('WebViews', {
-            //     url:ARTICLES.news.url
-            // })}
+            style={{ backgroundColor: '#FF6263',height:40}}
+            position='bottomRight'
+            onPress={() => setactive(!active )}>
+            onPress={() => navigation.navigate('WebViews', {
+                url:ARTICLES.news.url
+            })}
             >
 
             <Icon name="share" />
-            {/* <Button style={{ backgroundColor: '#34A34F' }}>
+            <Button style={{ backgroundColor: '#34A34F' }}>
               <Icon name="logo-whatsapp" />
             </Button>
             <Button style={{ backgroundColor: '#3B5998' }}>
@@ -375,8 +377,8 @@ style={styles.backgroundVideo} />
             </Button>
             <Button disabled style={{ backgroundColor: '#DD5144' }}>
               <Icon name="mail" />
-            </Button> */}
-          </Fab>
+            </Button>
+          </Fab> */}
           
           </View>
   
@@ -396,7 +398,7 @@ style={styles.backgroundVideo} />
           ref={(el) => (bottomSheetRef.current = el)}
           closeOnDragDown={true}
           closeOnPressMask={true}
-          height={SCREEN_HEIGHT-300}
+          height={SCREEN_HEIGHT-400}
           customStyles={{
             wrapper: {
               backgroundColor: 'rgba(0.9, 0, 0, 0.4)',
@@ -414,7 +416,7 @@ style={styles.backgroundVideo} />
            
   
           <Tabs
-     
+          style={{elevation:0}}
           tabBarUnderlineStyle={{borderBottomWidth:2}}
         
           >
@@ -422,8 +424,8 @@ style={styles.backgroundVideo} />
               <ScrollView showsVerticalScrollIndicator={true}>
               <TouchableOpacity activeOpacity={1}>
               <View>
-  
-    {console.log("ARTICLE",ARTICLES.news.opinion)}
+              
+    {/* {console.log("ARTICLE",ARTICLES.news.opinion)} */}
             {(ARTICLES.news.opinion != undefined) ? (
                 <View>
                   {ARTICLES.news.opinion != undefined && Object.values(ARTICLES.news.opinion).map((op,index) => {
@@ -478,8 +480,9 @@ style={styles.backgroundVideo} />
               </ScrollView>
   
             </Tab>
-            <Tab heading={ <TabHeading style={{backgroundColor: 'white'}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
-            <ScrollView showsVerticalScrollIndicator={true}>
+            <Tab heading={ <TabHeading style={{backgroundColor: 'white',elevation:0}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
+            <ScrollView showsVerticalScrollIndicator={true} 
+            keyboardShouldPersistTaps="always"> 
               <TouchableOpacity activeOpacity={1}>
              <View style={{padding:10}}>
                 <Text style={styles.textHeading}>

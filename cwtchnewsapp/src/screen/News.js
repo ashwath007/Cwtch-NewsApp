@@ -97,6 +97,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               <NotificationController/>
 
         <View style={{flex: 1}}>
+          {console.log("News",newsState.news)}
           {/* {console.log("News",newsState.news)}
           {console.log("Auth",Object.values(authState))} */}
 {/* {          console.log("News --- --- -- -- ",newsState.news[indexAt].type)} */}
@@ -127,6 +128,13 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
             
             {/* </Swipeable> */}
             {/* </TouchableOpacity> */}
+            {/* <TouchableOpacity onLongPress={() => 
+              navigation.navigate('WebViews', {
+                url:ARTICLES.news.url
+            })
+              } style={{overflow: 'hidden', width : 55, height:100, alignSelf:'flex-end',marginTop:8,  borderTopLeftRadius:50, borderBottomLeftRadius:150,borderTopRightRadius:15, backgroundColor:'#FF6263'}} onPress={() => bottomSheetRef.current.open()}>
+                
+              </TouchableOpacity> */}
           </View>
          
         

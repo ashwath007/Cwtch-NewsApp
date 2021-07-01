@@ -1,4 +1,4 @@
-import React,{useRef,useEffect,useState} from 'react';
+import React,{useRef,useEffect,useCallback,useState} from 'react';
 import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView,TouchableHighlight,Image,Linking , BackHandler} from 'react-native';
 import FastImage from 'react-native-fast-image'
 import {  FONT_SIZE_EXTRA_LARGE,
@@ -31,8 +31,7 @@ import MDIcon from "react-native-vector-icons/MaterialIcons";
 import {  DeckSwiper, Card, CardItem, Fab,Thumbnail, Left, Body, Button } from 'native-base';
 import { Viewport } from '@skele/components'
 import LottieView from 'lottie-react-native';
-
-
+import YoutubePlayer from "react-native-youtube-iframe";
 const ViewportAwareVideo = Viewport.Aware(Video);
 
 const NewsCards = (ARTICLES,authState) => {
@@ -171,7 +170,18 @@ const NewsCards = (ARTICLES,authState) => {
     const [videoStatus, setvideoStatus] = useState(false);
     const [videoLoading, setvideoLoading] = useState(false);
     //
+    const [playing, setPlaying] = useState(false);
 
+    const onStateChange = useCallback((state) => {
+      if (state === "ended") {
+        setPlaying(false);
+        Alert.alert("video has finished playing!");
+      }
+    }, []);
+  
+    const togglePlaying = useCallback(() => {
+      setPlaying((prev) => !prev);
+    }, []);
 
   const goLive = () => {
     return navigation.navigate("WebViews")
@@ -205,11 +215,57 @@ const NewsCards = (ARTICLES,authState) => {
       // setvideoStatus(true);
       // console.log("videoStatus", videoStatus);
       // if(videoStatus){
-     return(
-      <View style={[styles.container]}>
-        
-    </View>
-     )
+        return(
+          // <Swipeable renderLeftActions={() => {goLive}}>
+    
+     <View style={[styles.container,{backgroundColor:'#E2E2E2'}]}>
+         {/* {console.log("news -> ",ARTICLES.news)}
+         {console.log("user -> ",ARTICLES.authState.user)} */}
+    
+    
+            <View style={styles.vtop}>
+            <YoutubePlayer
+        height={400}
+        play={true}
+        videoId={"iee2TATGMyI"}
+        onChangeState={onStateChange}
+      />
+            </View>
+                
+            <View style={[styles.vmiddle, styles.contentPadding,{margin:10}]}>
+                  <View style={{flexDirection:'column'}}>
+                    <View>
+                    <View style={{flexDirection:'row'}}>
+                <View style={{height:50,width:6,borderRadius:15,backgroundColor:'#FF8D8D',marginTop:20,marginRight:5}}/>
+              <Text style={styles.title}>{ARTICLES.news.newsTitle}</Text>
+  
+              </View>
+              <Text style={styles.description}
+              numberOfLines={9} 
+              
+              >{ARTICLES.news.newsDetails}</Text>
+              {/* <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> */}
+                {/* {this.getByLineText()} */}
+              {/* </Text> */}
+                    </View>
+                  <View>
+                 
+                  </View>
+              
+  
+                  </View>
+  
+  
+  
+  
+            
+            </View>
+    
+            
+            </View> 
+            // </Swipeable>
+       
+        )
          
         
     //   }
@@ -601,6 +657,9 @@ const styles = StyleSheet.create({
       backgroundColor: WHITE,
       flex: 3,
     },
+    vtop: {
+      flex: 3,
+    },
     topp: {
       backgroundColor: WHITE,
       flex: 8,
@@ -621,6 +680,10 @@ const styles = StyleSheet.create({
     middle: {
       backgroundColor: WHITE,
       flex: 5,
+    },
+    vmiddle: {
+      backgroundColor: WHITE,
+      flex: 6,
     },
     footer: {
       flex: 0.9,

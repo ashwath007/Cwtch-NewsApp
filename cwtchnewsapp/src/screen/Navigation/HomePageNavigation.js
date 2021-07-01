@@ -28,7 +28,7 @@ initialRouteName="News"
 swipeVelocityImpact='0.1'
 tabBarOptions={{
         indicatorStyle: {
-                height: 3,
+                height: 0,
                 backgroundColor: '#FF6263',
      
             },

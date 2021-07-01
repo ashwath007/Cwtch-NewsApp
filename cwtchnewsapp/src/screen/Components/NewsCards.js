@@ -227,7 +227,8 @@ const NewsCards = (ARTICLES,authState) => {
             <YoutubePlayer
         height={400}
         play={true}
-        videoId={"iee2TATGMyI"}
+        mute={true}
+        videoId={ARTICLES.news.url}
         onChangeState={onStateChange}
       />
             </View>

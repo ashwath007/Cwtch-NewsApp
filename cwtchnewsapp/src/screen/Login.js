@@ -34,7 +34,7 @@ import {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
   import { Container, Header, Content, Spinner } from 'native-base';
-
+  import LottieView from 'lottie-react-native';
 
   const CELL_COUNT = 6;
   const Login = ({googleSignIn,authState,phoneSignIn,verifyPhone}) => {
@@ -178,34 +178,15 @@ import {
           )
         }
         else{ return(
-
-      
-          <View style={styles.lbody}>
-            <Avatar.Image size={100} source={LOGO} style={{alignSelf:'center',marginTop:50}}/>
-            <Text style={{fontFamily:'poppins',fontSize:18,alignSelf:'center',marginTop:12}}>
-
-              Oii Signin fast...
-            </Text>
-              <GoogleSigninButton onPress={() => {
+<View style={{height:windowHeight,width:windowWidth,backgroundColor:'#fff'}}>
+                <LottieView source={require('./src/userex.json')} autoPlay loop />
+                <GoogleSigninButton onPress={() => {
                 googleSignIn()
                 setloading(true)
-              }} style={{alignSelf:'center',marginTop:52}}/>
-
-              <Text style={{fontFamily:'poppins',fontSize:18,alignSelf:'center',marginTop:12}}>
-
-or
-</Text>
-              {/* <View style={{marginTop:50,padding:20}}>
-                  <TextInput 
-                  keyboardType='phone-pad'
-                  placeholder="Enter the phone number" style={{height:40,marginBottom:15}} onChangeText={(t) => setphone(t)} defaultValue={phone}/>
-                  <Button icon="login" mode="contained" onPress={doPhoneSignin}>
-    Press me
-  </Button>
-                  
-                
-              </View> */}
-          </View>
+              }} style={{alignSelf:"center",alignContent:"flex-end",bottom:0}}/>
+            </View>
+      
+         
         )}
       }
 

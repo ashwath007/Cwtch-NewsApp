@@ -515,6 +515,23 @@ const NewsCards = (ARTICLES,authState) => {
           </View>
               
           <View style={[styles.middle, styles.contentPadding]}>
+            <View style={{flexDirection:'row'}}>
+            <View style={{marginRight:8,backgroundColor:'#5DA3FA',alignSelf:'flex-start',padding:4,marginTop:12,borderRadius:4,flexDirection:'row',alignContent:'space-between'}}>
+            
+            <Text style={{color:'white',fontSize:18,fontWeight:'bold'}}>Headlines</Text>
+
+
+            </View>
+            <View style={{ backgroundColor:'#E07C24',alignSelf:'flex-start',padding:4,marginTop:12,borderRadius:4,flexDirection:'row',alignContent:'space-between'}}>
+            
+            <Text style={{color:'white',fontSize:18,fontWeight:'bold'}}>{ARTICLES.news.core}</Text>
+
+            </View>
+            
+            </View>
+           
+
+
             <Text style={styles.titlee}>{ARTICLES.news.newsTitle}</Text>
             <Text style={styles.hfrom}>{ARTICLES.news.from}</Text>
 

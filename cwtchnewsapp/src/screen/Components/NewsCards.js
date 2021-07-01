@@ -269,7 +269,7 @@ const NewsCards = (ARTICLES,authState) => {
       return(
         // <Swipeable renderLeftActions={() => {goLive}}>
   
-   <View style={styles.container}>
+   <View style={[styles.container,{backgroundColor:'#D3D3D3'}]}>
        {/* {console.log("news -> ",ARTICLES.news)}
        {console.log("user -> ",ARTICLES.authState.user)} */}
   
@@ -284,7 +284,7 @@ const NewsCards = (ARTICLES,authState) => {
             />
           </View>
               
-          <View style={[styles.middle, styles.contentPadding]}>
+          <View style={[styles.middle, styles.contentPadding,{margin:12}]}>
             <Text style={styles.title}>{ARTICLES.news.newsTitle}</Text>
             <Text style={styles.description}
             numberOfLines={9} 
@@ -576,7 +576,7 @@ const styles = StyleSheet.create({
     },
     top: {
       backgroundColor: WHITE,
-      flex: 2.5,
+      flex: 3,
     },
     topp: {
       backgroundColor: WHITE,

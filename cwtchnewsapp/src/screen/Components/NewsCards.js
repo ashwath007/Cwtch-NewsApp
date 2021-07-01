@@ -169,6 +169,7 @@ const NewsCards = (ARTICLES,authState) => {
   
     // ***************
     const [videoStatus, setvideoStatus] = useState(false);
+    const [videoLoading, setvideoLoading] = useState(false);
     //
 
 
@@ -205,63 +206,8 @@ const NewsCards = (ARTICLES,authState) => {
       // console.log("videoStatus", videoStatus);
       // if(videoStatus){
      return(
-      <View style={[styles.container,{backgroundColor:'black'}]}>
-        {!videoStatus ? (
- <View>
+      <View style={[styles.container]}>
         
- <Video source={{uri: ARTICLES.news.pic}}   
-ref={(ref) => {
-setPlay(ref)
-}}         
-pictureInPicture={true} 
-// fullscreen={true}
-onLoad={()=>{
-console.log("Load");
-setvideoStatus(false)
-
-}}
-playInBackground={false}
-repeat={false}                           
-onEnd={() => {
-console.log("Ended");
-setvideoStatus(true)
-}}
-onBuffer={() => {console.log("Buffering....")
-//  return <Spinner accessibilityLabel="Loading posts" />
-}}                
-onError={() => {console.log("Error....")}}               
-style={styles.backgroundVideo} />
- </View>
-        ) : (
-
-          <View style={[styles.container,{justifyContent:'center',alignContent:'flex-end'}]}>
-            <Text
-            style={{
-              alignSelf: 'flex-end',
-              fontSize:20,
-              color:'black',
-              fontStyle:'normal',
-              fontWeight:'600',
-              fontFamily:'Times New Roman',
-              marginBottom:23
-              }}
-            >
-            We know you are intelligent, because you will share this app after seeing this
-            </Text>
-          
-          <TouchableOpacity onPress={() => setvideoStatus(false)}>
-            <Text style={{fontSize:30,marginBottom:20,fontWeight:'bold',color:'#FF6263',alignSelf:'flex-end',marginRight:8}}>
-              Play Again
-            </Text>
-          </TouchableOpacity>
-            </View>
-
-          
-        )
-
-        }
-     
-     
     </View>
      )
          
@@ -347,11 +293,7 @@ style={styles.backgroundVideo} />
             {/* <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> */}
               {/* {this.getByLineText()} */}
             {/* </Text> */}
-              <TouchableOpacity onLongPress={() => 
-              navigation.navigate('WebViews', {
-                url:ARTICLES.news.url
-            })
-              } style={{overflow: 'hidden', width : 55, height:100, alignSelf:'flex-end',marginTop:8,  borderTopLeftRadius:50, borderBottomLeftRadius:150,borderTopRightRadius:15, backgroundColor:'#FF6263'}} onPress={() => bottomSheetRef.current.open()}>
+              <TouchableOpacity style={{overflow: 'hidden', width : 55, height:100, alignSelf:'flex-end',marginTop:8,  borderTopLeftRadius:50, borderBottomLeftRadius:150,borderTopRightRadius:15, backgroundColor:'#FF6263'}} onPress={() => bottomSheetRef.current.open()}>
                 
               </TouchableOpacity>
             
@@ -555,6 +497,40 @@ style={styles.backgroundVideo} />
      
       )
     }
+    else if(ARTICLES.news.type === 'heading'){
+      return(
+        // <Swipeable renderLeftActions={() => {goLive}}>
+  
+   <View style={styles.container}>
+       {/* {console.log("news -> ",ARTICLES.news)}
+       {console.log("user -> ",ARTICLES.authState.user)} */}
+          <View style={styles.topp}>
+            <FastImage
+              style={{flex: 1}}
+              source={{
+                uri: ARTICLES.news.pic,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+          </View>
+              
+          <View style={[styles.middle, styles.contentPadding]}>
+            <Text style={styles.titlee}>{ARTICLES.news.newsTitle}</Text>
+            <Text style={styles.hfrom}>{ARTICLES.news.from}</Text>
+
+           
+        
+              
+        
+          
+          </View>
+  
+         
+          </View> 
+          // </Swipeable>
+     
+      )
+    }
 
   
 }
@@ -584,6 +560,23 @@ const styles = StyleSheet.create({
     top: {
       backgroundColor: WHITE,
       flex: 2.5,
+    },
+    topp: {
+      backgroundColor: WHITE,
+      flex: 8,
+    },
+    titlee: {
+      fontFamily: FONT_REGULAR,
+      fontWeight: 'bold',
+      fontSize: FONT_SIZE_EXTRA_LARGE+2,
+      marginTop: 15,
+    },
+    hfrom:{
+      fontFamily: FONT_REGULAR,
+      color:'#3944F7',
+      fontWeight:'800',
+      fontSize:15,
+      marginTop:8
     },
     middle: {
       backgroundColor: WHITE,

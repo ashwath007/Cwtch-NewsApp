@@ -5,16 +5,14 @@
 
   const OS = Platform.OS;
   const fontFamilies =
-      OS === 'android' ?
-      {
-          thin: 'Roboto-Thin',
-          light: 'Roboto-Light',
-          regular: 'Roboto-Regular',
-          medium: 'Roboto-Medium',
-          bold: 'Roboto-Bold',
-          black: 'Roboto-Black',
-      } :
-      {
+      OS === 'android' ? {
+          thin: 'Gilroy-Thin',
+          light: 'Gilroy-Light',
+          regular: 'Gilroy-Medium',
+          medium: 'Gilroy-Medium',
+          bold: 'Gilroy-Bold',
+          black: 'Gilroy-Regular-Black',
+      } : {
           thin: 'System',
           light: 'System',
           regular: 'System',

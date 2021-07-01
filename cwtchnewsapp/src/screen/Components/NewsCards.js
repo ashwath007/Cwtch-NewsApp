@@ -238,18 +238,17 @@ const NewsCards = (ARTICLES,authState) => {
         <View style={[styles.container,{backgroundColor:"white",justifyContent: 'center',alignItems:'center'}]}>
           <View style={{padding:10}}>
             <View>
-              <Text style={{fontSize:30,marginBottom:20,fontWeight:'bold',textDecorationColor:'#FF6263',textDecorationLine:'underline'}}>
+              <Text style={{fontFamily:'Gilroy-Bold',fontSize:30,marginBottom:20,textDecorationColor:'#FF6263',textDecorationLine:'underline'}}>
               Today's Quotes
               </Text>
             </View>
             <View>
           <Text style={{
           alignSelf: 'flex-start',
-          fontSize:40,
+          fontSize:30,
           color:'black',
           fontStyle:'normal',
-          fontWeight:'600',
-          fontFamily:'Times New Roman',
+          fontFamily:'Gilroy-Medium',
      
           }}>
             {ARTICLES.news.title} 
@@ -633,8 +632,7 @@ const styles = StyleSheet.create({
       paddingHorizontal: 12,
     },
     title: {
-      fontFamily: FONT_REGULAR,
-      fontWeight: '400',
+      fontFamily: 'Gilroy-Bold',
       fontSize: FONT_SIZE_EXTRA_LARGE,
       marginTop: 12,
     },

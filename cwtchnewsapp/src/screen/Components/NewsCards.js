@@ -285,8 +285,10 @@ const NewsCards = (ARTICLES,authState) => {
           </View>
               
           <View style={[styles.middle, styles.contentPadding,{margin:10}]}>
-            <View style={{flexDirection:'row'}}>
-              <View style={{height:50,width:8,backgroundColor:'#FF8D8D',marginTop:20,marginRight:3}}/>
+                <View style={{flexDirection:'column'}}>
+                  <View>
+                  <View style={{flexDirection:'row'}}>
+              <View style={{height:50,width:6,borderRadius:15,backgroundColor:'#FF8D8D',marginTop:20,marginRight:5}}/>
             <Text style={styles.title}>{ARTICLES.news.newsTitle}</Text>
 
             </View>
@@ -297,10 +299,28 @@ const NewsCards = (ARTICLES,authState) => {
             {/* <Text style={styles.byLine} numberOfLines={1} ellipsizeMode="tail"> */}
               {/* {this.getByLineText()} */}
             {/* </Text> */}
-              <TouchableOpacity style={{overflow: 'hidden', width : 55, height:100, alignSelf:'flex-end',marginTop:8,  borderTopLeftRadius:50, borderBottomLeftRadius:150,borderTopRightRadius:15, backgroundColor:'#FF6263'}} onPress={() => bottomSheetRef.current.open()}>
-                
+                  </View>
+                <View>
+                <TouchableOpacity style={{ flex: 1,
+              alignSelf:'flex-end',
+                  marginTop:12,
+        position: 'absolute',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        backgroundColor: 'transparent'}} 
+        onPress={() => bottomSheetRef.current.open()}>
+                <Image source={require('./src/press.png')}  style={styles.img}/>
               </TouchableOpacity>
+                </View>
             
+
+                </View>
+
+
+
+
+           
+              
 
             {/* <Fab
             active={active}

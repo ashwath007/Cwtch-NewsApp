@@ -183,7 +183,7 @@ import {
                 <GoogleSigninButton onPress={() => {
                 googleSignIn()
                 setloading(true)
-              }} style={{alignSelf:"center",alignContent:"flex-end",bottom:0}}/>
+              }} style={{alignSelf:"center",alignContent:"flex-end",position:'absolute',bottom:20}}/>
             </View>
       
          

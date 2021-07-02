@@ -25,7 +25,7 @@ import {TextInput} from 'react-native-paper'
   const SCREEN_HEIGHT = Dimensions.get("window").height;
 import propType from 'prop-types'
 import { connect } from 'react-redux';
-import database from '@react-native-firebase/database'
+import database, { firebase } from '@react-native-firebase/database'
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import MDIcon from "react-native-vector-icons/MaterialIcons";
 import {  DeckSwiper, Card, CardItem, Fab,Thumbnail, Left, Body, Button } from 'native-base';
@@ -39,6 +39,40 @@ const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
   const [active, setactive] = useState(false);
   
+
+
+  const yesPressed = () => {
+    console.log("yes");
+    let TEMP = 0;
+        firebase.database().ref(`/news/${ARTICLES.news.id}`).on('value' , snap => {
+            if(snap.val()){
+              console.log("Yes Poll ********************  ", snap.val().yespoll);
+              TEMP = snap.val().yespoll
+              TEMP = TEMP + 1;
+              console.log(TEMP);
+              
+            }
+            else{
+              console.log("Error");
+            }
+        }).then(() => {
+          console.log('TEMP',TEMP);
+          firebase.database().ref(`/news/${ARTICLES.news.id}`).update({
+            yespoll:TEMP
+          }).then(() => {
+            console.log("Yes done");
+            
+          })
+        })
+          
+
+}
+
+const noPressed = () => {
+
+}
+
+
   useEffect(() => {
     const backAction = () => {
       setactive(false)
@@ -99,13 +133,6 @@ const NewsCards = (ARTICLES,authState) => {
   //
 
 
-  const yesPressed = () => {
-
-  }
-
-  const noPressed = () => {
-
-  }
 
   const sociailDetails = [
       {
@@ -381,9 +408,11 @@ const NewsCards = (ARTICLES,authState) => {
                 </View>
                 </View>
                 {ARTICLES.news.polling ? (
-                              <View style={{position: 'absolute', bottom: 0,alignSelf:'center',marginBottom:40}}>
+                              <View style={{position: 'absolute', bottom: 40,alignSelf:'center'}}>
                               <Text style={{
                                 fontSize:15,
+                                marginLeft:20,
+                                alignSelf:'center',
                                 fontFamily:'Gilroy-Bold',
                                 marginBottom:8
                             }}>
@@ -401,7 +430,7 @@ const NewsCards = (ARTICLES,authState) => {
                                 
                               <View style={{flexDirection:'row',justifyContent:'space-around'}}>
                                 <TouchableOpacity style={{backgroundColor:'#D3D3D3',height:30,width:80,justifyContent:'center'}}
-                                  onPress={() => noPressed()}
+                                  onPress={() => noPressed}
                                 
                                 >
                                   <Text style={{color:'#000000',alignSelf:'center',justifyContent:'center',alignItems:'center'}}>
@@ -640,6 +669,7 @@ const NewsCards = (ARTICLES,authState) => {
      
       )
     }
+    
 
   
 }

@@ -30,6 +30,7 @@ import FAIcon from "react-native-vector-icons/FontAwesome";
 import MDIcon from "react-native-vector-icons/MaterialIcons";
 import {  DeckSwiper, Card, CardItem, Fab,Thumbnail, Left, Body, Button } from 'native-base';
 import { Viewport } from '@skele/components'
+import * as Progress from 'react-native-progress';
 import LottieView from 'lottie-react-native';
 import YoutubePlayer from "react-native-youtube-iframe";
 const ViewportAwareVideo = Viewport.Aware(Video);
@@ -98,6 +99,13 @@ const NewsCards = (ARTICLES,authState) => {
   //
 
 
+  const yesPressed = () => {
+
+  }
+
+  const noPressed = () => {
+    
+  }
 
   const sociailDetails = [
       {
@@ -322,12 +330,15 @@ const NewsCards = (ARTICLES,authState) => {
     else if(ARTICLES.news.type === 'news'){
       // setvideoStatus(false);
 
+
+
+
+
       return(
-        // <Swipeable renderLeftActions={() => {goLive}}>
+        
   
    <View style={[styles.container,{backgroundColor:'#E2E2E2'}]}>
-       {/* {console.log("news -> ",ARTICLES.news)}
-       {console.log("user -> ",ARTICLES.authState.user)} */}
+
   
   
           <View style={styles.top}>
@@ -368,54 +379,55 @@ const NewsCards = (ARTICLES,authState) => {
                 <Image source={require('./src/press.png')}  style={styles.img}/>
               </TouchableOpacity>
                 </View>
-            
-
                 </View>
+                {ARTICLES.news.polling ? (
+                              <View style={{position: 'absolute', bottom: 0,alignSelf:'center',marginBottom:40}}>
+                              <Text style={{
+                                fontSize:15,
+                                fontFamily:'Gilroy-Bold',
+                                marginBottom:8
+                            }}>
+                                {ARTICLES.news.polling}</Text>
+                                <View style={{padding:4}}>
+                                <Progress.Bar 
+                                progress={0.3} 
+                                width={200}
+                                height={10}
+                                borderRadius={15}
+                                color="#383CC1"
+                                animated={true}
+                                />
+                                  </View>
+                                
+                              <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+                                <TouchableOpacity style={{backgroundColor:'#D3D3D3',height:30,width:80,justifyContent:'center'}}
+                                  onPress={() => noPressed()}
+                                
+                                >
+                                  <Text style={{color:'#000000',alignSelf:'center',justifyContent:'center',alignItems:'center'}}>
+                                    No
+                                  </Text>
+                                </TouchableOpacity>
 
+                                <TouchableOpacity style={{backgroundColor:'#4F60FF',height:30,width:80,justifyContent:'center'}}
+                                
+                                  onPress={() => yesPressed()}
+                                >
+                                  <Text style={{color:'#ffffff',alignSelf:'center',alignItems:'center'}}>
+                                    Yes
+                                  </Text>
+                                </TouchableOpacity>
+                                </View> 
+                            </View>
+                ) : (
+                        null
+                )
 
-
-
-           
-              
-
-            {/* <Fab
-            active={active}
-            direction="up"
-            containerStyle={{ }}
-            style={{ backgroundColor: '#FF6263',height:40}}
-            position='bottomRight'
-            onPress={() => setactive(!active )}>
-            onPress={() => navigation.navigate('WebViews', {
-                url:ARTICLES.news.url
-            })}
-            >
-
-            <Icon name="share" />
-            <Button style={{ backgroundColor: '#34A34F' }}>
-              <Icon name="logo-whatsapp" />
-            </Button>
-            <Button style={{ backgroundColor: '#3B5998' }}>
-              <Icon name="logo-facebook" />
-            </Button>
-            <Button disabled style={{ backgroundColor: '#DD5144' }}>
-              <Icon name="mail" />
-            </Button>
-          </Fab> */}
-          
+                }
+             
           </View>
   
-          {/* <View style={[styles.footer, styles.contentPadding]}>
-            <Text
-              style={styles.footerTitle}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-            </Text>
-            <Text
-              style={styles.footerSubtitle}
-              numberOfLines={1}
-              ellipsizeMode="tail">
-            </Text>
-          </View> */}
+
             <RBSheet
           ref={(el) => (bottomSheetRef.current = el)}
           closeOnDragDown={true}

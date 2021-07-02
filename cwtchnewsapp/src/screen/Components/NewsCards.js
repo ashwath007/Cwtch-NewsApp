@@ -104,7 +104,7 @@ const NewsCards = (ARTICLES,authState) => {
   }
 
   const noPressed = () => {
-    
+
   }
 
   const sociailDetails = [
@@ -668,7 +668,7 @@ const styles = StyleSheet.create({
     },
     top: {
       backgroundColor: WHITE,
-      flex: 3,
+      flex: 2.5,
     },
     vtop: {
       flex: 3,

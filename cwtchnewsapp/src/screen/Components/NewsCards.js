@@ -50,19 +50,19 @@ const NewsCards = (ARTICLES,authState) => {
               TEMP = snap.val().yespoll
               TEMP = TEMP + 1;
               console.log(TEMP);
+              console.log('TEMP',TEMP);
+              firebase.database().ref(`/news/${ARTICLES.news.id}`).update({
+                yespoll:TEMP
+              }).then(() => {
+                console.log("Yes done");
+           
+              })
               
             }
             else{
+              
               console.log("Error");
             }
-        }).then(() => {
-          console.log('TEMP',TEMP);
-          firebase.database().ref(`/news/${ARTICLES.news.id}`).update({
-            yespoll:TEMP
-          }).then(() => {
-            console.log("Yes done");
-            
-          })
         })
           
 
@@ -407,52 +407,7 @@ const noPressed = () => {
               </TouchableOpacity>
                 </View>
                 </View>
-                {ARTICLES.news.polling ? (
-                              <View style={{position: 'absolute', bottom: 40,alignSelf:'center'}}>
-                              <Text style={{
-                                fontSize:15,
-                                marginLeft:20,
-                                alignSelf:'center',
-                                fontFamily:'Gilroy-Bold',
-                                marginBottom:8
-                            }}>
-                                {ARTICLES.news.polling}</Text>
-                                <View style={{padding:4}}>
-                                <Progress.Bar 
-                                progress={0.3} 
-                                width={200}
-                                height={10}
-                                borderRadius={15}
-                                color="#383CC1"
-                                animated={true}
-                                />
-                                  </View>
-                                
-                              <View style={{flexDirection:'row',justifyContent:'space-around'}}>
-                                <TouchableOpacity style={{backgroundColor:'#D3D3D3',height:30,width:80,justifyContent:'center'}}
-                                  onPress={() => noPressed}
-                                
-                                >
-                                  <Text style={{color:'#000000',alignSelf:'center',justifyContent:'center',alignItems:'center'}}>
-                                    No
-                                  </Text>
-                                </TouchableOpacity>
-
-                                <TouchableOpacity style={{backgroundColor:'#4F60FF',height:30,width:80,justifyContent:'center'}}
-                                
-                                  onPress={() => yesPressed()}
-                                >
-                                  <Text style={{color:'#ffffff',alignSelf:'center',alignItems:'center'}}>
-                                    Yes
-                                  </Text>
-                                </TouchableOpacity>
-                                </View> 
-                            </View>
-                ) : (
-                        null
-                )
-
-                }
+           
              
           </View>
   

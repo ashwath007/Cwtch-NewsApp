@@ -10,6 +10,7 @@ import { Image,StyleSheet, Dimensions,
 import { Container, Header, DeckSwiper, Card, CardItem,View, Fab,Thumbnail, Text, Left, Body, Icon,Button } from 'native-base';
 import Carousel from 'react-native-snap-carousel';
 import propType from 'prop-types'
+import * as Progress from 'react-native-progress';
 
 
 import {getAllNews} from '../action/news'
@@ -76,6 +77,41 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
         );
       }
 
+
+
+
+      const yesPressed = () => {
+        console.log("yes");
+        let TEMP = 0;
+            firebase.database().ref(`/news/${ARTICLES.news.id}`).on('value' , snap => {
+                if(snap.val()){
+                  console.log("Yes Poll ********************  ", snap.val().yespoll);
+                  TEMP = snap.val().yespoll
+                  TEMP = TEMP + 1;
+                  console.log(TEMP);
+                  console.log('TEMP',TEMP);
+                  firebase.database().ref(`/news/${ARTICLES.news.id}`).update({
+                    yespoll:TEMP
+                  }).then(() => {
+                    console.log("Yes done");
+               
+                  })
+                  
+                }
+                else{
+                  
+                  console.log("Error");
+                }
+            })
+              
+    
+    }
+    
+    const noPressed = () => {
+    
+    }
+    
+
       const handleEndReached = () => {
             return( 
                <Text>
@@ -97,7 +133,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               <NotificationController/>
 
         <View style={{flex: 1}}>
-          {console.log("News",newsState.news)}
+          {console.log("News",newsState.news[0].polling)}
           {/* {console.log("News",newsState.news)}
           {console.log("Auth",Object.values(authState))} */}
 {/* {          console.log("News --- --- -- -- ",newsState.news[indexAt].type)} */}
@@ -125,6 +161,55 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               onSnapToItem={(index) => setindexAt(index)}
               // ListEmptyComponent={<ShortsLoader />}
             /> 
+
+            {newsState.news[indexAt].polling ? (
+                              <View style={{position: 'absolute', bottom: 40,alignSelf:'center'}}>
+                              <Text style={{
+                                fontSize:15,
+                                marginLeft:20,
+                                alignSelf:'center',
+                                fontFamily:'Gilroy-Bold',
+                                marginBottom:8
+                            }}>
+                                {newsState.news[0].polling}</Text>
+                                <View style={{padding:4}}>
+                                <Progress.Bar 
+                                progress={0.3} 
+                                width={200}
+                                height={10}
+                                borderRadius={15}
+                                color="#383CC1"
+                                animated={true}
+                                />
+                                  </View>
+                                
+                              <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+                                <TouchableOpacity style={{backgroundColor:'#D3D3D3',height:30,width:80,justifyContent:'center'}}
+                                  onPress={() => noPressed}
+                                
+                                >
+                                  <Text style={{color:'#000000',alignSelf:'center',justifyContent:'center',alignItems:'center'}}>
+                                    No
+                                  </Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={{backgroundColor:'#4F60FF',height:30,width:80,justifyContent:'center'}}
+                                
+                                  onPress={() => yesPressed()}
+                                >
+                                  <Text style={{color:'#ffffff',alignSelf:'center',alignItems:'center'}}>
+                                    Yes
+                                  </Text>
+                                </TouchableOpacity>
+                                </View> 
+                            </View>
+             
+                
+            ) : (
+                  null
+            )
+
+            }
             
             {/* </Swipeable> */}
             {/* </TouchableOpacity> */}

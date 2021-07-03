@@ -168,7 +168,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
                     null
                   ) : (
                     <TouchableOpacity
-                      onPress={() => navigation.navigate("WebViews",newsState.news[indexAt].url )}
+                      onPress={() => navigation.navigate("WebViews",{url:newsState.news[indexAt].url} )}
                       style={{position:'absolute',bottom:0,height:30,width:SCREEN_WIDTH,backgroundColor:'#FF6263',justifyContent:'center'}}
                     >
                         <Text

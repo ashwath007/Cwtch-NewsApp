@@ -133,7 +133,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               <NotificationController/>
 
         <View style={{flex: 1}}>
-          {console.log("News",newsState.news[0].polling)}
+          {/* {console.log("News",} */}
           {/* {console.log("News",newsState.news)}
           {console.log("Auth",Object.values(authState))} */}
 {/* {          console.log("News --- --- -- -- ",newsState.news[indexAt].type)} */}
@@ -162,6 +162,18 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               // ListEmptyComponent={<ShortsLoader />}
             /> 
 
+            {(newsState.news[indexAt].type === 'news'  || newsState.news[indexAt].type === 'video') ? (
+                <TouchableOpacity>
+                  <Text style={{alignSelf:'center',bottom:100}}>
+                    Read more
+                  </Text>
+                </TouchableOpacity>
+            ) : (
+              null
+            )  
+
+            }
+
             {newsState.news[indexAt].polling ? (
                               <View style={{position: 'absolute', bottom: 40,alignSelf:'center'}}>
                               <Text style={{
@@ -185,7 +197,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
                                 
                               <View style={{flexDirection:'row',justifyContent:'space-around'}}>
                                 <TouchableOpacity style={{backgroundColor:'#D3D3D3',height:30,width:80,justifyContent:'center'}}
-                                  onPress={() => noPressed}
+                                  onPress={() => noPressed()}
                                 
                                 >
                                   <Text style={{color:'#000000',alignSelf:'center',justifyContent:'center',alignItems:'center'}}>

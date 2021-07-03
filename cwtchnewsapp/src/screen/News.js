@@ -163,11 +163,22 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
             /> 
 
             {(newsState.news[indexAt].type === 'news'  || newsState.news[indexAt].type === 'video') ? (
-                <TouchableOpacity>
-                  <Text style={{alignSelf:'center',bottom:100}}>
-                    Read more
-                  </Text>
-                </TouchableOpacity>
+                <View>
+                  {newsState.news[indexAt].polling ? (
+                    null
+                  ) : (
+                    <TouchableOpacity
+                      style={{position:'absolute',bottom:0,height:30,width:SCREEN_WIDTH,backgroundColor:'#FF6263',justifyContent:'center'}}
+                    >
+                        <Text
+                          style={{alignSelf:'center',color:'#fff'}}
+                        >Read now</Text>
+                    </TouchableOpacity>
+                  )
+
+                  }
+                  </View>
+                
             ) : (
               null
             )  

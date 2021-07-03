@@ -161,7 +161,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               // ListEmptyComponent={<ShortsLoader />}
             /> 
 
-            {newsState.news[indexAt] != null && (newsState.news[indexAt].type === 'news'  || newsState.news[indexAt].type === 'video') ? (
+            {(newsState.news != null) && (newsState.news[indexAt].type === 'news'  || newsState.news[indexAt].type === 'video') ? (
                 <View>
                   {newsState.news[indexAt].polling ? (
                     null
@@ -185,7 +185,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
 
             }
 
-            {newsState.news[indexAt] != null && newsState.news[indexAt].polling ? (
+            {(newsState.news != null && newsState.news[indexAt].polling) ? (
                               <View style={{position: 'absolute', bottom: 40,alignSelf:'center'}}>
                               <Text style={{
                                 fontSize:15,

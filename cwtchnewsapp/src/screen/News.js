@@ -11,6 +11,7 @@ import { Container, Header, DeckSwiper, Card, CardItem,View, Fab,Thumbnail, Text
 import Carousel from 'react-native-snap-carousel';
 import propType from 'prop-types'
 import * as Progress from 'react-native-progress';
+import database, { firebase } from '@react-native-firebase/database'
 
 
 import {getAllNews} from '../action/news'
@@ -83,14 +84,14 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
       const yesPressed = () => {
         console.log("yes");
         let TEMP = 0;
-            firebase.database().ref(`/news/${ARTICLES.news.id}`).on('value' , snap => {
+            firebase.database().ref(`/news/${newsState.news[indexAt].id}`).on('value' , snap => {
                 if(snap.val()){
                   console.log("Yes Poll ********************  ", snap.val().yespoll);
                   TEMP = snap.val().yespoll
                   TEMP = TEMP + 1;
                   console.log(TEMP);
                   console.log('TEMP',TEMP);
-                  firebase.database().ref(`/news/${ARTICLES.news.id}`).update({
+                  firebase.database().ref(`/news/${newsState.news[indexAt].id}`).update({
                     yespoll:TEMP
                   }).then(() => {
                     console.log("Yes done");
@@ -115,7 +116,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
       const handleEndReached = () => {
             return( 
                <Text>
-                   Hooo
+                   Load Yesterday
                </Text>
             )
       }
@@ -133,7 +134,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               <NotificationController/>
 
         <View style={{flex: 1}}>
-          {/* {console.log("News",} */}
+          {console.log("News",newsState.news)}
           {/* {console.log("News",newsState.news)}
           {console.log("Auth",Object.values(authState))} */}
 {/* {          console.log("News --- --- -- -- ",newsState.news[indexAt].type)} */}
@@ -149,11 +150,10 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               itemWidth={SCREEN_WIDTH}
               itemHeight={SCREEN_HEIGHT}
               inactiveSlideOpacity={1}
-              enableMomentum={false}
               enableSnap={true}
               inactiveSlideScale={1}
               vertical={true}
-              activeSlideOffset={100}
+              activeSlideOffset={200}
               swipeThreshold={0}
               onEndReached={handleEndReached}
               windowSize={5}
@@ -161,7 +161,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               // ListEmptyComponent={<ShortsLoader />}
             /> 
 
-            {(newsState.news[indexAt].type === 'news'  || newsState.news[indexAt].type === 'video') ? (
+            {newsState.news[indexAt] != null && (newsState.news[indexAt].type === 'news'  || newsState.news[indexAt].type === 'video') ? (
                 <View>
                   {newsState.news[indexAt].polling ? (
                     null
@@ -185,7 +185,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
 
             }
 
-            {newsState.news[indexAt].polling ? (
+            {newsState.news[indexAt] != null && newsState.news[indexAt].polling ? (
                               <View style={{position: 'absolute', bottom: 40,alignSelf:'center'}}>
                               <Text style={{
                                 fontSize:15,

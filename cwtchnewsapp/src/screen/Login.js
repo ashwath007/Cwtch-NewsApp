@@ -35,6 +35,7 @@ import {
   const windowHeight = Dimensions.get('window').height;
   import { Container, Header, Content, Spinner } from 'native-base';
   import LottieView from 'lottie-react-native';
+  const SCREEN_WIDTH = Dimensions.get("window").width;
 
   const CELL_COUNT = 6;
   const Login = ({googleSignIn,authState,phoneSignIn,verifyPhone}) => {
@@ -180,10 +181,18 @@ import {
         else{ return(
 <View style={{height:windowHeight,width:windowWidth,backgroundColor:'#fff'}}>
                 <LottieView source={require('./src/userex.json')} autoPlay loop />
-                <GoogleSigninButton onPress={() => {
-                googleSignIn()
-                setloading(true)
-              }} style={{alignSelf:"center",alignContent:"flex-end",position:'absolute',bottom:20}}/>
+                <TouchableOpacity
+                onPress={() => {
+                  googleSignIn()
+                  setloading(true)
+                }}
+                  style={{backgroundColor:'#FF6263',height:50,width:SCREEN_WIDTH,justifyContent:'center',position:'absolute',bottom:0}}
+                >
+                  <Text style={{color:'#fff',fontSize:18,alignSelf:'center'}}>
+                    Sign In with Google
+                  </Text>
+                  </TouchableOpacity>
+                {/* <GoogleSigninButton  style={{alignSelf:"center",alignContent:"flex-end",position:'absolute',bottom:20}}/> */}
             </View>
       
          

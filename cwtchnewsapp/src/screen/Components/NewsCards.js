@@ -34,6 +34,7 @@ import * as Progress from 'react-native-progress';
 import LottieView from 'lottie-react-native';
 import YoutubePlayer from "react-native-youtube-iframe";
 const ViewportAwareVideo = Viewport.Aware(Video);
+import moment from 'moment'
 
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
@@ -385,6 +386,16 @@ const noPressed = () => {
               <View style={{height:50,width:6,borderRadius:15,backgroundColor:'#FF8D8D',marginTop:20,marginRight:5}}/>
             <Text style={styles.title}>{ARTICLES.news.newsTitle}</Text>
 
+            </View>
+            <View style={{marginTop:3,flexDirection:'row'}}>
+              <Text style={{color:'#758283'}}>
+              {ARTICLES.news.from}
+
+                </Text>
+                <Text style={{color:'#758283'}}>
+              {moment(ARTICLES.news.time).format("MMM Do YY")}  
+              
+                </Text>
             </View>
             <Text style={styles.description}
             numberOfLines={9} 

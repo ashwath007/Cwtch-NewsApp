@@ -149,14 +149,13 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               itemWidth={SCREEN_WIDTH}
               itemHeight={SCREEN_HEIGHT}
               inactiveSlideOpacity={1}
-              enableMomentum={true}
+              enableMomentum={false}
               enableSnap={true}
               inactiveSlideScale={1}
               vertical={true}
               activeSlideOffset={100}
-              swipeThreshold={2}
+              swipeThreshold={0}
               onEndReached={handleEndReached}
-              nestedScrollEnabled
               windowSize={5}
               onSnapToItem={(index) => setindexAt(index)}
               // ListEmptyComponent={<ShortsLoader />}

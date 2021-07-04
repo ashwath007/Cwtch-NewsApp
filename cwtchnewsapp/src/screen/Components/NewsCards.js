@@ -374,7 +374,7 @@ const noPressed = () => {
         height={400}
         play={true}
         mute={true}
-        videoId={ARTICLES.news.url}
+        videoId={ARTICLES.news.vurl}
         onChangeState={onStateChange}
       />
             </View>
@@ -387,6 +387,16 @@ const noPressed = () => {
               <Text style={styles.title}>{ARTICLES.news.newsTitle}</Text>
   
               </View>
+              <View style={{marginTop:3,flexDirection:'row'}}>
+              <Text style={{color:'#758283',fontSize:10}}>
+              {ARTICLES.news.from}
+
+                </Text>
+                <Text style={{color:'#758283',marginLeft:5,fontSize:10}}>
+              {moment(ARTICLES.news.time).format("MMM Do YY")}  
+              
+                </Text>
+            </View>
               <Text style={styles.description}
               numberOfLines={9} 
               
@@ -498,11 +508,11 @@ const noPressed = () => {
 
             </View>
             <View style={{marginTop:3,flexDirection:'row'}}>
-              <Text style={{color:'#758283'}}>
+              <Text style={{color:'#758283',fontSize:10}}>
               {ARTICLES.news.from}
 
                 </Text>
-                <Text style={{color:'#758283'}}>
+                <Text style={{color:'#758283',marginLeft:5,fontSize:10}}>
               {moment(ARTICLES.news.time).format("MMM Do YY")}  
               
                 </Text>

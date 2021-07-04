@@ -98,7 +98,14 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
       
       const renderItem = ({item, index}) => {
         return (
-          <TouchableOpacity onPress={() => {navigation.navigate("HomeNews"
+          <TouchableOpacity 
+          style={{
+            width:300,
+            height:100,
+            
+          }}
+          activeOpacity={1}
+          onPress={() => {navigation.navigate("HomeNews"
           , {
             newstopics: item.title,
             placehome: 'core'
@@ -106,7 +113,7 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
           
           )}}>
             {/* {console.log(item.title)} */}
-   <View key={index} style={{height:100,width:190,backgroundColor:item.color,borderRadius:5}}>
+   <View key={index} style={{height:100,width:250,backgroundColor:item.color,borderRadius:5}}>
                   <Image
               source={{uri:item.logo}}
               style={{height:60,width:60,alignSelf:'center',justifyContent:'center',marginTop:22}}
@@ -121,21 +128,23 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
     const renderCategory = ({item, index}) => {
       // console.log("Cate: ",item.topic);
       return(
-        <TouchableOpacity onPress={() => {navigation.navigate("HomeNews"
+        <TouchableOpacity 
+        activeOpacity={1}
+        onPress={() => {navigation.navigate("HomeNews"
         , {
           newstopics: item.topic,
           placehome: 'cate'
         }
         
         )}}>
-        <View style={{height:100, width:100, backgroundColor:'white',marginRight:20,borderRadius:8}}>
+        <View style={{height:100, width:80, backgroundColor:'white',marginRight:20,borderRadius:8}}>
               <Icon
               style={{alignSelf:'center',fontSize:30,justifyContent:'center',padding:10}}
               
   reverse
   name={item.icon}
   type='ionicon'
-  color='#000'
+  color='#FF8D8D'
 />
               <Text style={{alignSelf:'center'}}>
                 {item.topic}
@@ -160,49 +169,37 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
 
     return(
       <>
+      <Appbar.Header
+  
+  style={{backgroundColor:'#fff',alignItems: 'center'}}
+
+  >
+<Appbar.Action icon="cog-outline" onPress={_handleMore} /> 
+<Appbar.Content 
+title={<Text style={{color:'#FF6263',textDecorationStyle: "solid",textDecorationColor:'#000'}}> Discover </Text>}
+style={{ alignItems: 'center'}}
+
+/>
+{/* */}
+
+</Appbar.Header>
+      <ScrollView
+        style={{backgroundColor:'#fff'}}
+      >
       {/* {console.log(coreState.core)}
       {console.log(topicState.topics)} */}
 
       <View>
-      <Appbar.Header
-           style={{backgroundColor:'#fff'}}
-  
-           >
-
-      <Appbar.Content title="Discover"/>
-
-      <Appbar.Action icon="cog-outline" onPress={_handleMore} />
-    </Appbar.Header>
-
-      <View style={{padding:10}}>
-        <Searchbar
-      placeholder="Search"
-      onChangeText={() => {}}
-      value={searchQuery}
-    />
-        </View>
-      </View>
-        
-        <ScrollView style={{marginTop:12}}>
-        
-
-      <View>
       
-        <View>
-        <Carousel
-              ref={(c) => { setcorosel(c) }}
-              data={coreState.core}
-              renderItem={renderItem}
-              
-              sliderWidth={windowWidth}
-              itemWidth={190}
-            />
+<View>
 
+    
+<View>
 
-          </View>
-
-          <View>
-        <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12}}>CATEGORY</Subheading >
+</View>
+<View>
+<View>
+        <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Category</Subheading >
           {/* Flatlist here horizontal scroll */}
           <View style={{flexDirection:'column',justifyContent:'space-between',paddingLeft:20}}>
 
@@ -215,10 +212,28 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
       />
       </View>
             </View>
-            <View>
-          <Subheading style={{paddingLeft:20,marginTop:25}}>SUGGESTED TOPICS</Subheading >
+      </View>
+   
+        
 
-          <View>
+      <View>
+      
+        <View>
+        <Carousel
+              ref={(c) => { setcorosel(c) }}
+              data={coreState.core}
+              renderItem={renderItem}
+              
+              sliderWidth={windowWidth}
+              itemWidth={250}
+            />
+
+
+          </View>
+
+        
+          <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:8,fontFamily:'Gilroy-Medium'}}>Topics</Subheading >
+
           <FlatGrid
       itemDimension={130}
       data={topicState.topics}
@@ -228,17 +243,22 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
       // horizontal={true}
       spacing={10}
       renderItem={({ item }) => (
-        <TouchableOpacity onPress={() => {navigation.navigate("HomeNews"
+        <TouchableOpacity 
+        style={{
+          backgroundColor: '#FFF',
+          position: 'relative',
+        }}
+        onPress={() => {navigation.navigate("HomeNews"
         , {
           newstopics: item.title,
           placehome: 'sugg'
         }
         
         )}}>
-        <View style={[styles.itemContainer, { backgroundColor: item.color }]}>
+        <View style={[styles.itemContainer, { backgroundColor: item.color,overflow: 'hidden', }]}>
           <Image
               source={{uri:item.logo}}
-              style={{height:90,width:90,alignSelf:'center',justifyContent:'center'}}
+              style={{height: 150,width:200,alignSelf:'center',justifyContent:'center',position: 'absolute'}}
           />  
           <Text style={styles.itemName}>{item.title}</Text>
          
@@ -246,12 +266,12 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
         </TouchableOpacity>
       )}
     />
-            </View>
-              </View>
 
       
       </View>
 
+        </View>
+        </View>
         </ScrollView>
         </>
     )

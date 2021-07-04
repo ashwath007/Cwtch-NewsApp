@@ -116,6 +116,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               itemHeight={SCREEN_HEIGHT}
               inactiveSlideOpacity={1}
               enableSnap={true}
+              enableMomentum={true}
               inactiveSlideScale={1}
               vertical={true}
               activeSlideOffset={10}

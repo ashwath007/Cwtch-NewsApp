@@ -101,7 +101,7 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
           <TouchableOpacity 
           style={{
             width:300,
-            height:100,
+            height:120,
             
           }}
           activeOpacity={1}
@@ -113,7 +113,7 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
           
           )}}>
             {/* {console.log(item.title)} */}
-   <View key={index} style={{height:100,width:250,backgroundColor:item.color,borderRadius:5}}>
+   <View key={index} style={{height:120,width:250,backgroundColor:item.color,borderRadius:5}}>
                   <Image
               source={{uri:item.logo}}
               style={{height:60,width:60,alignSelf:'center',justifyContent:'center',marginTop:22}}
@@ -182,7 +182,7 @@ style={{ alignItems: 'center'}}
 />
 {/* */}
 
-</Appbar.Header>
+</Appbar.Header>  
       <ScrollView
         style={{backgroundColor:'#fff'}}
       >
@@ -244,6 +244,7 @@ style={{ alignItems: 'center'}}
       spacing={10}
       renderItem={({ item }) => (
         <TouchableOpacity 
+        activeOpacity={1}
         style={{
           backgroundColor: '#FFF',
           position: 'relative',

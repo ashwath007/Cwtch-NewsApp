@@ -1,6 +1,6 @@
 import React, { Component,useState,useEffect} from 'react';
 import { Image,StyleSheet, Dimensions,
-    TouchableOpacity,
+    TouchableOpacity, 
     Animated,
     BackHandler,
     PanResponder,} from 'react-native';
@@ -67,14 +67,9 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
     //   ];
 
       const renderItem = ({item,index}) => {
-        // console.log(newsState.news[index]);
         return (
-          // <Swipeable renderLeftActions={() => {goLive}}>
             <NewsCards news={newsState.news[index]}/>
-            //  </Swipeable>
-            // <View>
-            //     <Text>{ARTICLES[index].text}</Text>
-            // </View>
+  
         );
       }
 
@@ -123,7 +118,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               enableSnap={true}
               inactiveSlideScale={1}
               vertical={true}
-              activeSlideOffset={200}
+              activeSlideOffset={10}
               swipeThreshold={0}
               onEndReached={handleEndReached}
               windowSize={5}

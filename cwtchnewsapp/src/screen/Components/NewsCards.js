@@ -35,6 +35,7 @@ import LottieView from 'lottie-react-native';
 import YoutubePlayer from "react-native-youtube-iframe";
 const ViewportAwareVideo = Viewport.Aware(Video);
 import moment from 'moment'
+import Carousel from 'react-native-snap-carousel';
 
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
@@ -133,8 +134,45 @@ const noPressed = () => {
 
   //
 
-
-
+  renderHeading = ({item, index}) => {
+    return (
+        <View style={styles.slide}>
+            <Text style={styles.title}>{ item.title }</Text>
+        </View>
+    );
+}
+ const ENTRIES1 = [
+  {
+      title: 'Beautiful and dramatic Antelope Canyon',
+      subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+      illustration: 'https://i.imgur.com/UYiroysl.jpg'
+  },
+  {
+      title: 'Earlier this morning, NYC',
+      subtitle: 'Lorem ipsum dolor sit amet',
+      illustration: 'https://i.imgur.com/UPrs1EWl.jpg'
+  },
+  {
+      title: 'White Pocket Sunset',
+      subtitle: 'Lorem ipsum dolor sit amet et nuncat ',
+      illustration: 'https://i.imgur.com/MABUbpDl.jpg'
+  },
+  {
+      title: 'Acrocorinth, Greece',
+      subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
+      illustration: 'https://i.imgur.com/KZsmUi2l.jpg'
+  },
+  {
+      title: 'The lone tree, majestic landscape of New Zealand',
+      subtitle: 'Lorem ipsum dolor sit amet',
+      illustration: 'https://i.imgur.com/2nCt3Sbl.jpg'
+  },
+  {
+      title: 'Middle Earth, Germany',
+      subtitle: 'Lorem ipsum dolor sit amet',
+      illustration: 'https://i.imgur.com/lceHsT6l.jpg'
+  }
+];
   const sociailDetails = [
       {
         "label": "Facebook",
@@ -201,6 +239,7 @@ const noPressed = () => {
   
   
     const [play, setPlay] = useState('');
+    const [indexAt, setindexAt] = useState(0);
   
     // ***************
     const [videoStatus, setvideoStatus] = useState(false);
@@ -222,7 +261,78 @@ const noPressed = () => {
   const goLive = () => {
     return navigation.navigate("WebViews")
   }
+
+  const handleEndReached = () => {
+    return( 
+       <Text>
+           Load Yesterday
+       </Text>
+    )
+}
+  const renderItem = ({item,index}) => {
+    // console.log(newsState.news[index]);
+    return (
+      <View style={styles.container}>
+      {/* {console.log("news -> ",ARTICLES.news)}
+      {console.log("user -> ",ARTICLES.authState.user)} */}
+         <View style={styles.topp}>
+           <FastImage
+             style={{flex: 1}}
+             source={{
+               uri: ARTICLES.news.allHeadings[index].pic,
+             }}
+             resizeMode={FastImage.resizeMode.cover}
+           />
+         </View>
+             
+         <View style={[styles.middle, styles.contentPadding]}>
+           <View style={{flexDirection:'row'}}>
+           <View style={{marginRight:8,backgroundColor:'#5DA3FA',alignSelf:'flex-start',padding:4,marginTop:12,borderRadius:4,flexDirection:'row',alignContent:'space-between'}}>
+           
+           <Text style={{color:'white',fontSize:18,fontWeight:'bold'}}>Headlines</Text>
+
+
+           </View>
+           <View style={{ backgroundColor:'#E07C24',alignSelf:'flex-start',padding:4,marginTop:12,borderRadius:4,flexDirection:'row',alignContent:'space-between'}}>
+           
+           <Text style={{color:'white',fontSize:18,fontWeight:'bold'}}>{ARTICLES.news.allHeadings[index].core}</Text>
+
+           </View>
+           
+           </View>
+          
+
+
+           <Text style={{
+             color:'#242B2E',
+             fontFamily:'Gilroy-Bold',
+             fontSize:18,
+             marginTop:8
+           }}>{ARTICLES.news.allHeadings[index].headingTitle}</Text>
+           <Text 
+            numberOfLines={6}
+           style={{
+              color:'#758283',
+              fontSize:15,
+              margin:5,
+              fontWeight:'500',
+              fontFamily:'Gilroy-Medium'
+           }}>{ARTICLES.news.allHeadings[index].heaingDetails}</Text>
+
+          
+       
+           
+       
+         
+         </View>
  
+        
+         </View> 
+    );
+  }
+
+
+
     const [opinion, setopinion] = useState('');
 
     if(ARTICLES.news.type === 'ads'){
@@ -586,53 +696,24 @@ const noPressed = () => {
     }
     else if(ARTICLES.news.type === 'heading'){
       return(
-        // <Swipeable renderLeftActions={() => {goLive}}>
-  
-   <View style={styles.container}>
-       {/* {console.log("news -> ",ARTICLES.news)}
-       {console.log("user -> ",ARTICLES.authState.user)} */}
-          <View style={styles.topp}>
-            <FastImage
-              style={{flex: 1}}
-              source={{
-                uri: ARTICLES.news.pic,
-              }}
-              resizeMode={FastImage.resizeMode.cover}
-            />
-          </View>
-              
-          <View style={[styles.middle, styles.contentPadding]}>
-            <View style={{flexDirection:'row'}}>
-            <View style={{marginRight:8,backgroundColor:'#5DA3FA',alignSelf:'flex-start',padding:4,marginTop:12,borderRadius:4,flexDirection:'row',alignContent:'space-between'}}>
-            
-            <Text style={{color:'white',fontSize:18,fontWeight:'bold'}}>Headlines</Text>
-
-
-            </View>
-            <View style={{ backgroundColor:'#E07C24',alignSelf:'flex-start',padding:4,marginTop:12,borderRadius:4,flexDirection:'row',alignContent:'space-between'}}>
-            
-            <Text style={{color:'white',fontSize:18,fontWeight:'bold'}}>{ARTICLES.news.core}</Text>
-
-            </View>
-            
-            </View>
-           
-
-
-            <Text style={styles.titlee}>{ARTICLES.news.newsTitle}</Text>
-            <Text style={styles.hfrom}>{ARTICLES.news.from}</Text>
-
-           
-        
-              
-        
-          
-          </View>
-  
-         
-          </View> 
-          // </Swipeable>
-     
+        <Carousel
+        data={ARTICLES.news.allHeadings}
+        renderItem={renderItem}
+        sliderWidth={SCREEN_WIDTH}
+        sliderHeight={SCREEN_HEIGHT}
+        itemWidth={SCREEN_WIDTH}
+        itemHeight={SCREEN_HEIGHT}
+        inactiveSlideOpacity={1}
+        enableSnap={true}
+        vertical={false}
+        layout={'stack'} layoutCardOffset={`18`}
+        activeSlideOffset={10}
+        swipeThreshold={0}
+        onEndReached={handleEndReached}
+        windowSize={5}
+        onSnapToItem={(index) => setindexAt(index)}
+        // ListEmptyComponent={<ShortsLoader />}
+      />
       )
     }
     

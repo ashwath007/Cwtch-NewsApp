@@ -612,7 +612,7 @@ const noPressed = () => {
                   
                     <LottieView source={require('./src/noopinion.json')} autoPlay loop style={{height:300,alignSelf:'center'}}/>
                     <Text style={{alignSelf:'center',color:'#758283',fontWeight:'bold'}}>
-                      No Opinion, be he first to share your thoughts
+                      No Opinion, be the first to share your thoughts
                     </Text>
                   </View>
             )

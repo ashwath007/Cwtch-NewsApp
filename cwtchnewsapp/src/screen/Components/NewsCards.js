@@ -36,6 +36,7 @@ import YoutubePlayer from "react-native-youtube-iframe";
 const ViewportAwareVideo = Viewport.Aware(Video);
 import moment from 'moment'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { LinearTextGradient } from "react-native-text-gradient";
 
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
@@ -274,12 +275,27 @@ const noPressed = () => {
 const renderHoros = ({item, index}) => {
   return(
     <View style={{padding:30,height:1000,width:400,backgroundColor:'#fff'}}>
-      <View style={{padding:20,backgroundColor:"#120E43",height:500,borderRadius:12}}>
+      
+      <View style={{padding:20,backgroundColor:"#fff",height:500,borderRadius:12,borderWidth:1}}>
+        <View
+        style={{alignSelf:'center'}}
+        >
+        <Image source={{ uri: item.age.logo}} style={styles.horosImg} />
+
+        </View>
+       
       <Text
-        style={{color:'#fff',fontFamily:'Gilroy-Bold',fontSize:20}}
+        style={{color:'#EDBF69',fontFamily:'Gilroy-Bold',fontSize:20,flex:1,marginTop:22,}}
       >{ item.thmeTitle }</Text>
 
       </View>
+        <View
+          style={{backgroundColor:'#6AC47E',alignSelf:'center',marginTop:32,elevation: 5}}
+        >
+          <Text style={{fontFamily:'Gilroy-Bold',fontSize:32,alignItems:'center'}}>
+            {item.age.title }
+          </Text>
+        </View>
 </View>
   )
 }
@@ -772,6 +788,26 @@ const renderHoros = ({item, index}) => {
               sliderWidth={520}
               itemWidth={400}
             />
+            <Pagination
+            style={{
+              width:100
+            }}
+      dotsLength={ARTICLES.news.horos.length}
+      activeDotIndex={indexAt}
+      containerStyle={{ backgroundColor: '#fff' }}
+      dotStyle={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          marginHorizontal: 8,
+          backgroundColor: '#242B2E'
+      }}
+      inactiveDotStyle={{
+          // Define styles for inactive dots here
+      }}
+      inactiveDotOpacity={0.4}
+      inactiveDotScale={0.6}
+    />
             </View>
           </View>
         </View>
@@ -932,6 +968,11 @@ const styles = StyleSheet.create({
     profileImg: {
       height: 40,
       width: 40,
+      borderRadius: 40,
+    },
+    horosImg: {
+      height: 60,
+      width: 60,
       borderRadius: 40,
     },
     gridContainer: {

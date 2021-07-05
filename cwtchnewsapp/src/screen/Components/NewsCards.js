@@ -775,7 +775,7 @@ const renderHoros = ({item, index}) => {
     </>
       )
     }
-    else if(ARTICLES.news.type === 'horos')
+    else if(ARTICLES.news.type === 'horos'){
       return(
         <View style={[styles.container,{backgroundColor:"white",justifyContent: 'center',alignItems:'center'}]}>
           <View>
@@ -788,19 +788,18 @@ const renderHoros = ({item, index}) => {
               sliderWidth={520}
               itemWidth={400}
             />
+            <View style={{padding:10}}>
             <Pagination
-            style={{
-              width:100
-            }}
+            
       dotsLength={ARTICLES.news.horos.length}
       activeDotIndex={indexAt}
       containerStyle={{ backgroundColor: '#fff' }}
       dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 8,
-          backgroundColor: '#242B2E'
+          width: 20,
+          height: 20,
+          borderRadius: 8,
+          marginHorizontal: 5,
+          backgroundColor: '#FF6263'
       }}
       inactiveDotStyle={{
           // Define styles for inactive dots here
@@ -809,9 +808,15 @@ const renderHoros = ({item, index}) => {
       inactiveDotScale={0.6}
     />
             </View>
+       
+            </View>
           </View>
         </View>
       )
+    }
+    else if(ARTICLES.news.type === 'theday'){
+      
+    }
 
   
 }

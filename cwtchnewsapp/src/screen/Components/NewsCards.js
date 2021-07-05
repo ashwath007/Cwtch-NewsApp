@@ -269,6 +269,20 @@ const noPressed = () => {
        </Text>
     )
 }
+
+
+const renderHoros = ({item, index}) => {
+  return(
+    <View style={{padding:30,height:1000,width:400,backgroundColor:'#fff'}}>
+      <View style={{padding:20,backgroundColor:"#120E43",height:500,borderRadius:12}}>
+      <Text
+        style={{color:'#fff',fontFamily:'Gilroy-Bold',fontSize:20}}
+      >{ item.thmeTitle }</Text>
+
+      </View>
+</View>
+  )
+}
   const renderItem = ({item,index}) => {
     // console.log(newsState.news[index]);
     return (
@@ -745,7 +759,23 @@ const noPressed = () => {
     </>
       )
     }
-    
+    else if(ARTICLES.news.type === 'horos')
+      return(
+        <View style={[styles.container,{backgroundColor:"white",justifyContent: 'center',alignItems:'center'}]}>
+          <View>
+      
+            <View>
+            <Carousel
+              onSnapToItem={(index) => setindexAt(index)}
+              data={ARTICLES.news.horos}
+              renderItem={renderHoros}
+              sliderWidth={520}
+              itemWidth={400}
+            />
+            </View>
+          </View>
+        </View>
+      )
 
   
 }

@@ -35,7 +35,7 @@ import LottieView from 'lottie-react-native';
 import YoutubePlayer from "react-native-youtube-iframe";
 const ViewportAwareVideo = Viewport.Aware(Video);
 import moment from 'moment'
-import Carousel from 'react-native-snap-carousel';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
@@ -320,7 +320,7 @@ const noPressed = () => {
            }}>{ARTICLES.news.allHeadings[index].heaingDetails}</Text>
 
           
-       
+           
            
        
          
@@ -706,6 +706,7 @@ const noPressed = () => {
     }
     else if(ARTICLES.news.type === 'heading'){
       return(
+        <>
         <Carousel
         data={ARTICLES.news.allHeadings}
         renderItem={renderItem}
@@ -724,6 +725,24 @@ const noPressed = () => {
         onSnapToItem={(index) => setindexAt(index)}
         // ListEmptyComponent={<ShortsLoader />}
       />
+      <Pagination
+      dotsLength={ARTICLES.news.allHeadings.length}
+      activeDotIndex={indexAt}
+      containerStyle={{ backgroundColor: 'rgba(0, 0, 0, 0.75)' }}
+      dotStyle={{
+          width: 10,
+          height: 10,
+          borderRadius: 5,
+          marginHorizontal: 8,
+          backgroundColor: 'rgba(255, 255, 255, 0.92)'
+      }}
+      inactiveDotStyle={{
+          // Define styles for inactive dots here
+      }}
+      inactiveDotOpacity={0.4}
+      inactiveDotScale={0.6}
+    />
+    </>
       )
     }
     

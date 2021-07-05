@@ -190,42 +190,25 @@ const HomeNews = ({route,navigation}) => {
               itemWidth={SCREEN_WIDTH}
               itemHeight={SCREEN_HEIGHT}
               inactiveSlideOpacity={1}
-              enableMomentum={true}
               enableSnap={true}
+              enableMomentum={true}
+              layoutCardOffset={`0`} 
               inactiveSlideScale={1}
               vertical={true}
-              activeSlideOffset={100}
-              swipeThreshold={2}
+              activeSlideOffset={0}
+              apparitionDelay={0}
+              swipeThreshold={0}
+              enableSnap={true}
+              activeAnimationType='spring'
               onEndReached={handleEndReached}
-              nestedScrollEnabled
               windowSize={5}
               onSnapToItem={(index) => setindexAt(index)}
               // ListEmptyComponent={<ShortsLoader />}
             /> 
+        
             {/* </Swipeable> */}
             {/* </TouchableOpacity> */}
-<Fab
-                active={active}
-                direction="up"
-                containerStyle={{ }}
-                style={{ backgroundColor: '#5067FF' }}
-                position="bottomRight"
-                // onPress={() => setactive(!active )}>
-                onPress={() => navigation.navigate('News', {
-                    url:newsOn[indexAt].url
-                })}>
 
-                <Icon name="share" />
-                {/* <Button style={{ backgroundColor: '#34A34F' }}>
-                  <Icon name="logo-whatsapp" />
-                </Button>
-                <Button style={{ backgroundColor: '#3B5998' }}>
-                  <Icon name="logo-facebook" />
-                </Button>
-                <Button disabled style={{ backgroundColor: '#DD5144' }}>
-                  <Icon name="mail" />
-                </Button> */}
-              </Fab>
               </View>
           ) : (
             <Splash/>

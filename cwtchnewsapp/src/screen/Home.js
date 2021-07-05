@@ -102,7 +102,7 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
           style={{
             width:300,
             height:120,
-            
+            justifyContent:'center'
           }}
           activeOpacity={1}
           onPress={() => {navigation.navigate("HomeNews"
@@ -113,10 +113,10 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
           
           )}}>
             {/* {console.log(item.title)} */}
-   <View key={index} style={{height:120,width:250,backgroundColor:item.color,borderRadius:5}}>
+   <View key={index} style={{height:120,width:250,backgroundColor:item.color,borderRadius:12}}>
                   <Image
               source={{uri:item.logo}}
-              style={{height:60,width:60,alignSelf:'center',justifyContent:'center',marginTop:22}}
+              style={{height:60,width:120,alignSelf:'center',justifyContent:'center',marginTop:22}}
           />  
                 {/* <Text style={styles.itemName,{alignSelf:'center'}}>{ item.title }</Text>   */}
             </View>

@@ -815,7 +815,50 @@ const renderHoros = ({item, index}) => {
       )
     }
     else if(ARTICLES.news.type === 'theday'){
-      
+      return(
+        <View 
+        style={[styles.container,{backgroundColor:"white",justifyContent: 'center',alignItems:'center'}]}
+        >
+         <Text
+         style={{
+           fontSize:32,
+           fontFamily:'Gilroy-Bold',
+           color:'#120E43',
+           marginTop:55
+         }}
+         >
+           The day
+           </Text>
+          <View style={{marginTop:25,alignItems:'center'}}>
+          <Image source={{ uri: ARTICLES.news.doodle}} style={[styles.thedayImg,{alignItems:'center'}]} />
+          
+          <Text  style={{color:'#5DA3FA',fontFamily:'Gilroy-Medium',fontSize:20,flex:1,marginTop:28,alignSelf:'center',margin:10,padding:5}}
+          
+          >
+            The day - {ARTICLES.news.title}
+          </Text>
+          <View>
+            <TouchableOpacity
+            onPress={() =>  Linking.openURL(ARTICLES.news.link)}
+            
+            style={{backgroundColor:'#5DA3FA',height:40,width:120,borderRadius:15,justifyContent:'center',bottom:100}}
+            >
+              <Text
+              style={{
+                fontFamily:'Gilroy-Medium',
+                fontSize:18,
+                alignSelf:'center',
+                color:'#ffffff'
+              }}
+              >
+                Read
+              </Text>
+            </TouchableOpacity>
+          </View>
+         
+          </View>
+        </View>
+      )
     }
 
   
@@ -979,6 +1022,11 @@ const styles = StyleSheet.create({
       height: 60,
       width: 60,
       borderRadius: 40,
+    },
+    thedayImg:{
+      height: 200,
+      width: 200,
+      borderRadius: 100,
     },
     gridContainer: {
       flex: 1,

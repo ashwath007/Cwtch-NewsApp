@@ -271,6 +271,9 @@ const noPressed = () => {
     )
 }
 
+const bookMarkThisNews = () => {
+    console.log(" ********************* Bookmark pressed ******************");
+}
 
 const renderHoros = ({item, index}) => {
   return(
@@ -563,6 +566,7 @@ const renderHoros = ({item, index}) => {
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
         backgroundColor: 'transparent'}} 
+        onLongPress = {() => bookMarkThisNews()}
         onPress={() => bottomSheetRef.current.open()}>
                 <Image source={require('./src/press.png')}  style={styles.img}/>
               </TouchableOpacity>
@@ -606,10 +610,10 @@ const renderHoros = ({item, index}) => {
               
     {/* {console.log("ARTICLE",ARTICLES.news.opinion)} */}
             {(ARTICLES.news.opinion != undefined) ? (
-                <View>
+                <View style={{backgroundColor:'#D3D3D3'}}>
                   {ARTICLES.news.opinion != undefined && Object.values(ARTICLES.news.opinion).map((op,index) => {
                 return(
-                  <View>
+                  <View style={{backgroundColor:'white'}}>
                   <View style={{flexDirection:'row'}}>
   <TouchableHighlight
             style={[styles.profileImgContainers, { borderColor: 'green', borderWidth:1 }]}
@@ -624,9 +628,9 @@ const renderHoros = ({item, index}) => {
     </View>
                   
                   </View>
-                  <View style={{backgroundColor:'#758283',padding:5,marginLeft:45,marginTop:10,marginRight:22,borderRadius:8}}>
+                  <View style={{backgroundColor:'#D3D3D3',padding:5,marginLeft:45,marginTop:10,marginRight:22,borderRadius:8}}>
   
-                  <Text style={{color:'white'}}>
+                  <Text style={{color:'black',marginLeft:12}}>
                   
                   {op.opinion.opinion}
                   </Text>
@@ -638,7 +642,7 @@ const renderHoros = ({item, index}) => {
                   </View>
   
             ) : (
-                <View>
+                <View style={{marginBottom:12}}>
                   
                     <LottieView source={require('./src/noopinion.json')} autoPlay loop style={{height:300,alignSelf:'center'}}/>
                     <Text style={{alignSelf:'center',color:'#758283',fontWeight:'bold'}}>
@@ -667,18 +671,11 @@ const renderHoros = ({item, index}) => {
                 <Text style={styles.textHeading}>
                   Share your Toughts and feelings
                 </Text>
-                <TouchableHighlight
-            style={[styles.profileImgContainer, { borderColor: 'green', borderWidth:1 }]}
-          >
-      <Image source={{ uri: ARTICLES.authState.user.photoURL}} style={styles.profileImg} />
-  </TouchableHighlight> 
-                <Text style={styles.textUserName}>
-                  @{ARTICLES.authState.user.displayName} <Icon name="flame" style={{color:'#FF6263',fontSize:30}}/> share you thoughts
-                  </Text>
-                  
-                <View style={styles.inputText}>
+                <View style={{flexDirection:'row',justifyContent:'space-around'}}>
+                <View style={[styles.inputText,{flex:1}]}>
                 <TextInput
         label="Share now"
+        
         value={opinion}
         type="outlined"
         selectionColor="black"
@@ -688,7 +685,7 @@ const renderHoros = ({item, index}) => {
       />
                   </View>
                   <View style={{marginTop:8,flexWrap:'wrap',alignSelf:'flex-end'}}>
-                    <TouchableOpacity style={{backgroundColor:'#FF6263',height:40,width:120,justifyContent:'center',borderRadius:8}}
+                    <TouchableOpacity style={{backgroundColor:'#FF6263',height:40,width:80,justifyContent:'center',borderRadius:8,marginLeft:5}}
                       onPress={()=>postThoughts()}
                     >
                       <Text style={{color:'white',fontWeight:'bold',fontSize:20,alignSelf:'center'}}>
@@ -696,6 +693,18 @@ const renderHoros = ({item, index}) => {
                       </Text>
                     </TouchableOpacity>
                     </View>
+                  </View>
+                
+                <TouchableHighlight
+            style={[styles.profileImgContainer, { borderColor: 'green', borderWidth:1 }]}
+          >
+      <Image source={{ uri: ARTICLES.authState.user.photoURL}} style={styles.profileImg} />
+  </TouchableHighlight> 
+                <Text style={styles.textUserName}>
+                  @{ARTICLES.authState.user.displayName} <Icon name="flame" style={{color:'#FF6263',fontSize:30}}/> share you thoughts
+                  </Text>
+                 
+                
              </View>
     </TouchableOpacity>
              

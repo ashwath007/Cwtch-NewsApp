@@ -151,7 +151,7 @@ const HomeNews = ({route,navigation}) => {
           <>
             <HomeNewsCards news={item}/>
             <TouchableOpacity
-                      onPress={() => navigation.navigate("WebViews",{url:item.url} )}
+                      onPress={() => navigation.navigate("HomeNewsWeb",{url:item.url} )}
                       style={{position:'absolute',bottom:20,height:30,width:100,backgroundColor:'#FF6263',justifyContent:'center',alignSelf:'center',borderRadius:15}}
                     >
                         <Text

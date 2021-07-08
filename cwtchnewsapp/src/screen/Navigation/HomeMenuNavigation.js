@@ -9,7 +9,9 @@ import Settings from "../Settings";
 import CustomNews from '../Components/CustomNews'
 import HomeNews from '../src/HomeNews'
 
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import HomeWebView from '../Components/HomeWebView';
 
 const Stack = createStackNavigator();
 const HomeMenuNavigation = () => {
@@ -23,6 +25,8 @@ const HomeMenuNavigation = () => {
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="News" component={CustomNews} />
       <Stack.Screen name="HomeNews" component={HomeNews} />
+      <Stack.Screen name="HomeNewsWeb" component={HomeWebView} />
+
 
 
       <Stack.Screen name="Settings" component={Settings} />

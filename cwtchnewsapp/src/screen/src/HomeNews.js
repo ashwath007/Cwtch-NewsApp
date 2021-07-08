@@ -148,7 +148,17 @@ const HomeNews = ({route,navigation}) => {
         // console.log("object"+index,item);
         return (
           // <Swipeable renderLeftActions={() => {goLive}}>
+          <>
             <HomeNewsCards news={item}/>
+            <TouchableOpacity
+                      onPress={() => navigation.navigate("WebViews",{url:item.url} )}
+                      style={{position:'absolute',bottom:20,height:30,width:100,backgroundColor:'#FF6263',justifyContent:'center',alignSelf:'center',borderRadius:15}}
+                    >
+                        <Text
+                          style={{alignSelf:'center',color:'#fff'}}
+                        >Read now</Text>
+                    </TouchableOpacity>
+            </>
             //  </Swipeable>
             // <View>
             //     <Text>{ARTICLES[index].text}</Text>

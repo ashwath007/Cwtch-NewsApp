@@ -798,7 +798,6 @@ const renderHoros = ({item, index}) => {
                       </Text>
                  
     </View>
-                  
                   </View>
                   <View style={{backgroundColor:'#D3D3D3',padding:5,marginLeft:45,marginTop:10,marginRight:22,borderRadius:8}}>
   
@@ -807,6 +806,10 @@ const renderHoros = ({item, index}) => {
                   {op.opinion.opinion}
                   </Text>
                   </View>
+                  <View style={{alignSelf:'flex-start'}}>
+                  <LottieView source={require('./src/heart.json')} autoPlay loop style={{height:50,alignSelf:'center'}}/>
+
+                    </View>
                   </View>
                 )
                  

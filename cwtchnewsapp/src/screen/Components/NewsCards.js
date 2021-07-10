@@ -255,7 +255,7 @@ const noPressed = () => {
       }
     }, []);
   
-    const togglePlaying = useCallback(() => {
+  const togglePlaying = useCallback(() => {
       setPlaying((prev) => !prev);
     }, []);
 
@@ -273,6 +273,16 @@ const noPressed = () => {
 // TODO Need to work on Bookmark
 const bookMarkThisNews = () => {
     console.log(" ********************* Bookmark pressed ******************");
+}
+
+const likeOpinion = (id,op) => {
+    console.log("**************** ID Like *************** ", id,op);
+    database().ref(`/news/${id}`).on('value' , snap => {
+      if(snap.val()){
+        console.log(snap.val());
+      }
+    })
+
 }
 
 const renderHoros = ({item, index}) => {
@@ -483,25 +493,30 @@ const renderHoros = ({item, index}) => {
                   <View style={{backgroundColor:'white'}}>
                   <View style={{flexDirection:'row'}}>
   <TouchableHighlight
-            style={[styles.profileImgContainers, { borderColor: 'green', borderWidth:1 }]}
+            style={[styles.profileImgContainers, { borderColor: '#FF696A', borderWidth:1 }]}
           >
       <Image source={{ uri:op.opinion.user_pic }} style={styles.profileImgs} />
-  </TouchableHighlight> 
+  </TouchableHighlight>
   <View style={{marginLeft:8,justifyContent:'center',marginTop:12}}>
   <Text style={{fontSize:15,fontWeight:'bold',textDecorationLine: 'underline',textDecorationColor:'#383CC1'}}>
                       {op.opinion.user_name}
                       </Text>
-                 
     </View>
-                  
-                  </View>
+   </View>
                   <View style={{backgroundColor:'#D3D3D3',padding:5,marginLeft:45,marginTop:10,marginRight:22,borderRadius:8}}>
   
                   <Text style={{color:'black',marginLeft:12}}>
-                  
                   {op.opinion.opinion}
                   </Text>
                   </View>
+                  <View style={{alignSelf:'flex-start',flexDirection:"row"}}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => {likeOpinion(ARTICLES.news.id,op )}}>
+                    <LottieView source={require('./src/heart.json')} autoPlay loop style={{height:60,alignSelf:'center',marginLeft:20}}/>
+                      </TouchableOpacity>
+                    <Text style={{marginTop:18}}>
+                      1,200
+                    </Text>
+                    </View>
                   </View>
                 )
                  

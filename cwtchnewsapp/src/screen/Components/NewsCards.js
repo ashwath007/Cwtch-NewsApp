@@ -37,7 +37,7 @@ const ViewportAwareVideo = Viewport.Aware(Video);
 import moment from 'moment'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { LinearTextGradient } from "react-native-text-gradient";
-import Swiper from 'react-native-swiper'
+
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
   const [active, setactive] = useState(false);
@@ -277,28 +277,17 @@ const bookMarkThisNews = () => {
 
 const renderHoros = ({item, index}) => {
   return(
-    <View style={{padding:30,height:1000,width:400,backgroundColor:'#fff'}}>
-      
-      <View style={{padding:20,backgroundColor:"#fff",height:500,borderRadius:12,borderWidth:1}}>
-        <View
-        style={{alignSelf:'center'}}
-        >
-        <Image source={{ uri: item.age.logo}} style={styles.horosImg} />
-
-        </View>
-       
-      <Text
-        style={{color:'#EDBF69',fontFamily:'Gilroy-Bold',fontSize:20,flex:1,marginTop:22,}}
-      >{ item.thmeTitle }</Text>
-
-      </View>
-        <View
-          style={{backgroundColor:'#6AC47E',alignSelf:'center',marginTop:32,elevation: 5}}
-        >
-          <Text style={{fontFamily:'Gilroy-Bold',fontSize:32,alignItems:'center'}}>
-            {item.age.title }
+    <View style={{padding:20,backgroundColor:'#BC0000',margin:30,borderRadius:12}}>
+      <View>
+      <Text style={{marginBottom:10,fontSize:15}}>
+            {item.age.title}
           </Text>
-        </View>
+          <Text style={{color:'#FF5A1E',fontSize:20,fontWeight:'bold'}}>
+            {item.thmeTitle}
+          </Text>
+          
+      </View>
+
 </View>
   )
 }
@@ -962,20 +951,40 @@ const renderHoros = ({item, index}) => {
     }
     else if(ARTICLES.news.type === 'horos'){
       return(
-        <>
-<Swiper style={styles.wrapper} showsButtons={true}>
-        <View style={styles.slide1}>
-          <Text style={styles.text}>Hello Swiper</Text>
-        </View>
-        <View style={styles.slide2}>
-          <Text style={styles.text}>Beautiful</Text>
-        </View>
-        <View style={styles.slide3}>
-          <Text style={styles.text}>And simple</Text>
-        </View>
-      </Swiper>
+        <View style={[styles.container,{backgroundColor:"#960101",justifyContent: 'center',alignItems:'center',padding:50}]}>
+          <View>
       
-    </>
+            <View>
+            <Carousel
+              onSnapToItem={(index) => setindexAt(index)}
+              data={ARTICLES.news.horos}
+              renderItem={renderHoros}
+              sliderWidth={520}
+              itemWidth={400}
+            />
+             <Pagination
+            width={SCREEN_WIDTH}
+            dotsLength={ARTICLES.news.horos.length}
+            activeDotIndex={indexAt}
+            containerStyle={{ backgroundColor: '#960101' }}
+            dotStyle={{
+                width: 6,
+                height: 6,
+                borderRadius: 8,
+                marginHorizontal: 0.09,
+                backgroundColor: '#fff'
+            }}
+            inactiveDotStyle={{
+                // Define styles for inactive dots here
+            }}
+            inactiveDotOpacity={0.4}
+            inactiveDotScale={0.6}
+          />
+          
+       
+            </View>
+          </View>
+        </View>
       )
     }
     else if(ARTICLES.news.type === 'theday'){
@@ -1238,30 +1247,6 @@ const styles = StyleSheet.create({
     adsContainer: {
       height:SCREEN_HEIGHT,
       width:SCREEN_WIDTH,
-    },
-    wrapper: {},
-  slide1: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB'
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5'
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9'
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold'
-  }
+    }
 
   });

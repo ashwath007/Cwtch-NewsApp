@@ -37,7 +37,7 @@ const ViewportAwareVideo = Viewport.Aware(Video);
 import moment from 'moment'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { LinearTextGradient } from "react-native-text-gradient";
-
+import Swiper from 'react-native-swiper'
 const NewsCards = (ARTICLES,authState) => {
   const bottomSheetRef = useRef([]);
   const [active, setactive] = useState(false);
@@ -921,6 +921,7 @@ const renderHoros = ({item, index}) => {
     else if(ARTICLES.news.type === 'heading'){
       return(
         <>
+        
         <Carousel
         data={ARTICLES.news.allHeadings}
         renderItem={renderItem}
@@ -961,41 +962,20 @@ const renderHoros = ({item, index}) => {
     }
     else if(ARTICLES.news.type === 'horos'){
       return(
-        <View style={[styles.container,{backgroundColor:"white",justifyContent: 'center',alignItems:'center'}]}>
-          <View>
-      
-            <View>
-            <Carousel
-              onSnapToItem={(index) => setindexAt(index)}
-              data={ARTICLES.news.horos}
-              renderItem={renderHoros}
-              sliderWidth={520}
-              itemWidth={400}
-            />
-            <View style={{padding:10}}>
-            <Pagination
-            
-      dotsLength={ARTICLES.news.horos.length}
-      activeDotIndex={indexAt}
-      containerStyle={{ backgroundColor: '#fff' }}
-      dotStyle={{
-          width: 20,
-          height: 20,
-          borderRadius: 8,
-          marginHorizontal: 5,
-          backgroundColor: '#FF6263'
-      }}
-      inactiveDotStyle={{
-          // Define styles for inactive dots here
-      }}
-      inactiveDotOpacity={0.4}
-      inactiveDotScale={0.6}
-    />
-            </View>
-       
-            </View>
-          </View>
+        <>
+<Swiper style={styles.wrapper} showsButtons={true}>
+        <View style={styles.slide1}>
+          <Text style={styles.text}>Hello Swiper</Text>
         </View>
+        <View style={styles.slide2}>
+          <Text style={styles.text}>Beautiful</Text>
+        </View>
+        <View style={styles.slide3}>
+          <Text style={styles.text}>And simple</Text>
+        </View>
+      </Swiper>
+      
+    </>
       )
     }
     else if(ARTICLES.news.type === 'theday'){
@@ -1258,6 +1238,30 @@ const styles = StyleSheet.create({
     adsContainer: {
       height:SCREEN_HEIGHT,
       width:SCREEN_WIDTH,
-    }
+    },
+    wrapper: {},
+  slide1: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#9DD6EB'
+  },
+  slide2: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#97CAE5'
+  },
+  slide3: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#92BBD9'
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold'
+  }
 
   });

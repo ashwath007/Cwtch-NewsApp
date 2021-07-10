@@ -23,6 +23,7 @@ const HomePageNavigation = () => {
             <>
 
 <Tab.Navigator
+swipeVelocityImpact={20}
 tabBarPosition="bottom"
 initialRouteName="News"
 swipeVelocityImpact='0.1'

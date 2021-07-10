@@ -38,22 +38,51 @@ import moment from 'moment'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { LinearTextGradient } from "react-native-text-gradient";
 
+
+const getCurrentUser = async () => {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      console.log(user);
+      setuserID(user.uid);
+    } else {
+      // No user is signed in.
+    }
+  });
+};
+const [userID, setuserID] = useState('');
+
+
+const bookMarkThisNews = (newsid) => {
+  console.log(" ********************* Bookmark pressed ******************");
+  database().ref(`/user/${userID}`).on('value' , snap => {
+    if(snap.val()){
+      console.log("Bookmark -> ",snap.val());
+      database().ref(`/user/${userID}`).on('value' ,sna => {
+        if(sna.val()){
+          let temp_bookmark = sna.val().bookmark;
+          temp_bookmark.push(newsid);
+          database().ref(`/user/${userID}`).update({
+            bookmark:temp_bookmark
+          })
+        }
+      })
+    }else{
+      console.log("No user DB");
+      database().ref(`/user/${userID}`).set({
+          uid:userID,
+          bookmark:[newsid]
+      })
+    }
+  })
+}
+
+
 const NewsCards = (ARTICLES,authState) => {
 
-  const getCurrentUser = async () => {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        // User is signed in.
-        console.log(user);
-        setuserID(user.uid);
-      } else {
-        // No user is signed in.
-      }
-    });
-  };
+
   const bottomSheetRef = useRef([]);
   const [active, setactive] = useState(false);
-  const [userID, setuserID] = useState('');
 
 
   const yesPressed = () => {
@@ -285,10 +314,8 @@ const noPressed = () => {
     )
 }
 // TODO Need to work on Bookmark
-const bookMarkThisNews = () => {
-    console.log(" ********************* Bookmark pressed ******************");
-}
 
+// TODO Need to work on Link option
 const likeOpinion = (id,op) => {
     console.log("**************** ID Like *************** ", id,op);
     database().ref(`/news/${id}/opinion/${op.id}`).on('value' , snap => {
@@ -484,7 +511,7 @@ const renderHoros = ({item, index}) => {
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
         backgroundColor: 'transparent'}} 
-        onLongPress = {() => bookMarkThisNews()}
+        onLongPress = {() => bookMarkThisNews(ARTICLES.news.id)}
         onPress={() => bottomSheetRef.current.open()}>
                 <Image source={require('./src/press.png')}  style={styles.img}/>
               </TouchableOpacity>

@@ -277,15 +277,16 @@ const bookMarkThisNews = () => {
 
 const renderHoros = ({item, index}) => {
   return(
-    <View style={{padding:20,backgroundColor:'#BC0000',margin:30,borderRadius:12}}>
+    <View style={{padding:20,backgroundColor:'#702627',margin:50,height:490,borderRadius:15,borderBottomEndRadius:15}}>
       <View>
-      <Text style={{marginBottom:10,fontSize:15}}>
+      <Image source={{ uri: item.age.logo}} style={[styles.profileImg,{alignSelf:'center'}]} />
+      <Text style={{marginBottom:10,fontSize:20,fontWeight:'bold',color:'#F17872',alignSelf:'center'}}>
             {item.age.title}
           </Text>
-          <Text style={{color:'#FF5A1E',fontSize:20,fontWeight:'bold'}}>
+          <Text style={{color:'#D69998',fontSize:18,fontWeight:'500'}}>
             {item.thmeTitle}
           </Text>
-          
+         
       </View>
 
 </View>
@@ -951,7 +952,7 @@ const renderHoros = ({item, index}) => {
     }
     else if(ARTICLES.news.type === 'horos'){
       return(
-        <View style={[styles.container,{backgroundColor:"#960101",justifyContent: 'center',alignItems:'center',padding:50}]}>
+        <View style={[styles.container,{backgroundColor:"#511B1B",justifyContent: 'center',alignItems:'center',padding:50}]}>
           <View>
       
             <View>
@@ -966,7 +967,7 @@ const renderHoros = ({item, index}) => {
             width={SCREEN_WIDTH}
             dotsLength={ARTICLES.news.horos.length}
             activeDotIndex={indexAt}
-            containerStyle={{ backgroundColor: '#960101' }}
+            containerStyle={{ backgroundColor: '#511B1B' }}
             dotStyle={{
                 width: 6,
                 height: 6,

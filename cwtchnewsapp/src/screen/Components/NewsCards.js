@@ -39,9 +39,21 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { LinearTextGradient } from "react-native-text-gradient";
 
 const NewsCards = (ARTICLES,authState) => {
+
+  const getCurrentUser = async () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log(user);
+        setuserID(user.uid);
+      } else {
+        // No user is signed in.
+      }
+    });
+  };
   const bottomSheetRef = useRef([]);
   const [active, setactive] = useState(false);
-  
+  const [userID, setuserID] = useState('');
 
 
   const yesPressed = () => {
@@ -77,6 +89,7 @@ const noPressed = () => {
 
 
   useEffect(() => {
+    getCurrentUser()
     const backAction = () => {
       setactive(false)
     };
@@ -104,7 +117,8 @@ const noPressed = () => {
 
     const ID = uuid.v4();
     database().ref(`/news/${ARTICLES.news.id}/opinion/${ID}`).set({
-      opinion: opinion_DATA
+      opinion: opinion_DATA,
+      id:ID
     }).then(() => {
       setopinion('')
     })
@@ -277,9 +291,30 @@ const bookMarkThisNews = () => {
 
 const likeOpinion = (id,op) => {
     console.log("**************** ID Like *************** ", id,op);
-    database().ref(`/news/${id}`).on('value' , snap => {
+    database().ref(`/news/${id}/opinion/${op.id}`).on('value' , snap => {
       if(snap.val()){
         console.log(snap.val());
+        console.log("->",snap.val().opinion.like);
+        if(snap.val().like === undefined) {
+          console.log("Here");
+            database().ref(`/news/${id}/opinion/${op.id}/`).update({
+              like:[userID]
+            })
+        }
+        else{
+          if(userID in snap.val().opinion.like){
+            console.log("already liked");
+          }
+          else{
+            console.log("Not liked");
+            let ll = snap.val().opinion.like;
+            ll.push(userID);
+            database().ref(`/news/${id}/opinion/${op.id}/`).update({
+              like:ll
+            })
+          }
+        }
+
       }
     })
 
@@ -510,7 +545,7 @@ const renderHoros = ({item, index}) => {
                   </Text>
                   </View>
                   <View style={{alignSelf:'flex-start',flexDirection:"row"}}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => {likeOpinion(ARTICLES.news.id,op )}}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => likeOpinion(ARTICLES.news.id,op )}>
                     <LottieView source={require('./src/heart.json')} autoPlay loop style={{height:60,alignSelf:'center',marginLeft:20}}/>
                       </TouchableOpacity>
                     <Text style={{marginTop:18}}>

@@ -114,17 +114,16 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               sliderHeight={SCREEN_HEIGHT}
               itemWidth={SCREEN_WIDTH}
               itemHeight={SCREEN_HEIGHT}
-              inactiveSlideOpacity={1}
+              // inactiveSlideOpacity={1}
+              swipeThreshold={0}
               enableSnap={true}
-              enableMomentum={false}
-
               vertical={true}
-         
-              enableSnap={true}
-              decelerationRate='fast'
-              activeSlideAlignment='start'
-              onEndReached={handleEndReached}
-              windowSize={5}
+              // enableSnap={true}
+              enableMomentum={false}
+              // decelerationRate='fast'
+              // activeSlideAlignment='start'
+              onEndReached={() => handleEndReached()}
+              // windowSize={5}
               onSnapToItem={(index) => setindexAt(index)}
               // ListEmptyComponent={<ShortsLoader />}
             /> 

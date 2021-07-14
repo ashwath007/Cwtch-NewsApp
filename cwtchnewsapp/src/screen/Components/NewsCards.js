@@ -39,52 +39,29 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { LinearTextGradient } from "react-native-text-gradient";
 
 
-const getCurrentUser = async () => {
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      console.log(user);
-      setuserID(user.uid);
-    } else {
-      // No user is signed in.
-    }
-  });
-};
-const [userID, setuserID] = useState('');
 
 
-const bookMarkThisNews = (newsid) => {
-  console.log(" ********************* Bookmark pressed ******************");
-  database().ref(`/user/${userID}`).on('value' , snap => {
-    if(snap.val()){
-      console.log("Bookmark -> ",snap.val());
-      database().ref(`/user/${userID}`).on('value' ,sna => {
-        if(sna.val()){
-          let temp_bookmark = sna.val().bookmark;
-          temp_bookmark.push(newsid);
-          database().ref(`/user/${userID}`).update({
-            bookmark:temp_bookmark
-          })
-        }
-      })
-    }else{
-      console.log("No user DB");
-      database().ref(`/user/${userID}`).set({
-          uid:userID,
-          bookmark:[newsid]
-      })
-    }
-  })
-}
 
 
 const NewsCards = (ARTICLES,authState) => {
 
+  const [userID, setuserID] = useState('');
 
   const bottomSheetRef = useRef([]);
   const [active, setactive] = useState(false);
 
 
+  const getCurrentUser = async () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log(user);
+        setuserID(user.uid);
+      } else {
+        // No user is signed in.
+      }
+    });
+  };
   const yesPressed = () => {
     console.log("yes");
     let TEMP = 0;
@@ -115,6 +92,31 @@ const NewsCards = (ARTICLES,authState) => {
 const noPressed = () => {
 
 }
+
+const bookMarkThisNews = (userID,newsid) => {
+  console.log(" ********************* Bookmark pressed ******************");
+  database().ref(`/user/${userID}`).on('value' , snap => {
+    if(snap.val()){
+      console.log("Bookmark -> ",snap.val());
+      database().ref(`/user/${userID}`).on('value' ,sna => {
+        if(sna.val()){
+          let temp_bookmark = sna.val().bookmark;
+          temp_bookmark.push(newsid);
+          database().ref(`/user/${userID}`).update({
+            bookmark:temp_bookmark
+          })
+        }
+      })
+    }else{
+      console.log("No user DB");
+      database().ref(`/user/${userID}`).set({
+          uid:userID,
+          bookmark:[newsid]
+      })
+    }
+  })
+}
+
 
 
   useEffect(() => {
@@ -511,7 +513,7 @@ const renderHoros = ({item, index}) => {
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
         backgroundColor: 'transparent'}} 
-        onLongPress = {() => bookMarkThisNews(ARTICLES.news.id)}
+        onLongPress = {() => bookMarkThisNews(userID,ARTICLES.news.id)}
         onPress={() => bottomSheetRef.current.open()}>
                 <Image source={require('./src/press.png')}  style={styles.img}/>
               </TouchableOpacity>
@@ -1108,6 +1110,15 @@ const renderHoros = ({item, index}) => {
           </View>
          
           </View>
+        </View>
+      )
+    }
+    else{
+      return(
+        <View>
+            <Text>
+              No News ERROR
+            </Text>
         </View>
       )
     }

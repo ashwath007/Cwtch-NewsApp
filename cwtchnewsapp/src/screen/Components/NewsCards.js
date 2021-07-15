@@ -36,16 +36,16 @@ import YoutubePlayer from "react-native-youtube-iframe";
 const ViewportAwareVideo = Viewport.Aware(Video);
 import moment from 'moment'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { LinearTextGradient } from "react-native-text-gradient";
 
-
-
+import Story from 'react-native-story'
 
 
 
 const NewsCards = (ARTICLES,authState) => {
 
   const [userID, setuserID] = useState('');
+
+
 
   const bottomSheetRef = useRef([]);
   const [active, setactive] = useState(false);
@@ -116,7 +116,32 @@ const bookMarkThisNews = (userID,newsid) => {
     }
   })
 }
-
+const stories = [
+  {
+    id: "4",
+    source: "https://images.unsplash.com/photo-1626195780064-db3e375d685f?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5fHx8ZW58MHx8fHw",
+    user: "Ugur Erdal",
+    avatar: "https://images.unsplash.com/photo-1626275320686-7dc609455c34?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyfHx8ZW58MHx8fHw"
+  },
+  {
+    id: "2",
+    source: "https://images.unsplash.com/photo-1606787619248-f301830a5a57?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D",
+    user: "Mustafa",
+    avatar: "https://images.unsplash.com/photo-1626290131022-4e5a5e167173?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxM3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+  },
+  // {
+  //   id: "5",
+  //   source: require("../../../assets/stories/5.jpg"),
+  //   user: "Emre Yilmaz",
+  //   avatar: require("../../../assets/avatars/emre.png")
+  // },
+  // {
+  //   id: "3",
+  //   source: require("../../../assets/stories/3.jpg"),
+  //   user: "Cenk Gun",
+  //   avatar: require("../../../assets/avatars/cenk.png")
+  // },
+];
 
 
   useEffect(() => {
@@ -1031,39 +1056,18 @@ const renderHoros = ({item, index}) => {
     }
     else if(ARTICLES.news.type === 'horos'){
       return(
-        <View style={[styles.container,{backgroundColor:"#511B1B",justifyContent: 'center',alignItems:'center',padding:50}]}>
-          <View>
-      
-            <View>
-            <Carousel
-              onSnapToItem={(index) => setindexAt(index)}
-              data={ARTICLES.news.horos}
-              renderItem={renderHoros}
-              sliderWidth={520}
-              itemWidth={400}
-            />
-             <Pagination
-            width={SCREEN_WIDTH}
-            dotsLength={ARTICLES.news.horos.length}
-            activeDotIndex={indexAt}
-            containerStyle={{ backgroundColor: '#511B1B' }}
-            dotStyle={{
-                width: 6,
-                height: 6,
-                borderRadius: 8,
-                marginHorizontal: 0.09,
-                backgroundColor: '#fff'
-            }}
-            inactiveDotStyle={{
-                // Define styles for inactive dots here
-            }}
-            inactiveDotOpacity={0.4}
-            inactiveDotScale={0.6}
-          />
-          
-       
-            </View>
-          </View>
+        <View style={[styles.container,{backgroundColor:"#032D06",justifyContent: 'center',alignItems:'center',padding:50}]}>
+      <Story
+			unPressedBorderColor="#e95950"
+			pressedBorderColor="#ebebeb"
+			stories={stories}
+			footerComponent={
+				<TextInput
+					placeholder="Send message"
+					placeholderTextColor="white"
+				/>
+			}
+		/>
         </View>
       )
     }

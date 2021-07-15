@@ -199,6 +199,51 @@ const HomeNews = ({route,navigation}) => {
               sliderHeight={SCREEN_HEIGHT}
               itemWidth={SCREEN_WIDTH}
               itemHeight={SCREEN_HEIGHT}
+              // inactiveSlideOpacity={1}
+              swipeThreshold={0}
+              vertical={true}
+              // enableSnap={true}
+              // enableMomentum={false}
+              decelerationRate='fast'
+              activeSlideAlignment='start'
+              onEndReached={() => handleEndReached()}
+              // windowSize={5}
+              onSnapToItem={(index) => setindexAt(index)}
+              enableSnap={true}
+
+              // ListEmptyComponent={<ShortsLoader />}
+            /> 
+  {(newsOn != null) && (newsOn[indexAt].type === 'news'  || newsOn[indexAt].type === 'video') ? (
+                <View>
+                  {newsOn[indexAt].polling ? (
+                    null
+                  ) : (
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate("WebViews",{url:newsOn[indexAt].url} )}
+                      style={{position:'absolute',bottom:20,height:30,width:100,backgroundColor:'#FF6263',justifyContent:'center',alignSelf:'center',borderRadius:15}}
+                    >
+                        <Text
+                          style={{alignSelf:'center',color:'#fff'}}
+                        >Read now</Text>
+                    </TouchableOpacity>
+                  )
+
+                  }
+                  </View>
+                
+            ) : (
+              null
+            )  
+
+            }
+
+             {/* <Carousel
+              data={newsOn}
+              renderItem={renderItem}
+              sliderWidth={SCREEN_WIDTH}
+              sliderHeight={SCREEN_HEIGHT}
+              itemWidth={SCREEN_WIDTH}
+              itemHeight={SCREEN_HEIGHT}
               inactiveSlideOpacity={1}
               enableSnap={true}
               enableMomentum={true}
@@ -214,7 +259,7 @@ const HomeNews = ({route,navigation}) => {
               windowSize={5}
               onSnapToItem={(index) => setindexAt(index)}
               // ListEmptyComponent={<ShortsLoader />}
-            /> 
+            />  */}
         
             {/* </Swipeable> */}
             {/* </TouchableOpacity> */}

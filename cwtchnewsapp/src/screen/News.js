@@ -116,15 +116,16 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
               itemHeight={SCREEN_HEIGHT}
               // inactiveSlideOpacity={1}
               swipeThreshold={0}
-              enableSnap={true}
               vertical={true}
               // enableSnap={true}
-              enableMomentum={false}
-              // decelerationRate='fast'
-              // activeSlideAlignment='start'
+              // enableMomentum={false}
+              decelerationRate='fast'
+              activeSlideAlignment='start'
               onEndReached={() => handleEndReached()}
               // windowSize={5}
               onSnapToItem={(index) => setindexAt(index)}
+              enableSnap={true}
+
               // ListEmptyComponent={<ShortsLoader />}
             /> 
 

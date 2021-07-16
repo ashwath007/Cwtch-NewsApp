@@ -27,19 +27,24 @@ import {
     GoogleSigninButton,
     statusCodes,
   } from '@react-native-google-signin/google-signin';
+  import propType from 'prop-types'
 
 import {googleSignout} from '../action/auth'
 import Settings from './Settings';
 GoogleSignin.configure({
   webClientId: '350416576934-3qnqa9niinbaikun27jg1vid04kj21c1.apps.googleusercontent.com',
 });
-
+import {getAllNews} from '../action/news'
+import moment from 'moment'; 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
-const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation}) => {
+const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,navigation,getAllNews}) => {
 
+
+
+  const [Date, setDate] = useState(moment().format("MMM Do YY") );
   const [searchQuery, setSearchQuery] = useState('');
 
   const _goBack = () => console.log('Went back');
@@ -92,6 +97,8 @@ const Home = ({getCore,getTopics,topicState,coreState,googleSignout,navigation})
       useEffect(() => {
           getCore()
           getTopics()
+          getAllNews()
+
       }, [])
 
 
@@ -199,6 +206,12 @@ style={{ alignItems: 'center'}}
 </View>
 <View>
 <View>
+
+  <View style={{backgroundColor:'#FAE791',width: windowWidth,height:167,justifyContent:'center'}}>
+          <Text style={{alignSelf:'center'}}>
+            {Date}
+          </Text>
+    </View>
         <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Category</Subheading >
           {/* Flatlist here horizontal scroll */}
           <View style={{flexDirection:'column',justifyContent:'space-between',paddingLeft:20}}>
@@ -231,6 +244,15 @@ style={{ alignItems: 'center'}}
 
           </View>
 
+        <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Headlines</Subheading >
+         
+         
+          <View>
+
+            {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news)) : (console.log("Hooo"))}
+
+            
+            </View>
         
           <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:8,fontFamily:'Gilroy-Medium'}}>Topics</Subheading >
 
@@ -282,20 +304,25 @@ style={{ alignItems: 'center'}}
 const mapDispatchToProps = {
   googleSignout,
   getCore,
-  getTopics
+  getTopics,
+  getAllNews
 }
+
 
 const mapStateToProps = (state) => ({
   coreState: state.core,
-  topicState: state.topics
+  topicState: state.topics,
+  newsState: state.news
 })
+
 
 Home.propTypes = ({
   googleSignout: propTypes.func.isRequired,
   getCore: propTypes.func.isRequired,
   getTopics: propTypes.func.isRequired,
   coreState: propTypes.object.isRequired,
-  topicState: propTypes.object.isRequired
+  topicState: propTypes.object.isRequired,
+  getAllNews: propType.func.isRequired,
 })
 
 const styles = StyleSheet.create({

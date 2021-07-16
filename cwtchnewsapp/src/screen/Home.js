@@ -251,9 +251,10 @@ style={{ alignItems: 'center'}}
     </View>
             <View style={{alignSelf:'center',marginTop:23}}>
               <TouchableOpacity
+              style={{width:60,height:30,backgroundColor:'#FF6263',justifyContent:'center',borderRadius:15}}
               onPress={() => bottomSheetRef.current.open()}
               >
-                <Text>
+                <Text style={{fontSize:15,alignSelf:'center',color:'#fff'}}>
                   Filter
                 </Text>
               </TouchableOpacity>

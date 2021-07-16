@@ -1,6 +1,8 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useState,useRef} from 'react';
 import { connect} from 'react-redux'
 import { Appbar,Searchbar,Subheading   } from 'react-native-paper';
+import database, { firebase } from '@react-native-firebase/database'
+import RBSheet from "react-native-raw-bottom-sheet";
 
 import propTypes from 'prop-types'
 import Carousel from 'react-native-snap-carousel';
@@ -8,6 +10,10 @@ import { getCore } from '../action/core';
 import { getTopics } from '../action/topics';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Splash from './SplashScreen/Splash';
+
+
+
+
 import { SectionGrid,FlatGrid } from 'react-native-super-grid';
 import {
   SafeAreaView,
@@ -38,11 +44,29 @@ import {getAllNews} from '../action/news'
 import moment from 'moment'; 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,navigation,getAllNews}) => {
+  const bottomSheetRef = useRef([]);
 
+  useEffect(() => {
+    getCurrentUser()
+  }, [])
 
+  const getCurrentUser = async () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log("*******************************************************************",user);
+        setuserID(user.displayName);
+      } else {
+        // No user is signed in.
+      }
+    });
+  };
+
+  const [userID, setuserID] = useState('');
 
   const [Date, setDate] = useState(moment().format("MMM Do YY") );
   const [searchQuery, setSearchQuery] = useState('');
@@ -208,11 +232,70 @@ style={{ alignItems: 'center'}}
 <View>
 
   <View style={{backgroundColor:'#FAE791',width: windowWidth,height:167,justifyContent:'center'}}>
-          <Text style={{alignSelf:'center'}}>
+
+  <Image
+              source={{uri:'https://firebasestorage.googleapis.com/v0/b/cwtch-news.appspot.com/o/HomeScreen%2Fboy1.png?alt=media&token=a2ffe5e4-5915-4e36-a21f-e287cceda582'}}
+              style={{height:100,width:180,alignSelf:'center'}}
+          />  
+          {userID ? (
+          <Text style={{alignSelf:'center',fontSize:17}}>Good morning, {userID}</Text>
+
+          ) : (
+
+          <Text style={{alignSelf:'center',fontSize:17}}>Good morning, </Text>
+
+          )}
+          <Text style={{alignSelf:'center',fontSize:12}}>
             {Date}
           </Text>
     </View>
-        <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Category</Subheading >
+            <View style={{alignSelf:'center',marginTop:23}}>
+              <TouchableOpacity
+              onPress={() => bottomSheetRef.current.open()}
+              >
+                <Text>
+                  Filter
+                </Text>
+              </TouchableOpacity>
+              </View>
+
+
+    <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Headlines</Subheading >
+         
+         
+         <View>
+
+           {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news)) : (console.log("Hooo"))}
+
+           
+           </View>
+           <RBSheet
+          ref={(el) => (bottomSheetRef.current = el)}
+          closeOnDragDown={true}
+          closeOnPressMask={true}
+          height={SCREEN_HEIGHT-200}
+          customStyles={{
+            wrapper: {
+              backgroundColor: 'rgba(0.9, 0, 0, 0.4)',
+            },
+            draggableIcon: {
+              backgroundColor: '#FF6263',
+            },
+            container: {
+              borderTopRightRadius: 20,
+              borderTopLeftRadius: 20,
+            },
+          }}>
+            
+                     
+           
+  
+          <ScrollView>
+
+
+
+          <View>
+            <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Category</Subheading >
           {/* Flatlist here horizontal scroll */}
           <View style={{flexDirection:'column',justifyContent:'space-between',paddingLeft:20}}>
 
@@ -224,75 +307,79 @@ style={{ alignItems: 'center'}}
         keyExtractor={item => item.id}
       />
       </View>
+
+
+      <View>
+      
+      <View>
+      <Carousel
+            ref={(c) => { setcorosel(c) }}
+            data={coreState.core}
+            renderItem={renderItem}
+            
+            sliderWidth={windowWidth}
+            itemWidth={250}
+          />
+
+
+        </View>
+
+     
+      
+        <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:8,fontFamily:'Gilroy-Medium'}}>Topics</Subheading >
+
+        <FlatGrid
+    itemDimension={130}
+    data={topicState.topics}
+    style={styles.gridView}
+    // staticDimension={300}
+    // fixed
+    // horizontal={true}
+    spacing={10}
+    renderItem={({ item }) => (
+      <TouchableOpacity 
+      activeOpacity={1}
+      style={{
+        backgroundColor: '#FFF',
+        position: 'relative',
+      }}
+      onPress={() => {navigation.navigate("HomeNews"
+      , {
+        newstopics: item.title,
+        placehome: 'sugg'
+      }
+      
+      )}}>
+      <View style={[styles.itemContainer, { backgroundColor: item.color,overflow: 'hidden', }]}>
+        <Image
+            source={{uri:item.logo}}
+            style={{height: 150,width:200,alignSelf:'center',justifyContent:'center',position: 'absolute'}}
+        />  
+        <Text style={styles.itemName}>{item.title}</Text>
+       
+      </View>
+      </TouchableOpacity>
+    )}
+  />
+
+    
+    </View>
+
+              </View>
+
+
+
+          </ScrollView>
+  
+          </RBSheet>
+
+       
             </View>
       </View>
    
         
 
-      <View>
       
-        <View>
-        <Carousel
-              ref={(c) => { setcorosel(c) }}
-              data={coreState.core}
-              renderItem={renderItem}
-              
-              sliderWidth={windowWidth}
-              itemWidth={250}
-            />
-
-
-          </View>
-
-        <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Headlines</Subheading >
-         
-         
-          <View>
-
-            {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news)) : (console.log("Hooo"))}
-
-            
-            </View>
-        
-          <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:8,fontFamily:'Gilroy-Medium'}}>Topics</Subheading >
-
-          <FlatGrid
-      itemDimension={130}
-      data={topicState.topics}
-      style={styles.gridView}
-      // staticDimension={300}
-      // fixed
-      // horizontal={true}
-      spacing={10}
-      renderItem={({ item }) => (
-        <TouchableOpacity 
-        activeOpacity={1}
-        style={{
-          backgroundColor: '#FFF',
-          position: 'relative',
-        }}
-        onPress={() => {navigation.navigate("HomeNews"
-        , {
-          newstopics: item.title,
-          placehome: 'sugg'
-        }
-        
-        )}}>
-        <View style={[styles.itemContainer, { backgroundColor: item.color,overflow: 'hidden', }]}>
-          <Image
-              source={{uri:item.logo}}
-              style={{height: 150,width:200,alignSelf:'center',justifyContent:'center',position: 'absolute'}}
-          />  
-          <Text style={styles.itemName}>{item.title}</Text>
-         
-        </View>
-        </TouchableOpacity>
-      )}
-    />
-
-      
-      </View>
-
         </View>
         </View>
         </ScrollView>

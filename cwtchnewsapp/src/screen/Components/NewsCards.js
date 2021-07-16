@@ -36,22 +36,15 @@ import YoutubePlayer from "react-native-youtube-iframe";
 const ViewportAwareVideo = Viewport.Aware(Video);
 import moment from 'moment'
 import Carousel, { Pagination } from 'react-native-snap-carousel';
-
 import Story from 'react-native-story'
 
 
 
 const NewsCards = (ARTICLES,authState) => {
-
-  const [userID, setuserID] = useState('');
-
-
-
-  const bottomSheetRef = useRef([]);
-  const [active, setactive] = useState(false);
-
-
-  const getCurrentUser = async () => {
+const [userID, setuserID] = useState('');
+const bottomSheetRef = useRef([]);
+const [active, setactive] = useState(false);
+const getCurrentUser = async () => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
@@ -88,11 +81,6 @@ const NewsCards = (ARTICLES,authState) => {
           
 
 }
-
-const noPressed = () => {
-
-}
-
 const bookMarkThisNews = (userID,newsid) => {
   console.log(" ********************* Bookmark pressed ******************");
   database().ref(`/user/${userID}`).on('value' , snap => {
@@ -142,9 +130,7 @@ const stories = [
   //   avatar: require("../../../assets/avatars/cenk.png")
   // },
 ];
-
-
-  useEffect(() => {
+useEffect(() => {
     getCurrentUser()
     const backAction = () => {
       setactive(false)
@@ -188,8 +174,7 @@ const stories = [
   
 
   }
-  
-  const [visible, setvisible] = useState(false);
+const [visible, setvisible] = useState(false);
   // Heart of Video Pause or Play
   const checkVisible = (isVisible) => {
     if(isVisible){

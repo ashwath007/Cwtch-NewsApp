@@ -213,7 +213,21 @@ const HomeNews = ({route,navigation}) => {
 
               // ListEmptyComponent={<ShortsLoader />}
             /> 
-  {(newsOn != null) && (newsOn[indexAt].type === 'news'  || newsOn[indexAt].type === 'video') ? (
+             <View>
+                <TouchableOpacity style={{ flex: 1,
+              alignSelf:'flex-end',
+                  marginTop:12,
+        position: 'absolute',
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end',
+        backgroundColor: 'transparent'}} 
+        onLongPress = {() => bookMarkThisNews()}
+        onPress={() => bottomSheetRef.current.open()}>
+                <Image source={require('../Components/src/press.png')}  style={styles.img}/>
+              </TouchableOpacity>
+                </View>
+                {/* {console.log("newsOn -> ",newsOn)} */}
+  {/* {(newsOn != null) && (newsOn[indexAt].type === 'news'  || newsOn[indexAt].type === 'video') ? (
                 <View>
                   {newsOn[indexAt].polling ? (
                     null
@@ -235,7 +249,7 @@ const HomeNews = ({route,navigation}) => {
               null
             )  
 
-            }
+            } */}
 
              {/* <Carousel
               data={newsOn}

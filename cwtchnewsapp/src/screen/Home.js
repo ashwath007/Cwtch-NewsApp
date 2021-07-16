@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import { connect} from 'react-redux'
 import { Appbar,Searchbar,Subheading   } from 'react-native-paper';
+import database, { firebase } from '@react-native-firebase/database'
 
 import propTypes from 'prop-types'
 import Carousel from 'react-native-snap-carousel';
@@ -42,7 +43,23 @@ const windowHeight = Dimensions.get('window').height;
 
 const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,navigation,getAllNews}) => {
 
+  useEffect(() => {
+    getCurrentUser()
+  }, [])
 
+  const getCurrentUser = async () => {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log("*******************************************************************",user);
+        setuserID(user.displayName);
+      } else {
+        // No user is signed in.
+      }
+    });
+  };
+
+  const [userID, setuserID] = useState('');
 
   const [Date, setDate] = useState(moment().format("MMM Do YY") );
   const [searchQuery, setSearchQuery] = useState('');
@@ -208,7 +225,15 @@ style={{ alignItems: 'center'}}
 <View>
 
   <View style={{backgroundColor:'#FAE791',width: windowWidth,height:167,justifyContent:'center'}}>
-          <Text style={{alignSelf:'center'}}>
+          {userID ? (
+          <Text style={{alignSelf:'center',fontSize:17}}>Good morning, {userID}</Text>
+
+          ) : (
+
+          <Text style={{alignSelf:'center',fontSize:17}}>Good morning, </Text>
+
+          )}
+          <Text style={{alignSelf:'center',fontSize:12}}>
             {Date}
           </Text>
     </View>

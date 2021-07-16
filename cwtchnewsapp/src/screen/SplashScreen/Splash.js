@@ -7,7 +7,7 @@ const windowHeight = Dimensions.get('window').height;
 const Splash = () => {
 
         return(
-            <View style={{height:windowHeight,width:windowWidth}}>
+            <View style={{height:windowHeight,width:windowWidth,backgroundColor:'#fff'}}>
                 <LottieView source={require('./panda.json')} autoPlay loop />
             </View>
             )

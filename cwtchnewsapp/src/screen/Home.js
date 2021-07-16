@@ -35,13 +35,16 @@ GoogleSignin.configure({
   webClientId: '350416576934-3qnqa9niinbaikun27jg1vid04kj21c1.apps.googleusercontent.com',
 });
 import {getAllNews} from '../action/news'
-
+import moment from 'moment'; 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 
 const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,navigation,getAllNews}) => {
 
+
+
+  const [Date, setDate] = useState(moment().format("MMM Do YY") );
   const [searchQuery, setSearchQuery] = useState('');
 
   const _goBack = () => console.log('Went back');
@@ -203,6 +206,12 @@ style={{ alignItems: 'center'}}
 </View>
 <View>
 <View>
+
+  <View style={{backgroundColor:'#FAE791',width: windowWidth,height:167,justifyContent:'center'}}>
+          <Text style={{alignSelf:'center'}}>
+            {Date}
+          </Text>
+    </View>
         <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Category</Subheading >
           {/* Flatlist here horizontal scroll */}
           <View style={{flexDirection:'column',justifyContent:'space-between',paddingLeft:20}}>
@@ -242,7 +251,7 @@ style={{ alignItems: 'center'}}
 
             {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news)) : (console.log("Hooo"))}
 
-
+            
             </View>
         
           <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:8,fontFamily:'Gilroy-Medium'}}>Topics</Subheading >

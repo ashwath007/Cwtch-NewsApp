@@ -235,7 +235,7 @@ style={{ alignItems: 'center'}}
       <View style={{flexDirection:'row',justifyContent:'space-between'}}>
       <Image
               source={{uri:'https://firebasestorage.googleapis.com/v0/b/cwtch-news.appspot.com/o/HomeScreen%2Fgirl1.png?alt=media&token=f1d96cc3-affc-4492-940d-5902628b7e4f'}}
-              style={{height:65,width:25,alignContent:'flex-end'}}
+              style={{height:65,width:25,alignContent:'flex-end',marginLeft:20}}
           />  
 
           <View>
@@ -254,7 +254,7 @@ style={{ alignItems: 'center'}}
           </View>
       <Image
               source={{uri:'https://firebasestorage.googleapis.com/v0/b/cwtch-news.appspot.com/o/HomeScreen%2Fboy1.png?alt=media&token=766e3d09-eee4-4bfc-8489-dd7e6bd97d1c'}}
-              style={{height:65,width:25,alignSelf:'flex-end'}}
+              style={{height:65,width:25,alignSelf:'flex-end',marginRight:20}}
           />  
            
         </View>  
@@ -274,12 +274,33 @@ style={{ alignItems: 'center'}}
 
 
     <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Headlines</Subheading >
-         
-         
+     
          <View>
 
            {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news)) : (console.log("Hooo"))}
+            <View style={{alignSelf:'center',marginTop:12}}>
+                  <TouchableOpacity>
+                    <View style={{
+                      
+                      height:180,
+                      width:windowWidth-50,
+                      margin:8,
+                      backgroundColor:'#ffffff',
+                      borderRadius:10,
+                      elevation:5,
+                      shadowColor: "#000",
+                      shadowOffset: {
+                      	width: 0,
+                      	height: 6,
+                      },
+                      shadowOpacity: 0.37,
+                      shadowRadius: 7.49,
+                      }}>
 
+
+                    </View>
+                  </TouchableOpacity>
+              </View>
            
            </View>
            <RBSheet

@@ -232,11 +232,14 @@ style={{ alignItems: 'center'}}
 <View>
 
   <View style={{backgroundColor:'#FAE791',width: windowWidth,height:167,justifyContent:'center'}}>
-
-  <Image
-              source={{uri:'https://firebasestorage.googleapis.com/v0/b/cwtch-news.appspot.com/o/HomeScreen%2Fboy1.png?alt=media&token=a2ffe5e4-5915-4e36-a21f-e287cceda582'}}
-              style={{height:100,width:180,alignSelf:'center'}}
+      <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+      <Image
+              source={{uri:'https://firebasestorage.googleapis.com/v0/b/cwtch-news.appspot.com/o/HomeScreen%2Fgirl1.png?alt=media&token=f1d96cc3-affc-4492-940d-5902628b7e4f'}}
+              style={{height:65,width:25,alignContent:'flex-end'}}
           />  
+
+          <View>
+
           {userID ? (
           <Text style={{alignSelf:'center',fontSize:17}}>Good morning, {userID}</Text>
 
@@ -248,12 +251,22 @@ style={{ alignItems: 'center'}}
           <Text style={{alignSelf:'center',fontSize:12}}>
             {Date}
           </Text>
+          </View>
+      <Image
+              source={{uri:'https://firebasestorage.googleapis.com/v0/b/cwtch-news.appspot.com/o/HomeScreen%2Fboy1.png?alt=media&token=766e3d09-eee4-4bfc-8489-dd7e6bd97d1c'}}
+              style={{height:65,width:25,alignSelf:'flex-end'}}
+          />  
+           
+        </View>  
+
+        
     </View>
             <View style={{alignSelf:'center',marginTop:23}}>
               <TouchableOpacity
+              style={{width:60,height:30,backgroundColor:'#FF6263',justifyContent:'center',borderRadius:15}}
               onPress={() => bottomSheetRef.current.open()}
               >
-                <Text>
+                <Text style={{fontSize:15,alignSelf:'center',color:'#fff'}}>
                   Filter
                 </Text>
               </TouchableOpacity>

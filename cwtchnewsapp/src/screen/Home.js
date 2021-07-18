@@ -277,30 +277,48 @@ style={{ alignItems: 'center'}}
      
          <View>
 
-           {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news)) : (console.log("Hooo"))}
-            <View style={{alignSelf:'center',marginTop:12}}>
-                  <TouchableOpacity>
-                    <View style={{
+           {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news )) : (console.log("Hooo"))}
+            {newsState.news.map((item,index) => {
+                      if(item.type === 'heading'){
+                          return(
+                            <View style={{alignSelf:'center',marginTop:12}}>
+                            <TouchableOpacity>
+                              <View style={{
+                                flexDirection:'row',
+                                height:180,
+                                width:windowWidth-50,
+                                margin:8,
+                                backgroundColor:'#ffffff',
+                                borderRadius:10,
+                                elevation:5,
+                                shadowColor: "#000",
+                                shadowOffset: {
+                                  width: 0,
+                                  height: 6,
+                                },
+                                shadowOpacity: 0.37,
+                                shadowRadius: 7.49,
+                                }}>
+                                  
+                                  <View>
+                                  {/* <FastImage
+                        style={{flex: 1}}
+                        source={{
+                          uri: ARTICLES.news.pic,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover}
+                      /> */}
+                                    </View>
+                              </View>
+                            </TouchableOpacity>
+                        </View>
+                          )
+                      }
                       
-                      height:180,
-                      width:windowWidth-50,
-                      margin:8,
-                      backgroundColor:'#ffffff',
-                      borderRadius:10,
-                      elevation:5,
-                      shadowColor: "#000",
-                      shadowOffset: {
-                      	width: 0,
-                      	height: 6,
-                      },
-                      shadowOpacity: 0.37,
-                      shadowRadius: 7.49,
-                      }}>
+            })}
 
 
-                    </View>
-                  </TouchableOpacity>
-              </View>
+           
            
            </View>
            <RBSheet

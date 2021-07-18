@@ -279,7 +279,7 @@ style={{ alignItems: 'center'}}
 
            {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news )) : (console.log("Hooo"))}
             {newsState.news.map((item,index) => {
-                      if(item.type === 'heading'){
+                      if(item.type === 'impnews'){
                           return(
                             <View style={{alignSelf:'center',marginTop:12}}>
                             <TouchableOpacity>
@@ -301,6 +301,9 @@ style={{ alignItems: 'center'}}
                                 }}>
                                   
                                   <View>
+                                    <Text>
+                                      {item.from}
+                                    </Text>
                                   {/* <FastImage
                         style={{flex: 1}}
                         source={{

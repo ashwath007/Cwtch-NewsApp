@@ -1,5 +1,6 @@
 import React,{useEffect,useState,useRef} from 'react';
 import { connect} from 'react-redux'
+import {Linking} from 'react-native'
 import { Appbar,Searchbar,Subheading   } from 'react-native-paper';
 import database, { firebase } from '@react-native-firebase/database'
 import RBSheet from "react-native-raw-bottom-sheet";
@@ -199,6 +200,8 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
 }
 
 
+  
+
     return(
       <>
       <Appbar.Header
@@ -284,7 +287,7 @@ style={{ alignItems: 'center'}}
      
          <View>
 
-           {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news )) : (console.log("Hooo"))}
+           {/* {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news )) : (console.log("Hooo"))} */}
             {newsState && newsState.news.map((item,index) => {
                       if(item.type === 'impnews'){
                           return(
@@ -293,6 +296,7 @@ style={{ alignItems: 'center'}}
                             style={{alignSelf:'center',marginTop:12}}>
                             <TouchableOpacity
                             activeOpacity={1}
+                            onPress={() => Linking.openURL(item.url)}
                             >
                               <View style={{
                                 flexDirection:'row',

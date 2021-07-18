@@ -3,6 +3,7 @@ import { connect} from 'react-redux'
 import { Appbar,Searchbar,Subheading   } from 'react-native-paper';
 import database, { firebase } from '@react-native-firebase/database'
 import RBSheet from "react-native-raw-bottom-sheet";
+import FastImage from 'react-native-fast-image'
 
 import propTypes from 'prop-types'
 import Carousel from 'react-native-snap-carousel';
@@ -301,16 +302,17 @@ style={{ alignItems: 'center'}}
                                 }}>
                                   
                                   <View>
+                                        <FastImage
+                                            style={{height:114,borderTopLeftRadius:8,borderTopRightRadius:8, width:windowWidth-50}}
+                                            source={{
+                                              uri: item.pic,
+                                            }}
+                                            resizeMode={FastImage.resizeMode.cover}
+                                          />
                                     <Text>
                                       {item.from}
                                     </Text>
-                                  {/* <FastImage
-                        style={{flex: 1}}
-                        source={{
-                          uri: ARTICLES.news.pic,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                      /> */}
+                            
                                     </View>
                               </View>
                             </TouchableOpacity>

@@ -264,7 +264,7 @@ style={{ alignItems: 'center'}}
     </View>
             <View style={{alignSelf:'center',marginTop:23}}>
               <TouchableOpacity
-              style={{width:60,height:30,backgroundColor:'#FF6263',justifyContent:'center',borderRadius:15}}
+              style={{width:135,height:30,backgroundColor:'#FF6263',justifyContent:'center',borderBottomRightRadius:20,borderTopLeftRadius:20}}
               onPress={() => bottomSheetRef.current.open()}
               >
                 <Text style={{fontSize:15,alignSelf:'center',color:'#fff'}}>
@@ -283,7 +283,9 @@ style={{ alignItems: 'center'}}
                       if(item.type === 'impnews'){
                           return(
                             <View style={{alignSelf:'center',marginTop:12}}>
-                            <TouchableOpacity>
+                            <TouchableOpacity
+                            activeOpacity={1}
+                            >
                               <View style={{
                                 flexDirection:'row',
                                 height:180,

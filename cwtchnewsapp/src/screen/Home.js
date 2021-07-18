@@ -264,7 +264,13 @@ style={{ alignItems: 'center'}}
     </View>
             <View style={{alignSelf:'center',marginTop:23}}>
               <TouchableOpacity
-              style={{width:60,height:30,backgroundColor:'#FF6263',justifyContent:'center',borderRadius:15}}
+              style={{
+                width:135,
+                height:30,
+                backgroundColor:'#FF6263',
+                justifyContent:'center',
+                borderBottomRightRadius:20,
+                borderTopLeftRadius:20}}
               onPress={() => bottomSheetRef.current.open()}
               >
                 <Text style={{fontSize:15,alignSelf:'center',color:'#fff'}}>
@@ -274,19 +280,23 @@ style={{ alignItems: 'center'}}
               </View>
 
 
-    <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:12,fontFamily:'Gilroy-Medium'}}>Headlines</Subheading >
+    <Subheading style={{paddingLeft:20,marginTop:25,marginBottom:3,fontFamily:'Gilroy-Medium'}}>Headlines</Subheading >
      
          <View>
 
            {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news )) : (console.log("Hooo"))}
-            {newsState.news.map((item,index) => {
+            {newsState && newsState.news.map((item,index) => {
                       if(item.type === 'impnews'){
                           return(
-                            <View style={{alignSelf:'center',marginTop:12}}>
-                            <TouchableOpacity>
+                            <View 
+                            key={index}
+                            style={{alignSelf:'center',marginTop:12}}>
+                            <TouchableOpacity
+                            activeOpacity={1}
+                            >
                               <View style={{
                                 flexDirection:'row',
-                                height:180,
+                                height:195,
                                 width:windowWidth-50,
                                 margin:8,
                                 backgroundColor:'#ffffff',
@@ -309,9 +319,60 @@ style={{ alignItems: 'center'}}
                                             }}
                                             resizeMode={FastImage.resizeMode.cover}
                                           />
-                                    <Text>
+                                    <Text
+                                    style={{
+                                      padding:5,
+                                      fontSize:15,
+                                      marginTop:8,
+                                      marginLeft:8,
+                                      fontWeight:'bold'
+                                    }}
+                                    numberOfLines={2}
+                                    >
+                                      {item.newsTitle}
+                                    </Text>
+                                    <View
+                                    style={{
+                                      flexDirection:'row'
+                                    }}
+                                    >
+                                  <Text
+                                    style={{
+                                      marginTop:0.2,
+                                      marginLeft:12,
+                                      fontSize:12,
+                                      color:'#758283',
+                                      fontWeight:'bold'
+                                    }}
+                                    >
                                       {item.from}
                                     </Text>
+                                    <Text
+                                    style={{
+                                      marginTop:0.2,
+                                      marginLeft:22,
+                                      fontSize:12,
+                                      color:'#758283',
+                                      fontWeight:'bold'
+                                    }}
+                                    >
+                                      👁️ 1,200
+                                    </Text>
+                                    <Text
+                                    style={{
+                                      alignSelf:'flex-end',
+                                      marginTop:0.2,
+                                      marginLeft:40,
+                                      fontSize:12,
+                                      color:'#FF6263',
+                                      fontWeight:'bold'
+                                    }}
+                                    >
+                                      {item.location}
+                                    </Text>
+                                      </View>
+
+                                  
                             
                                     </View>
                               </View>

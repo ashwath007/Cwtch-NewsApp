@@ -330,32 +330,32 @@ const [visible, setvisible] = useState(false);
 // TODO Need to work on Link option
 const likeOpinion = (id,op) => {
     console.log("**************** ID Like *************** ", id,op);
-    database().ref(`/news/${id}/opinion/${op.id}`).on('value' , snap => {
-      if(snap.val()){
-        console.log(snap.val());
-        console.log("->",snap.val().opinion.like);
-        if(snap.val().like === undefined) {
-          console.log("Here");
-            database().ref(`/news/${id}/opinion/${op.id}/`).update({
-              like:[userID]
-            })
-        }
-        else{
-          if(userID in snap.val().opinion.like){
-            console.log("already liked");
-          }
-          else{
-            console.log("Not liked");
-            let ll = snap.val().opinion.like;
-            ll.push(userID);
-            database().ref(`/news/${id}/opinion/${op.id}/`).update({
-              like:ll
-            })
-          }
-        }
+    // database().ref(`/news/${id}/opinion/${op.id}`).on('value' , snap => {
+    //   if(snap.val()){
+    //     console.log(snap.val());
+    //     console.log("->",snap.val().opinion.like);
+    //     if(snap.val().like === undefined) {
+    //       console.log("Here");
+    //         database().ref(`/news/${id}/opinion/${op.id}/`).update({
+    //           like:[userID]
+    //         })
+    //     }
+    //     else{
+    //       if(userID in snap.val().opinion.like){
+    //         console.log("already liked");
+    //       }
+    //       else{
+    //         console.log("Not liked");
+    //         let ll = snap.val().opinion.like;
+    //         ll.push(userID);
+    //         database().ref(`/news/${id}/opinion/${op.id}/`).update({
+    //           like:ll
+    //         })
+    //       }
+    //     }
 
-      }
-    })
+    //   }
+    // })
 
 }
 
@@ -1059,14 +1059,14 @@ const renderHoros = ({item, index}) => {
     else if(ARTICLES.news.type === 'theday'){
       return(
         <View 
-        style={[styles.container,{backgroundColor:"white",justifyContent: 'center',alignItems:'center'}]}
+        style={[styles.container,{backgroundColor:"#0055A3",justifyContent: 'center',alignItems:'center'}]}
         >
          <Text
          style={{
            fontSize:32,
            fontFamily:'Gilroy-Bold',
-           color:'#120E43',
-           marginTop:55
+           color:'#ffffff',
+           marginTop:42
          }}
          >
            The day
@@ -1074,7 +1074,17 @@ const renderHoros = ({item, index}) => {
           <View style={{marginTop:25,alignItems:'center'}}>
           <Image source={{ uri: ARTICLES.news.doodle}} style={[styles.thedayImg,{alignItems:'center'}]} />
           
-          <Text  style={{color:'#5DA3FA',fontFamily:'Gilroy-Medium',fontSize:20,flex:1,marginTop:28,alignSelf:'center',margin:10,padding:5}}
+          <Text 
+          
+          style={{color:'#ffffff',fontFamily:'Gilroy-Medium',
+          fontSize:20,
+          flex:1,
+          marginTop:18,
+          alignSelf:'center',
+          margin:6,
+          padding:5,
+          lineHeight: 30,
+        }}
           
           >
             The day - {ARTICLES.news.title}
@@ -1083,14 +1093,15 @@ const renderHoros = ({item, index}) => {
             <TouchableOpacity
             onPress={() =>  Linking.openURL(ARTICLES.news.link)}
             
-            style={{backgroundColor:'#5DA3FA',height:40,width:120,borderRadius:15,justifyContent:'center',bottom:100}}
+            style={{backgroundColor:'#ffffff',height:40,width:120,borderRadius:15,justifyContent:'center',marginBottom:100}}
             >
+            
               <Text
               style={{
                 fontFamily:'Gilroy-Medium',
                 fontSize:18,
                 alignSelf:'center',
-                color:'#ffffff'
+                color:'#5DA3FA'
               }}
               >
                 Read

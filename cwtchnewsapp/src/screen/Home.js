@@ -301,6 +301,7 @@ style={{ alignItems: 'center'}}
          <View>
 
            {/* {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news )) : (console.log("Hooo"))} */}
+           
           {headlines &&  headlines.map((item,index) => {
         if(item.type === 'impnews'){
             return(

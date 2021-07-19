@@ -678,11 +678,43 @@ const renderHoros = ({item, index}) => {
             <ScrollView showsVerticalScrollIndicator={true}>
               <TouchableOpacity activeOpacity={1}>
             
-            <View style={styles.gridContainer}>
-                {sociailDetails.map(grid => (
+            <View>
+              <View>
+                <Text style={{
+                  alignSelf:'center',
+                  marginTop:12,
+                  fontSize:20,
+                  color:'#758283'
+                }}>
+                Share the News
+                  </Text>
+                  <TouchableOpacity 
+                  onPress={() => shareNewsHere(ARTICLES.news.url)}
+                  style={{
+                    height:45,
+                    width:100,
+                    backgroundColor:'#E07C24',
+                    borderRadius:8,
+                    alignSelf:'center',
+                    elevation:20,
+                    justifyContent:'center',
+                    marginTop:23
+                  }}>
+                      <Text
+                        style={{
+                          color:'#fff',
+                          alignSelf:'center',
+                          fontSize:18
+                        }}
+                      >
+                        Share🔗
+                      </Text>
+                  </TouchableOpacity>
+                </View>
+                {/* {sociailDetails.map(grid => (
                   <TouchableOpacity
                     key={grid.icon}
-                    onPress={() => {shareNewsHere()}}
+                    onPress={() => shareNewsHere(ARTICLES.news.url)}
                     style={styles.gridButtonContainer}
                   >
                     <View style={[styles.gridButton, { backgroundColor: grid.color }]}>
@@ -690,12 +722,13 @@ const renderHoros = ({item, index}) => {
                     </View>
                     <Text style={styles.gridLabel}>{grid.label}</Text>
                   </TouchableOpacity>
-                ))}
+                ))} */}
               </View>
               </TouchableOpacity>
              
              </ScrollView>
             </Tab>
+            
             
           </Tabs>
              

@@ -66,9 +66,22 @@ const Settings = ({userDetails,googleSignout}) => {
       <Appbar.Action icon="account-circle" onPress={() => bottomSheetRef.current.open()} />
     </Appbar.Header>
 
-        {console.log(userDetails)}
+        {/* {console.log(userDetails)} */}
             <View>
+            
 
+            <View style={{
+              margin: 20,
+              marginTop: 22
+            }}>
+              <Text style={{
+                fontSize: 16,
+                fontWeight:'bold',
+                color: '#242B2E'
+              }}>
+                Hello users / lovely testers🥰, settings won't work, still in development ⚙️ 
+              </Text> 
+            </View>
             <List.Section>
             {options.map((op,index) => {
                 return(
@@ -107,11 +120,11 @@ const Settings = ({userDetails,googleSignout}) => {
           },
         }}>
             <View>
-                <Text style={{alignSelf:'center',marginTop:12,fontFamily:'popins',fontSize:19}}>
-                    We will miss U
+                <Text style={{alignSelf:'center',marginTop:12,fontFamily:'popins',fontSize:19,fontWeight:'bold',elevation:5}}>
+                    We will miss U 😔
                 </Text>
                 <View style={{padding:8}}>
-                <View style={{borderWidth:1,borderColor:'#EB4D4B',justifyContent:'center'}}>
+                <View style={{justifyContent:'center'}}>
 
                 <Button icon="logout" style={{marginTop:8}} color="#EB4D4B" onPress={() => googleSignout()}>
     Signout

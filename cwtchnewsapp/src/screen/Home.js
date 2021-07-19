@@ -177,7 +177,7 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
         activeOpacity={1}
         onPress={
           () => {
-            // bottomSheetRef.current.close()
+            bottomSheetRef.current.close()
             navigation.navigate("HomeNews"
         , {
           newstopics: item.topic,

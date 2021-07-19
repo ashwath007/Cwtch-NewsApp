@@ -54,10 +54,18 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
 
   useEffect(() => {
     getCurrentUser()
+    getHeadlinesHere()
   }, [])
 
   const [headlines, setheadlines] = useState([]);
 
+  const getHeadlinesHere = () => {
+    firebase.database().ref(`/impnews`).on('value' , snap => {
+      if(snap.val()){
+          setheadlines(Object.values(snap.val()));
+      }
+    })
+  }
 
   const getCurrentUser = async () => {
     firebase.auth().onAuthStateChanged(function(user) {

@@ -1,5 +1,5 @@
 import React,{useRef,useEffect,useCallback,useState} from 'react';
-import { StyleSheet,View,SafeAreaView,Text,Dimensions ,TouchableOpacity, ScrollView,TouchableHighlight,Image,Linking , BackHandler} from 'react-native';
+import { StyleSheet,View,SafeAreaView,Text,Dimensions,Share ,TouchableOpacity, ScrollView,TouchableHighlight,Image,Linking , BackHandler} from 'react-native';
 import FastImage from 'react-native-fast-image'
 import {  FONT_SIZE_EXTRA_LARGE,
     FONT_SIZE_NORMAL,
@@ -83,26 +83,26 @@ const getCurrentUser = async () => {
 }
 const bookMarkThisNews = (userID,newsid) => {
   console.log(" ********************* Bookmark pressed ******************");
-  database().ref(`/user/${userID}`).on('value' , snap => {
-    if(snap.val()){
-      console.log("Bookmark -> ",snap.val());
-      database().ref(`/user/${userID}`).on('value' ,sna => {
-        if(sna.val()){
-          let temp_bookmark = sna.val().bookmark;
-          temp_bookmark.push(newsid);
-          database().ref(`/user/${userID}`).update({
-            bookmark:temp_bookmark
-          })
-        }
-      })
-    }else{
-      console.log("No user DB");
-      database().ref(`/user/${userID}`).set({
-          uid:userID,
-          bookmark:[newsid]
-      })
-    }
-  })
+  // database().ref(`/user/${userID}`).on('value' , snap => {
+  //   if(snap.val()){
+  //     console.log("Bookmark -> ",snap.val());
+  //     database().ref(`/user/${userID}`).on('value' ,sna => {
+  //       if(sna.val()){
+  //         let temp_bookmark = sna.val().bookmark;
+  //         temp_bookmark.push(newsid);
+  //         database().ref(`/user/${userID}`).update({
+  //           bookmark:temp_bookmark
+  //         })
+  //       }
+  //     })
+  //   }else{
+  //     console.log("No user DB");
+  //     database().ref(`/user/${userID}`).set({
+  //         uid:userID,
+  //         bookmark:[newsid]
+  //     })
+  //   }
+  // })
 }
 const stories = [
   {
@@ -438,6 +438,13 @@ const renderHoros = ({item, index}) => {
     );
   }
 
+  const shareNewsHere = (url) => {
+    Share.share({
+      message: `Save time. Download Cwtch and support us 🙏 ${url}`,
+    })
+    .then(result => console.log(result))
+    .catch(errorMsg => console.log(errorMsg));
+  }
 
 
     const [opinion, setopinion] = useState('');
@@ -675,7 +682,7 @@ const renderHoros = ({item, index}) => {
                 {sociailDetails.map(grid => (
                   <TouchableOpacity
                     key={grid.icon}
-                    onPress={() => {}}
+                    onPress={() => {shareNewsHere()}}
                     style={styles.gridButtonContainer}
                   >
                     <View style={[styles.gridButton, { backgroundColor: grid.color }]}>
@@ -761,11 +768,6 @@ const renderHoros = ({item, index}) => {
     }
     else if(ARTICLES.news.type === 'news'){
       // setvideoStatus(false);
-
-
-
-
-
       return(
         
   
@@ -920,7 +922,9 @@ const renderHoros = ({item, index}) => {
             <Tab heading={ <TabHeading style={{backgroundColor: 'white',elevation:0}}><Icon name="apps" style={{color:'#FF6263'}}/></TabHeading>}>
             <ScrollView showsVerticalScrollIndicator={true} 
             keyboardShouldPersistTaps="always"> 
-              <TouchableOpacity activeOpacity={1}>
+              <TouchableOpacity activeOpacity={1}
+                
+              >
              <View style={{padding:10}}>
                 <Text style={styles.textHeading}>
                   Share your Toughts and feelings
@@ -969,11 +973,43 @@ const renderHoros = ({item, index}) => {
             <ScrollView showsVerticalScrollIndicator={true}>
               <TouchableOpacity activeOpacity={1}>
             
-            <View style={styles.gridContainer}>
-                {sociailDetails.map(grid => (
+            <View>
+              <View>
+                <Text style={{
+                  alignSelf:'center',
+                  marginTop:12,
+                  fontSize:20,
+                  color:'#758283'
+                }}>
+                Share the News
+                  </Text>
+                  <TouchableOpacity 
+                  onPress={() => shareNewsHere(ARTICLES.news.url)}
+                  style={{
+                    height:45,
+                    width:100,
+                    backgroundColor:'#E07C24',
+                    borderRadius:8,
+                    alignSelf:'center',
+                    elevation:20,
+                    justifyContent:'center',
+                    marginTop:23
+                  }}>
+                      <Text
+                        style={{
+                          color:'#fff',
+                          alignSelf:'center',
+                          fontSize:18
+                        }}
+                      >
+                        Share🔗
+                      </Text>
+                  </TouchableOpacity>
+                </View>
+                {/* {sociailDetails.map(grid => (
                   <TouchableOpacity
                     key={grid.icon}
-                    onPress={() => {}}
+                    onPress={() => shareNewsHere(ARTICLES.news.url)}
                     style={styles.gridButtonContainer}
                   >
                     <View style={[styles.gridButton, { backgroundColor: grid.color }]}>
@@ -981,7 +1017,7 @@ const renderHoros = ({item, index}) => {
                     </View>
                     <Text style={styles.gridLabel}>{grid.label}</Text>
                   </TouchableOpacity>
-                ))}
+                ))} */}
               </View>
               </TouchableOpacity>
              

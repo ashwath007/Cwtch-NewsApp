@@ -997,48 +997,48 @@ const renderHoros = ({item, index}) => {
      
       )
     }
-    else if(ARTICLES.news.type === 'heading'){
-      return(
-        <>
+    // else if(ARTICLES.news.type === 'heading'){
+    //   return(
+    //     <>
         
-        <Carousel
-        data={ARTICLES.news.allHeadings}
-        renderItem={renderItem}
-        sliderWidth={SCREEN_WIDTH}
-        sliderHeight={SCREEN_HEIGHT}
-        itemWidth={SCREEN_WIDTH}
-        itemHeight={SCREEN_HEIGHT}
-        inactiveSlideOpacity={1}
-        enableSnap={true}
-        vertical={false}
-        layout={'stack'} layoutCardOffset={`18`}
-        activeSlideOffset={10}
-        swipeThreshold={0}
-        onEndReached={handleEndReached}
-        windowSize={5}
-        onSnapToItem={(index) => setindexAt(index)}
-        // ListEmptyComponent={<ShortsLoader />}
-      />
-      <Pagination
-      dotsLength={ARTICLES.news.allHeadings.length}
-      activeDotIndex={indexAt}
-      containerStyle={{ backgroundColor: '#fff' }}
-      dotStyle={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          marginHorizontal: 8,
-          backgroundColor: '#242B2E'
-      }}
-      inactiveDotStyle={{
-          // Define styles for inactive dots here
-      }}
-      inactiveDotOpacity={0.4}
-      inactiveDotScale={0.6}
-    />
-    </>
-      )
-    }
+    //     <Carousel
+    //     data={ARTICLES.news.allHeadings}
+    //     renderItem={renderItem}
+    //     sliderWidth={SCREEN_WIDTH}
+    //     sliderHeight={SCREEN_HEIGHT}
+    //     itemWidth={SCREEN_WIDTH}
+    //     itemHeight={SCREEN_HEIGHT}
+    //     inactiveSlideOpacity={1}
+    //     enableSnap={true}
+    //     vertical={false}
+    //     layout={'stack'} layoutCardOffset={`18`}
+    //     activeSlideOffset={10}
+    //     swipeThreshold={0}
+    //     onEndReached={handleEndReached}
+    //     windowSize={5}
+    //     onSnapToItem={(index) => setindexAt(index)}
+    //     // ListEmptyComponent={<ShortsLoader />}
+    //   />
+    //   <Pagination
+    //   dotsLength={ARTICLES.news.allHeadings.length}
+    //   activeDotIndex={indexAt}
+    //   containerStyle={{ backgroundColor: '#fff' }}
+    //   dotStyle={{
+    //       width: 10,
+    //       height: 10,
+    //       borderRadius: 5,
+    //       marginHorizontal: 8,
+    //       backgroundColor: '#242B2E'
+    //   }}
+    //   inactiveDotStyle={{
+    //       // Define styles for inactive dots here
+    //   }}
+    //   inactiveDotOpacity={0.4}
+    //   inactiveDotScale={0.6}
+    // />
+    // </>
+    //   )
+    // }
     else if(ARTICLES.news.type === 'horos'){
       return(
         <View style={[styles.container,{backgroundColor:"#032D06",justifyContent: 'center',alignItems:'center',padding:50}]}>
@@ -1102,11 +1102,11 @@ const renderHoros = ({item, index}) => {
         </View>
       )
     }
-    else{
+    else {
       return(
         <View>
             <Text>
-              No News ERROR
+              {ARTICLES.news.type}
             </Text>
         </View>
       )

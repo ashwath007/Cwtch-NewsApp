@@ -67,10 +67,16 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
     //   ];
 
       const renderItem = ({item,index}) => {
-        return (
+        if(newsState.news[indexAt].type != 'impnews'){
+            return (
             <NewsCards news={newsState.news[index]}/>
-  
-        );
+
+            )
+        }
+        else{
+          var ind = indexAt + 1
+          setindexAt(ind)
+        }
       }
 
 

@@ -56,6 +56,9 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
     getCurrentUser()
   }, [])
 
+  const [headlines, setheadlines] = useState([]);
+
+
   const getCurrentUser = async () => {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
@@ -200,6 +203,16 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
 }
 
 
+  const renderHeadlinesCard = () => {
+    if(headlines !== null){
+      console.log("dwedwef -----------------------------------------------~~~~~~~~~~~~~~~~~~~~",headlines);
+     
+    }
+
+
+  }
+
+
   
 
     return(
@@ -288,105 +301,104 @@ style={{ alignItems: 'center'}}
          <View>
 
            {/* {newsState ? (console.log(" -->>> newsState +++++++++++++++++++++++",newsState.news )) : (console.log("Hooo"))} */}
-            {newsState && newsState.news.map((item,index) => {
-                      if(item.type === 'impnews'){
-                          return(
-                            <View 
-                            key={index}
-                            style={{alignSelf:'center',marginTop:12}}>
-                            <TouchableOpacity
-                            activeOpacity={1}
-                            onPress={() => Linking.openURL(item.url)}
-                            >
-                              <View style={{
-                                flexDirection:'row',
-                                height:195,
-                                width:windowWidth-50,
-                                margin:8,
-                                backgroundColor:'#ffffff',
-                                borderRadius:10,
-                                elevation:5,
-                                shadowColor: "#000",
-                                shadowOffset: {
-                                  width: 0,
-                                  height: 6,
-                                },
-                                shadowOpacity: 0.37,
-                                shadowRadius: 7.49,
-                                }}>
-                                  
-                                  <View>
-                                        <FastImage
-                                            style={{height:114,borderTopLeftRadius:8,borderTopRightRadius:8, width:windowWidth-50}}
-                                            source={{
-                                              uri: item.pic,
-                                            }}
-                                            resizeMode={FastImage.resizeMode.cover}
-                                          />
-                                    <Text
-                                    style={{
-                                      padding:5,
-                                      fontSize:15,
-                                      marginTop:8,
-                                      marginLeft:8,
-                                      fontWeight:'bold'
-                                    }}
-                                    numberOfLines={2}
-                                    >
-                                      {item.newsTitle}
-                                    </Text>
-                                    <View
-                                    style={{
-                                      flexDirection:'row'
-                                    }}
-                                    >
-                                  <Text
-                                    style={{
-                                      marginTop:0.2,
-                                      marginLeft:12,
-                                      fontSize:12,
-                                      color:'#758283',
-                                      fontWeight:'bold'
-                                    }}
-                                    >
-                                      {item.from}
-                                    </Text>
-                                    <Text
-                                    style={{
-                                      marginTop:0.2,
-                                      marginLeft:22,
-                                      fontSize:12,
-                                      color:'#758283',
-                                      fontWeight:'bold'
-                                    }}
-                                    >
-                                      👁️ 1,200
-                                    </Text>
-                                    <Text
-                                    style={{
-                                      alignSelf:'flex-end',
-                                      marginTop:0.2,
-                                      marginLeft:40,
-                                      fontSize:12,
-                                      color:'#FF6263',
-                                      fontWeight:'bold'
-                                    }}
-                                    >
-                                      {item.location}
-                                    </Text>
-                                      </View>
-
-                                  
-                            
-                                    </View>
-                              </View>
-                            </TouchableOpacity>
+          {headlines &&  headlines.map((item,index) => {
+        if(item.type === 'impnews'){
+            return(
+              <View 
+              key={index}
+              style={{alignSelf:'center',marginTop:12}}>
+              <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => Linking.openURL(item.url)}
+              >
+                <View style={{
+                  flexDirection:'row',
+                  height:195,
+                  width:windowWidth-50,
+                  margin:8,
+                  backgroundColor:'#ffffff',
+                  borderRadius:10,
+                  elevation:5,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 0,
+                    height: 6,
+                  },
+                  shadowOpacity: 0.37,
+                  shadowRadius: 7.49,
+                  }}>
+                    
+                    <View>
+                          <FastImage
+                              style={{height:114,borderTopLeftRadius:8,borderTopRightRadius:8, width:windowWidth-50}}
+                              source={{
+                                uri: item.pic,
+                              }}
+                              resizeMode={FastImage.resizeMode.cover}
+                            />
+                      <Text
+                      style={{
+                        padding:5,
+                        fontSize:15,
+                        marginTop:8,
+                        marginLeft:8,
+                        fontWeight:'bold'
+                      }}
+                      numberOfLines={2}
+                      >
+                        {item.newsTitle}
+                      </Text>
+                      <View
+                      style={{
+                        flexDirection:'row'
+                      }}
+                      >
+                    <Text
+                      style={{
+                        marginTop:0.2,
+                        marginLeft:12,
+                        fontSize:12,
+                        color:'#758283',
+                        fontWeight:'bold'
+                      }}
+                      >
+                        {item.from}
+                      </Text>
+                      <Text
+                      style={{
+                        marginTop:0.2,
+                        marginLeft:22,
+                        fontSize:12,
+                        color:'#758283',
+                        fontWeight:'bold'
+                      }}
+                      >
+                        👁️ 1,200
+                      </Text>
+                      <Text
+                      style={{
+                        alignSelf:'flex-end',
+                        marginTop:0.2,
+                        marginLeft:40,
+                        fontSize:12,
+                        color:'#FF6263',
+                        fontWeight:'bold'
+                      }}
+                      >
+                        {item.location}
+                      </Text>
                         </View>
-                          )
-                      }
-                      
-            })}
-
+  
+                    
+              
+                      </View>
+                </View>
+              </TouchableOpacity>
+          </View>
+            )
+        }
+        
+  })}
 
            
            

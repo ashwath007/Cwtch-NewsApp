@@ -71,7 +71,7 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
         // User is signed in.
-        console.log("*******************************************************************",user);
+        // console.log("*******************************************************************",user);
         setuserID(user.displayName);
       } else {
         // No user is signed in.
@@ -135,7 +135,6 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
           getCore()
           getTopics()
           getAllNews()
-
       }, [])
 
 
@@ -149,7 +148,9 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
             justifyContent:'center'
           }}
           activeOpacity={1}
-          onPress={() => {navigation.navigate("HomeNews"
+          onPress={() => {
+            bottomSheetRef.current.close()
+            navigation.navigate("HomeNews"
           , {
             newstopics: item.title,
             placehome: 'core'
@@ -174,7 +175,10 @@ const Home = ({getCore,getTopics,topicState,newsState,coreState,googleSignout,na
       return(
         <TouchableOpacity 
         activeOpacity={1}
-        onPress={() => {navigation.navigate("HomeNews"
+        onPress={
+          () => {
+            bottomSheetRef.current.close()
+            navigation.navigate("HomeNews"
         , {
           newstopics: item.topic,
           placehome: 'cate'
@@ -486,7 +490,11 @@ style={{ alignItems: 'center'}}
         backgroundColor: '#FFF',
         position: 'relative',
       }}
-      onPress={() => {navigation.navigate("HomeNews"
+      onPress={
+        // ,
+        () => {
+          bottomSheetRef.current.close()
+          navigation.navigate("HomeNews"
       , {
         newstopics: item.title,
         placehome: 'sugg'

@@ -69,7 +69,7 @@ const News = ({navigation,getAllNews,newsState,authState}) => {
       const renderItem = ({item,index}) => {
         if(newsState.news[indexAt].type != 'impnews'){
             return (
-            <NewsCards news={newsState.news[index]}/>
+            <NewsCards key={index} news={newsState.news[index]}/>
 
             )
         }

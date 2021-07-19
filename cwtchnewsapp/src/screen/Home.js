@@ -373,7 +373,7 @@ style={{ alignItems: 'center'}}
                         fontWeight:'bold'
                       }}
                       >
-                        👁️ 1,200
+                        👁️ {item.views}
                       </Text>
                       <Text
                       style={{
